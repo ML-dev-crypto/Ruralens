@@ -22,8 +22,9 @@ services:
         sync: false
 
   # ─── Frontend Static Site (React/Vite) ──────────────────────────────────────
-  - type: static
+  - type: web
     name: ruralens-frontend
+    env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
