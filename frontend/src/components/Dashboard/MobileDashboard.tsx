@@ -1,10 +1,14 @@
 import { useVillageStore } from '../../store/villageStore';
-import { AlertTriangle, Activity, ArrowRight } from 'lucide-react';
+import { Activity, ArrowRight, ShieldAlert } from 'lucide-react';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export default function MobileDashboard() {
-  const { kpis, alerts, setActiveView, userRole } = useVillageStore();
+  const { kpis, setActiveView, userRole } = useVillageStore();
+  const { lang } = useLanguage();
+  const hi = lang === 'hi';
+  const tx = (en: string, hiText: string) => (hi ? hiText : en);
 
-  console.log('📱 MobileDashboard rendering - alerts:', alerts.length, 'kpis:', kpis, 'userRole:', userRole);
+  console.log('📱 MobileDashboard rendering - kpis:', kpis, 'userRole:', userRole);
 
   // Ensure we have data to display
   if (!kpis) {
@@ -21,20 +25,22 @@ export default function MobileDashboard() {
   // Quick stats for mobile - with defensive coding for undefined values
   const stats = [
     { 
-      label: 'Active Alerts', 
-      value: (alerts?.length ?? 0).toString(), 
-      icon: AlertTriangle, 
+      label: 'Open Reports', 
+      labelHi: 'खुली रिपोर्ट',
+      value: (kpis?.pendingReports ?? 0).toString(), 
+      icon: ShieldAlert, 
       color: 'text-orange-400', 
       bg: 'bg-orange-500/10',
-      view: 'alerts'
+      view: 'anonymous-reports'
     },
     { 
       label: 'Sensors', 
+      labelHi: 'सेंसर',
       value: (kpis?.activeSensors ?? 0).toString(), 
       icon: Activity, 
       color: 'text-emerald-400', 
       bg: 'bg-emerald-500/10',
-      view: 'analytics'
+      view: 'map'
     },
   ];
 
@@ -43,8 +49,8 @@ export default function MobileDashboard() {
       {/* Welcome Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Overview</h1>
-          <p className="text-sm text-slate-400">Village Status Monitor</p>
+          <h1 className="text-2xl font-bold text-white">{tx('Overview', 'सारांश')}</h1>
+          <p className="text-sm text-slate-400">{tx('Infrastructure Status Monitor', 'इंफ्रास्ट्रक्चर स्थिति मॉनिटर')}</p>
         </div>
         <div className="h-10 w-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
           <img src="/ruralens-logo.png" alt="Logo" className="h-6 w-6" />
@@ -64,67 +70,30 @@ export default function MobileDashboard() {
             </div>
             <div>
               <div className="text-xl font-bold text-white">{stat.value}</div>
-              <div className="text-xs text-slate-400">{stat.label}</div>
+              <div className="text-xs text-slate-400">{hi ? (stat as any).labelHi : stat.label}</div>
             </div>
           </button>
         ))}
       </div>
 
-      {/* Recent Alerts Section */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-white">Recent Alerts</h2>
-          <button 
-            onClick={() => setActiveView('alerts')}
-            className="text-xs text-blue-400 font-medium"
-          >
-            View All
-          </button>
-        </div>
-        
-        <div className="space-y-3">
-          {alerts.length === 0 ? (
-            <div className="p-4 rounded-xl bg-slate-900/30 border border-white/5 text-center text-slate-500 text-sm">
-              No active alerts
-            </div>
-          ) : (
-            alerts.slice(0, 3).map((alert) => (
-              <div key={alert.id} className="p-4 rounded-xl bg-slate-900/50 border border-white/5 flex gap-3">
-                <div className={`mt-1 h-2 w-2 rounded-full shrink-0 ${
-                  alert.type === 'critical' ? 'bg-red-500' : 
-                  alert.type === 'warning' ? 'bg-orange-500' : 'bg-blue-500'
-                }`} />
-                <div>
-                  <h3 className="text-sm font-medium text-white">{alert.title}</h3>
-                  <p className="text-xs text-slate-400 mt-1 line-clamp-2">{alert.message}</p>
-                  <span className="text-[10px] text-slate-500 mt-2 block">
-                    {new Date(alert.timestamp).toLocaleTimeString()}
-                  </span>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
       {/* Quick Actions */}
       <div>
-        <h2 className="text-lg font-semibold text-white mb-3">Quick Actions</h2>
+        <h2 className="text-lg font-semibold text-white mb-3">{tx('Quick Actions', 'त्वरित कार्रवाइयां')}</h2>
         <div className="space-y-2">
           <ActionRow 
-            label="Report an Issue" 
-            desc="Roads, Water, Waste..." 
+            label={tx('Report an Issue', 'मुद्दा रिपोर्ट करें')} 
+            desc={tx('Roads, Water, Waste...', 'सड़क, पानी, कचरा...')} 
             onClick={() => setActiveView('reports')} 
           />
           <ActionRow 
-            label="View Government Schemes" 
-            desc="Track progress & funds" 
+            label={tx('View Government Schemes', 'सरकारी योजनाएं देखें')} 
+            desc={tx('Track progress and funds', 'प्रगति और फंड ट्रैक करें')} 
             onClick={() => setActiveView('schemes')} 
           />
           {userRole === 'admin' && (
             <ActionRow 
-              label="Admin Controls" 
-              desc="Manage village settings" 
+              label={tx('Admin Controls', 'एडमिन नियंत्रण')} 
+              desc={tx('Manage settings', 'सेटिंग्स प्रबंधित करें')} 
               onClick={() => setActiveView('settings')} 
             />
           )}

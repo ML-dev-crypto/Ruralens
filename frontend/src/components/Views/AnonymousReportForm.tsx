@@ -12,20 +12,23 @@ import {
   Info
 } from 'lucide-react';
 import { useAnonymousReports } from '../../hooks/useAnonymousReports';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const CATEGORIES = [
-  { id: 'road', label: 'Road & Infrastructure', emoji: '🛣️', description: 'Potholes, broken roads, bridges, drainage' },
-  { id: 'water', label: 'Water Supply', emoji: '💧', description: 'Water shortage, contamination, pipeline issues' },
-  { id: 'power', label: 'Electricity', emoji: '⚡', description: 'Power cuts, voltage issues, streetlights' },
-  { id: 'waste', label: 'Waste Management', emoji: '🗑️', description: 'Garbage collection, dumping, sanitation' },
-  { id: 'healthcare', label: 'Healthcare', emoji: '🏥', description: 'Medical facilities, ambulance, health camps' },
-  { id: 'education', label: 'Education', emoji: '📚', description: 'Schools, teachers, mid-day meals' },
-  { id: 'corruption', label: 'Corruption', emoji: '⚖️', description: 'Bribery, misuse of funds, irregularities' },
-  { id: 'safety', label: 'Safety', emoji: '🛡️', description: 'Crime, harassment, security concerns' },
-  { id: 'other', label: 'Other', emoji: '📝', description: 'Any other village-related issues' }
+  { id: 'road', label: { en: 'Road & Infrastructure', hi: 'सड़क और अवसंरचना' }, emoji: '🛣️', description: { en: 'Potholes, broken roads, bridges, drainage', hi: 'गड्ढे, टूटी सड़कें, पुल, जल निकासी' } },
+  { id: 'water', label: { en: 'Water Supply', hi: 'जल आपूर्ति' }, emoji: '💧', description: { en: 'Water shortage, contamination, pipeline issues', hi: 'जल कमी, दूषित पानी, पाइपलाइन समस्याएं' } },
+  { id: 'power', label: { en: 'Electricity', hi: 'बिजली' }, emoji: '⚡', description: { en: 'Power cuts, voltage issues, streetlights', hi: 'बिजली कटौती, वोल्टेज समस्या, स्ट्रीटलाइट' } },
+  { id: 'waste', label: { en: 'Waste Management', hi: 'कचरा प्रबंधन' }, emoji: '🗑️', description: { en: 'Garbage collection, dumping, sanitation', hi: 'कचरा संग्रह, डंपिंग, स्वच्छता' } },
+  { id: 'healthcare', label: { en: 'Healthcare', hi: 'स्वास्थ्य सेवा' }, emoji: '🏥', description: { en: 'Medical facilities, ambulance, health camps', hi: 'चिकित्सा सुविधाएं, एम्बुलेंस, स्वास्थ्य शिविर' } },
+  { id: 'education', label: { en: 'Education', hi: 'शिक्षा' }, emoji: '📚', description: { en: 'Schools, teachers, mid-day meals', hi: 'स्कूल, शिक्षक, मध्यान्ह भोजन' } },
+  { id: 'corruption', label: { en: 'Corruption', hi: 'भ्रष्टाचार' }, emoji: '⚖️', description: { en: 'Bribery, misuse of funds, irregularities', hi: 'रिश्वत, धन का दुरुपयोग, अनियमितताएं' } },
+  { id: 'safety', label: { en: 'Safety', hi: 'सुरक्षा' }, emoji: '🛡️', description: { en: 'Crime, harassment, security concerns', hi: 'अपराध, उत्पीड़न, सुरक्षा चिंताएं' } },
+  { id: 'other', label: { en: 'Other', hi: 'अन्य' }, emoji: '📝', description: { en: 'Any other village-related issues', hi: 'गांव से जुड़ी अन्य समस्याएं' } }
 ];
 
 export default function AnonymousReportForm() {
+  const { lang } = useLanguage();
+  const tx = (en: string, hi: string) => (lang === 'hi' ? hi : en);
   const { submitReport } = useAnonymousReports();
   const [formData, setFormData] = useState({
     title: '',
@@ -55,7 +58,7 @@ export default function AnonymousReportForm() {
   const detectLocation = () => {
     setDetecting(true);
     if (!navigator.geolocation) {
-      alert('Geolocation is not supported');
+      alert(tx('Geolocation is not supported', 'जियोलोकेशन समर्थित नहीं है'));
       setDetecting(false);
       return;
     }
@@ -68,7 +71,7 @@ export default function AnonymousReportForm() {
       },
       (error) => {
         console.error('Location error:', error);
-        alert('Could not detect location');
+        alert(tx('Could not detect location', 'स्थान का पता नहीं चल सका'));
         setDetecting(false);
       },
       { enableHighAccuracy: true, timeout: 10000 }
@@ -78,17 +81,17 @@ export default function AnonymousReportForm() {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     if (files.length + photos.length > 3) {
-      alert('Maximum 3 photos allowed');
+      alert(tx('Maximum 3 photos allowed', 'अधिकतम 3 फोटो की अनुमति है'));
       return;
     }
 
     const validFiles = files.filter(file => {
       if (!file.type.startsWith('image/')) {
-        alert(`${file.name} is not an image`);
+        alert(tx(`${file.name} is not an image`, `${file.name} इमेज नहीं है`));
         return false;
       }
       if (file.size > 5 * 1024 * 1024) {
-        alert(`${file.name} is too large (max 5MB)`);
+        alert(tx(`${file.name} is too large (max 5MB)`, `${file.name} बहुत बड़ा है (अधिकतम 5MB)`));
         return false;
       }
       return true;
@@ -109,7 +112,7 @@ export default function AnonymousReportForm() {
     e.preventDefault();
     
     if (!formData.title || !formData.description || !formData.category) {
-      alert('Please fill all required fields');
+      alert(tx('Please fill all required fields', 'कृपया सभी आवश्यक फ़ील्ड भरें'));
       return;
     }
 
@@ -147,18 +150,18 @@ export default function AnonymousReportForm() {
       <div className="max-w-2xl mx-auto">
         <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6 text-center">
           <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-2">Report Submitted Successfully!</h2>
+          <h2 className="text-2xl font-bold text-white mb-2">{tx('Report Submitted Successfully!', 'रिपोर्ट सफलतापूर्वक जमा हो गई!')}</h2>
           <p className="text-slate-400 mb-6">
-            Your report has been anonymized and submitted. Save your tracking token to check the status.
+            {tx('Your report has been anonymized and submitted. Save your tracking token to check the status.', 'आपकी रिपोर्ट अनामीकृत करके जमा कर दी गई है। स्थिति देखने के लिए अपना ट्रैकिंग टोकन सुरक्षित रखें।')}
           </p>
           
           <div className="bg-slate-800 rounded-xl p-4 mb-4">
-            <div className="text-sm text-slate-400 mb-2">Report ID</div>
+            <div className="text-sm text-slate-400 mb-2">{tx('Report ID', 'रिपोर्ट आईडी')}</div>
             <div className="text-lg font-mono text-cyan-400">{result.reportId}</div>
           </div>
 
           <div className="bg-slate-800 rounded-xl p-4 mb-6">
-            <div className="text-sm text-slate-400 mb-2">Your Tracking Token (Save this!)</div>
+            <div className="text-sm text-slate-400 mb-2">{tx('Your Tracking Token (Save this!)', 'आपका ट्रैकिंग टोकन (इसे सुरक्षित रखें!)')}</div>
             <div className="flex items-center justify-center gap-2">
               <div className="text-lg font-mono text-yellow-400 break-all">{result.reporterToken}</div>
               <button
@@ -178,11 +181,11 @@ export default function AnonymousReportForm() {
             <div className="flex items-start gap-2">
               <AlertTriangle className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
               <div>
-                <div className="text-yellow-400 font-medium mb-1">Important!</div>
+                <div className="text-yellow-400 font-medium mb-1">{tx('Important!', 'महत्वपूर्ण!')}</div>
                 <ul className="text-sm text-slate-300 space-y-1">
-                  <li>• Save your tracking token - you'll need it to check status</li>
-                  <li>• You can escalate the report if not resolved in 7 days</li>
-                  <li>• Other citizens can vote on your report for credibility</li>
+                  <li>{tx('• Save your tracking token - you\'ll need it to check status', '• अपना ट्रैकिंग टोकन सुरक्षित रखें - स्थिति जांचने के लिए इसकी जरूरत होगी')}</li>
+                  <li>{tx('• You can escalate the report if not resolved in 7 days', '• 7 दिनों में समाधान न होने पर रिपोर्ट एस्केलेट कर सकते हैं')}</li>
+                  <li>{tx('• Other citizens can vote on your report for credibility', '• विश्वसनीयता के लिए अन्य नागरिक आपकी रिपोर्ट पर वोट कर सकते हैं')}</li>
                 </ul>
               </div>
             </div>
@@ -192,7 +195,7 @@ export default function AnonymousReportForm() {
             onClick={() => setResult(null)}
             className="mt-6 px-6 py-3 bg-cyan-500 text-white rounded-xl hover:bg-cyan-600 transition-colors"
           >
-            Submit Another Report
+            {tx('Submit Another Report', 'एक और रिपोर्ट जमा करें')}
           </button>
         </div>
       </div>
@@ -208,8 +211,8 @@ export default function AnonymousReportForm() {
             <Shield className="w-6 h-6 text-cyan-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Submit Anonymous Report</h2>
-            <p className="text-slate-400 text-sm">Your identity will be protected through AI anonymization</p>
+            <h2 className="text-xl font-bold text-white">{tx('Submit Anonymous Report', 'गुमनाम रिपोर्ट जमा करें')}</h2>
+            <p className="text-slate-400 text-sm">{tx('Your identity will be protected through AI anonymization', 'एआई अनामीकरण द्वारा आपकी पहचान सुरक्षित रहेगी')}</p>
           </div>
         </div>
 
@@ -218,9 +221,8 @@ export default function AnonymousReportForm() {
           <div className="flex items-start gap-2">
             <Info className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
             <div className="text-sm text-slate-300">
-              <span className="text-blue-400 font-medium">Privacy Protected: </span>
-              Your report will be processed by AI to remove all personal information (names, phone numbers, addresses, etc.) 
-              while preserving the essential details of your complaint.
+              <span className="text-blue-400 font-medium">{tx('Privacy Protected: ', 'गोपनीयता सुरक्षित: ')}</span>
+              {tx('Your report will be processed by AI to remove all personal information (names, phone numbers, addresses, etc.) while preserving the essential details of your complaint.', 'आपकी रिपोर्ट को एआई द्वारा प्रोसेस किया जाएगा ताकि सभी व्यक्तिगत जानकारी (नाम, फोन नंबर, पता आदि) हट जाए, और शिकायत का आवश्यक विवरण सुरक्षित रहे।')}
             </div>
           </div>
         </div>
@@ -229,7 +231,7 @@ export default function AnonymousReportForm() {
           {/* Category Selection */}
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-3">
-              Issue Category <span className="text-red-400">*</span>
+              {tx('Issue Category', 'समस्या श्रेणी')} <span className="text-red-400">*</span>
             </label>
             <div className="grid grid-cols-3 gap-3">
               {CATEGORIES.map(cat => (
@@ -244,8 +246,8 @@ export default function AnonymousReportForm() {
                   }`}
                 >
                   <div className="text-xl mb-1">{cat.emoji}</div>
-                  <div className="text-sm font-medium text-white">{cat.label}</div>
-                  <div className="text-xs text-slate-500 mt-1">{cat.description}</div>
+                  <div className="text-sm font-medium text-white">{cat.label[lang]}</div>
+                  <div className="text-xs text-slate-500 mt-1">{cat.description[lang]}</div>
                 </button>
               ))}
             </div>
@@ -254,14 +256,14 @@ export default function AnonymousReportForm() {
           {/* Title */}
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Issue Title <span className="text-red-400">*</span>
+              {tx('Issue Title', 'समस्या शीर्षक')} <span className="text-red-400">*</span>
             </label>
             <input
               type="text"
               name="title"
               value={formData.title}
               onChange={handleInputChange}
-              placeholder="Brief title describing the issue"
+              placeholder={tx('Brief title describing the issue', 'समस्या का संक्षिप्त शीर्षक लिखें')}
               className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
             />
           </div>
@@ -269,18 +271,18 @@ export default function AnonymousReportForm() {
           {/* Description */}
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Detailed Description <span className="text-red-400">*</span>
+              {tx('Detailed Description', 'विस्तृत विवरण')} <span className="text-red-400">*</span>
             </label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              placeholder="Describe the issue in detail. Include all relevant information - AI will remove any personal details automatically."
+              placeholder={tx('Describe the issue in detail. Include all relevant information - AI will remove any personal details automatically.', 'समस्या का विस्तृत विवरण दें। सभी प्रासंगिक जानकारी शामिल करें - एआई व्यक्तिगत जानकारी स्वतः हटा देगा।')}
               rows={5}
               className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 resize-none"
             />
             <p className="text-xs text-slate-500 mt-1">
-              Feel free to include names, dates, and specific details - they will be anonymized automatically.
+              {tx('Feel free to include names, dates, and specific details - they will be anonymized automatically.', 'आप नाम, तारीख और विशेष विवरण लिख सकते हैं - इन्हें स्वतः अनामीकृत कर दिया जाएगा।')}
             </p>
           </div>
 
@@ -288,27 +290,27 @@ export default function AnonymousReportForm() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">
-                Area/Village
+                {tx('Area/Village', 'क्षेत्र/गांव')}
               </label>
               <input
                 type="text"
                 name="location"
                 value={formData.location}
                 onChange={handleInputChange}
-                placeholder="e.g., Main Market Area"
+                placeholder={tx('e.g., Main Market Area', 'जैसे, मुख्य बाजार क्षेत्र')}
                 className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">
-                District
+                {tx('District', 'जिला')}
               </label>
               <input
                 type="text"
                 name="district"
                 value={formData.district}
                 onChange={handleInputChange}
-                placeholder="e.g., Pune"
+                placeholder={tx('e.g., Pune', 'जैसे, पुणे')}
                 className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               />
             </div>
@@ -317,7 +319,7 @@ export default function AnonymousReportForm() {
           {/* GPS Location */}
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              GPS Location (Optional)
+              {tx('GPS Location (Optional)', 'जीपीएस स्थान (वैकल्पिक)')}
             </label>
             <div className="flex items-center gap-3">
               <button
@@ -331,11 +333,11 @@ export default function AnonymousReportForm() {
                 ) : (
                   <MapPin className="w-4 h-4" />
                 )}
-                {detecting ? 'Detecting...' : 'Detect Location'}
+                {detecting ? tx('Detecting...', 'पता लगाया जा रहा है...') : tx('Detect Location', 'स्थान पहचानें')}
               </button>
               {coords && (
                 <span className="text-sm text-green-400">
-                  ✓ Location detected (will be generalized for privacy)
+                  {tx('✓ Location detected (will be generalized for privacy)', '✓ स्थान मिला (गोपनीयता हेतु सामान्यीकृत किया जाएगा)')}
                 </span>
               )}
             </div>
@@ -344,7 +346,7 @@ export default function AnonymousReportForm() {
           {/* Photos */}
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Photos (Optional, max 3)
+              {tx('Photos (Optional, max 3)', 'फोटो (वैकल्पिक, अधिकतम 3)')}
             </label>
             <div className="flex flex-wrap gap-3">
               {previewUrls.map((url, index) => (
@@ -366,7 +368,7 @@ export default function AnonymousReportForm() {
               {photos.length < 3 && (
                 <label className="w-24 h-24 flex flex-col items-center justify-center border-2 border-dashed border-slate-700 rounded-xl cursor-pointer hover:border-cyan-500 transition-colors">
                   <Camera className="w-6 h-6 text-slate-500" />
-                  <span className="text-xs text-slate-500 mt-1">Add Photo</span>
+                  <span className="text-xs text-slate-500 mt-1">{tx('Add Photo', 'फोटो जोड़ें')}</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -377,7 +379,7 @@ export default function AnonymousReportForm() {
               )}
             </div>
             <p className="text-xs text-slate-500 mt-2">
-              Photo metadata will be stripped for privacy
+              {tx('Photo metadata will be stripped for privacy', 'गोपनीयता हेतु फोटो मेटाडेटा हटाया जाएगा')}
             </p>
           </div>
 
@@ -397,12 +399,12 @@ export default function AnonymousReportForm() {
             {submitting ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Processing & Anonymizing...
+                {tx('Processing & Anonymizing...', 'प्रोसेसिंग और अनामीकरण...')}
               </>
             ) : (
               <>
                 <Send className="w-5 h-5" />
-                Submit Anonymous Report
+                {tx('Submit Anonymous Report', 'गुमनाम रिपोर्ट जमा करें')}
               </>
             )}
           </button>

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-// Schema for escalation history tracking (blockchain-like immutable records)
+// Schema for escalation history tracking
 const escalationSchema = new mongoose.Schema({
   level: {
     type: Number,
@@ -23,19 +23,9 @@ const escalationSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // Blockchain-like hash for immutability verification
-  previousHash: {
+  escalationId: {
     type: String,
-    default: null
-  },
-  currentHash: {
-    type: String,
-    required: true
-  },
-  // Digital signature placeholder for authenticity
-  signature: {
-    type: String,
-    default: ''
+    default: () => new mongoose.Types.ObjectId().toString()
   }
 });
 
@@ -201,7 +191,7 @@ const anonymousReportSchema = new mongoose.Schema({
     }
   },
   
-  // Escalation tracking (blockchain-like)
+  // Escalation tracking
   currentEscalationLevel: {
     type: Number,
     default: 0 // 0 = local, 1 = block, 2 = district, 3 = state

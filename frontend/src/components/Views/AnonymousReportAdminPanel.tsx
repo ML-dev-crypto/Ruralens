@@ -11,12 +11,12 @@ import {
   MapPin,
   Filter,
   X,
-  Loader2,
-  Link2
+  Loader2
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useAnonymousReports } from '../../hooks/useAnonymousReports';
 import { API_URL } from '../../config/api';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface Props {
   selectedReportId: string | null;
@@ -24,20 +24,20 @@ interface Props {
 }
 
 const STATUS_OPTIONS = [
-  { value: 'pending', label: 'Pending', color: 'bg-yellow-500' },
-  { value: 'acknowledged', label: 'Acknowledged', color: 'bg-blue-500' },
-  { value: 'assigned', label: 'Assigned', color: 'bg-purple-500' },
-  { value: 'in_progress', label: 'In Progress', color: 'bg-cyan-500' },
-  { value: 'resolved', label: 'Resolved', color: 'bg-green-500' },
-  { value: 'closed', label: 'Closed', color: 'bg-slate-500' },
-  { value: 'rejected', label: 'Rejected', color: 'bg-red-500' }
+  { value: 'pending', label: { en: 'Pending', hi: 'लंबित' }, color: 'bg-yellow-500' },
+  { value: 'acknowledged', label: { en: 'Acknowledged', hi: 'स्वीकृत' }, color: 'bg-blue-500' },
+  { value: 'assigned', label: { en: 'Assigned', hi: 'आवंटित' }, color: 'bg-purple-500' },
+  { value: 'in_progress', label: { en: 'In Progress', hi: 'प्रगति में' }, color: 'bg-cyan-500' },
+  { value: 'resolved', label: { en: 'Resolved', hi: 'समाधान हुआ' }, color: 'bg-green-500' },
+  { value: 'closed', label: { en: 'Closed', hi: 'बंद' }, color: 'bg-slate-500' },
+  { value: 'rejected', label: { en: 'Rejected', hi: 'अस्वीकृत' }, color: 'bg-red-500' }
 ];
 
 const PRIORITY_OPTIONS = [
-  { value: 'low', label: 'Low', color: 'bg-slate-500' },
-  { value: 'medium', label: 'Medium', color: 'bg-yellow-500' },
-  { value: 'high', label: 'High', color: 'bg-orange-500' },
-  { value: 'critical', label: 'Critical', color: 'bg-red-500' }
+  { value: 'low', label: { en: 'Low', hi: 'निम्न' }, color: 'bg-slate-500' },
+  { value: 'medium', label: { en: 'Medium', hi: 'मध्यम' }, color: 'bg-yellow-500' },
+  { value: 'high', label: { en: 'High', hi: 'उच्च' }, color: 'bg-orange-500' },
+  { value: 'critical', label: { en: 'Critical', hi: 'गंभीर' }, color: 'bg-red-500' }
 ];
 
 const FIELD_WORKERS = [
@@ -48,6 +48,8 @@ const FIELD_WORKERS = [
 ];
 
 export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
+  const { lang } = useLanguage();
+  const tx = (en: string, hi: string) => (lang === 'hi' ? hi : en);
   const { reports, stats, fetchReports, updateStatus, assignWorker } = useAnonymousReports();
   const [selectedReport, setSelectedReport] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -86,7 +88,7 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
     const result = await updateStatus(
       selectedReport.id,
       selectedStatus,
-      statusMessage || `Status updated to ${selectedStatus}`,
+      statusMessage || tx(`Status updated to ${selectedStatus}`, `स्थिति ${selectedStatus} में अपडेट की गई`),
       'Admin'
     );
 
@@ -136,9 +138,9 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
           onChange={(e) => setFilterStatus(e.target.value)}
           className="bg-slate-700 border-none rounded-lg px-3 py-2 text-sm text-white"
         >
-          <option value="">All Status</option>
+          <option value="">{tx('All Status', 'सभी स्थिति')}</option>
           {STATUS_OPTIONS.map(opt => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <option key={opt.value} value={opt.value}>{opt.label[lang]}</option>
           ))}
         </select>
         <select
@@ -146,9 +148,9 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
           onChange={(e) => setFilterPriority(e.target.value)}
           className="bg-slate-700 border-none rounded-lg px-3 py-2 text-sm text-white"
         >
-          <option value="">All Priority</option>
+          <option value="">{tx('All Priority', 'सभी प्राथमिकता')}</option>
           {PRIORITY_OPTIONS.map(opt => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <option key={opt.value} value={opt.value}>{opt.label[lang]}</option>
           ))}
         </select>
       </div>
@@ -158,14 +160,14 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
         <table className="w-full">
           <thead>
             <tr className="border-b border-slate-700 text-left">
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">ID</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Title</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Category</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Status</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Priority</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Escalation</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Credibility</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Actions</th>
+              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">{tx('ID', 'आईडी')}</th>
+              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">{tx('Title', 'शीर्षक')}</th>
+              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">{tx('Category', 'श्रेणी')}</th>
+              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">{tx('Status', 'स्थिति')}</th>
+              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">{tx('Priority', 'प्राथमिकता')}</th>
+              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">{tx('Escalation', 'एस्केलेशन')}</th>
+              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">{tx('Credibility', 'विश्वसनीयता')}</th>
+              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">{tx('Actions', 'क्रियाएं')}</th>
             </tr>
           </thead>
           <tbody>
@@ -198,7 +200,7 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                   </span>
                 </td>
                 <td className="px-4 py-3 text-sm text-slate-300">
-                  Level {report.currentEscalationLevel}
+                  {tx('Level', 'स्तर')} {report.currentEscalationLevel}
                 </td>
                 <td className="px-4 py-3">
                   <span className={`text-sm ${
@@ -258,19 +260,19 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                 {/* Status & Priority */}
                 <div className="grid grid-cols-4 gap-4">
                   <div className="bg-slate-700/50 rounded-xl p-4">
-                    <div className="text-sm text-slate-400 mb-1">Status</div>
+                    <div className="text-sm text-slate-400 mb-1">{tx('Status', 'स्थिति')}</div>
                     <div className="text-white capitalize">{selectedReport.status}</div>
                   </div>
                   <div className="bg-slate-700/50 rounded-xl p-4">
-                    <div className="text-sm text-slate-400 mb-1">Priority</div>
+                    <div className="text-sm text-slate-400 mb-1">{tx('Priority', 'प्राथमिकता')}</div>
                     <div className="text-white capitalize">{selectedReport.priority}</div>
                   </div>
                   <div className="bg-slate-700/50 rounded-xl p-4">
-                    <div className="text-sm text-slate-400 mb-1">Escalation Level</div>
-                    <div className="text-white">Level {selectedReport.currentEscalationLevel}</div>
+                    <div className="text-sm text-slate-400 mb-1">{tx('Escalation Level', 'एस्केलेशन स्तर')}</div>
+                    <div className="text-white">{tx('Level', 'स्तर')} {selectedReport.currentEscalationLevel}</div>
                   </div>
                   <div className="bg-slate-700/50 rounded-xl p-4">
-                    <div className="text-sm text-slate-400 mb-1">Credibility</div>
+                    <div className="text-sm text-slate-400 mb-1">{tx('Credibility', 'विश्वसनीयता')}</div>
                     <div className={`${
                       selectedReport.votes?.credibilityScore >= 70 ? 'text-green-400' :
                       selectedReport.votes?.credibilityScore >= 40 ? 'text-yellow-400' : 'text-red-400'
@@ -282,12 +284,12 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
 
                 {/* Anonymized Content */}
                 <div className="bg-slate-700/50 rounded-xl p-4">
-                  <h3 className="text-sm font-medium text-slate-400 mb-3">Anonymized Report</h3>
+                  <h3 className="text-sm font-medium text-slate-400 mb-3">{tx('Anonymized Report', 'अनामीकृत रिपोर्ट')}</h3>
                   <h4 className="text-lg font-bold text-white mb-2">{selectedReport.anonymizedContent?.title}</h4>
                   <p className="text-slate-300 mb-4">{selectedReport.anonymizedContent?.description}</p>
                   
                   <div className="bg-cyan-500/10 rounded-lg p-3 mb-4">
-                    <div className="text-xs text-slate-400 mb-1">AI Extracted Intent</div>
+                    <div className="text-xs text-slate-400 mb-1">{tx('AI Extracted Intent', 'एआई द्वारा निकाला गया आशय')}</div>
                     <div className="text-cyan-400">{selectedReport.anonymizedContent?.extractedIntent}</div>
                   </div>
 
@@ -302,19 +304,19 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
 
                 {/* AI Processing Info */}
                 <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
-                  <h3 className="text-sm font-medium text-purple-400 mb-2">AI Processing</h3>
+                  <h3 className="text-sm font-medium text-purple-400 mb-2">{tx('AI Processing', 'एआई प्रोसेसिंग')}</h3>
                   <div className="grid grid-cols-3 gap-4 text-sm">
                     <div>
-                      <span className="text-slate-400">Model: </span>
+                      <span className="text-slate-400">{tx('Model: ', 'मॉडल: ')}</span>
                       <span className="text-white">{selectedReport.aiProcessing?.model || 'N/A'}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400">Confidence: </span>
+                      <span className="text-slate-400">{tx('Confidence: ', 'विश्वास स्तर: ')}</span>
                       <span className="text-white">{((selectedReport.aiProcessing?.confidence || 0) * 100).toFixed(0)}%</span>
                     </div>
                     <div>
-                      <span className="text-slate-400">PII Removed: </span>
-                      <span className="text-white">{selectedReport.aiProcessing?.piiRemoved?.join(', ') || 'None'}</span>
+                      <span className="text-slate-400">{tx('PII Removed: ', 'हटाई गई व्यक्तिगत जानकारी: ')}</span>
+                      <span className="text-white">{selectedReport.aiProcessing?.piiRemoved?.join(', ') || tx('None', 'कोई नहीं')}</span>
                     </div>
                   </div>
                 </div>
@@ -323,7 +325,7 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                 {selectedReport.location && (
                   <div className="bg-slate-700/50 rounded-xl p-4">
                     <h3 className="text-sm font-medium text-slate-400 mb-2 flex items-center gap-2">
-                      <MapPin className="w-4 h-4" /> Location
+                      <MapPin className="w-4 h-4" /> {tx('Location', 'स्थान')}
                     </h3>
                     <div className="text-white">
                       {selectedReport.location.area && <span>{selectedReport.location.area}, </span>}
@@ -335,17 +337,17 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                 {/* Assignment */}
                 <div className="bg-slate-700/50 rounded-xl p-4">
                   <h3 className="text-sm font-medium text-slate-400 mb-2 flex items-center gap-2">
-                    <User className="w-4 h-4" /> Assignment
+                    <User className="w-4 h-4" /> {tx('Assignment', 'आवंटन')}
                   </h3>
                   {selectedReport.assignedTo?.workerName ? (
                     <div className="text-white">
-                      Assigned to: {selectedReport.assignedTo.workerName}
+                      {tx('Assigned to: ', 'आवंटित: ')}{selectedReport.assignedTo.workerName}
                       <div className="text-sm text-slate-400">
-                        Since {format(new Date(selectedReport.assignedTo.assignedAt), 'MMM d, yyyy')}
+                        {tx('Since', 'से')} {format(new Date(selectedReport.assignedTo.assignedAt), 'MMM d, yyyy')}
                       </div>
                     </div>
                   ) : (
-                    <div className="text-slate-400">Not assigned</div>
+                    <div className="text-slate-400">{tx('Not assigned', 'आवंटित नहीं')}</div>
                   )}
                 </div>
 
@@ -353,23 +355,20 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                 {selectedReport.escalationHistory?.length > 0 && (
                   <div className="bg-orange-500/10 border border-orange-500/30 rounded-xl p-4">
                     <h3 className="text-sm font-medium text-orange-400 mb-3 flex items-center gap-2">
-                      <ArrowUpRight className="w-4 h-4" /> Escalation History
+                      <ArrowUpRight className="w-4 h-4" /> {tx('Escalation History', 'एस्केलेशन इतिहास')}
                     </h3>
                     <div className="space-y-2">
                       {selectedReport.escalationHistory.map((esc: any, i: number) => (
                         <div key={i} className="flex justify-between text-sm">
                           <span className="text-white">{esc.authorityName}</span>
                           <span className="text-slate-400">{esc.reason}</span>
-                          <span className="text-slate-500 font-mono text-xs">
-                            Hash: {esc.currentHash?.substring(0, 12)}...
-                          </span>
+                          <span className="text-slate-500 font-mono text-xs">ID: {esc.escalationId?.substring(0, 8)}</span>
                         </div>
                       ))}
                     </div>
-                    {selectedReport.chainIntegrity && (
-                      <div className={`mt-3 text-sm ${selectedReport.chainIntegrity.valid ? 'text-green-400' : 'text-red-400'}`}>
-                        <Link2 className="w-4 h-4 inline mr-1" />
-                        {selectedReport.chainIntegrity.message}
+                    {selectedReport.escalationIntegrity && (
+                      <div className={`mt-3 text-sm ${selectedReport.escalationIntegrity.valid ? 'text-green-400' : 'text-red-400'}`}>
+                        {selectedReport.escalationIntegrity.message}
                       </div>
                     )}
                   </div>
@@ -378,7 +377,7 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                 {/* Status Updates */}
                 <div className="bg-slate-700/50 rounded-xl p-4">
                   <h3 className="text-sm font-medium text-slate-400 mb-3 flex items-center gap-2">
-                    <Clock className="w-4 h-4" /> Status Timeline
+                    <Clock className="w-4 h-4" /> {tx('Status Timeline', 'स्थिति समयरेखा')}
                   </h3>
                   <div className="space-y-3">
                     {selectedReport.statusUpdates?.map((update: any, i: number) => (
@@ -387,7 +386,7 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                         <div className="flex-1">
                           <div className="text-sm text-white">{update.message}</div>
                           <div className="text-xs text-slate-500">
-                            {format(new Date(update.timestamp), 'MMM d, yyyy h:mm a')} by {update.updatedBy}
+                            {format(new Date(update.timestamp), 'MMM d, yyyy h:mm a')} {tx('by', 'द्वारा')} {update.updatedBy}
                           </div>
                         </div>
                       </div>
@@ -397,7 +396,7 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
 
                 {/* Votes */}
                 <div className="bg-slate-700/50 rounded-xl p-4">
-                  <h3 className="text-sm font-medium text-slate-400 mb-2">Community Votes</h3>
+                  <h3 className="text-sm font-medium text-slate-400 mb-2">{tx('Community Votes', 'समुदाय वोट')}</h3>
                   <div className="flex items-center gap-6">
                     <div className="flex items-center gap-2">
                       <ThumbsUp className="w-5 h-5 text-green-400" />
@@ -408,7 +407,7 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                       <span className="text-white">{selectedReport.votes?.downvotes || 0}</span>
                     </div>
                     <div className="text-slate-400">
-                      Total: {selectedReport.votes?.totalVotes || 0} votes
+                      {tx('Total:', 'कुल:')} {selectedReport.votes?.totalVotes || 0} {tx('votes', 'वोट')}
                     </div>
                   </div>
                 </div>
@@ -416,7 +415,7 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                 {/* Photos */}
                 {selectedReport.photos?.length > 0 && (
                   <div className="bg-slate-700/50 rounded-xl p-4">
-                    <h3 className="text-sm font-medium text-slate-400 mb-3">Photos</h3>
+                    <h3 className="text-sm font-medium text-slate-400 mb-3">{tx('Photos', 'फोटो')}</h3>
                     <div className="flex gap-3">
                       {selectedReport.photos.map((photo: string, i: number) => (
                         <img
@@ -433,10 +432,10 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                 {/* Resolution Feedback */}
                 {selectedReport.resolutionFeedback && (
                   <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
-                    <h3 className="text-sm font-medium text-green-400 mb-2">Citizen Feedback</h3>
+                    <h3 className="text-sm font-medium text-green-400 mb-2">{tx('Citizen Feedback', 'नागरिक प्रतिक्रिया')}</h3>
                     <div className="text-white">
-                      {selectedReport.resolutionFeedback.isResolved ? '✓ Confirmed Resolved' : '✗ Not Resolved'}
-                      <span className="ml-3">Rating: {selectedReport.resolutionFeedback.satisfactionRating}/5</span>
+                      {selectedReport.resolutionFeedback.isResolved ? tx('✓ Confirmed Resolved', '✓ समाधान की पुष्टि') : tx('✗ Not Resolved', '✗ समाधान नहीं हुआ')}
+                      <span className="ml-3">{tx('Rating:', 'रेटिंग:')} {selectedReport.resolutionFeedback.satisfactionRating}/5</span>
                     </div>
                     {selectedReport.resolutionFeedback.feedback && (
                       <div className="text-sm text-slate-300 mt-2">
@@ -456,14 +455,14 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
               className="px-4 py-2 bg-cyan-500 text-white rounded-xl hover:bg-cyan-600 transition-colors flex items-center gap-2"
             >
               <Edit className="w-4 h-4" />
-              Update Status
+              {tx('Update Status', 'स्थिति अपडेट करें')}
             </button>
             <button
               onClick={() => setShowAssign(true)}
               className="px-4 py-2 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors flex items-center gap-2"
             >
               <User className="w-4 h-4" />
-              Assign Worker
+              {tx('Assign Worker', 'कर्मी आवंटित करें')}
             </button>
           </div>
 
@@ -471,21 +470,21 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
           {showStatusUpdate && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <div className="bg-slate-800 rounded-xl p-6 max-w-md w-full mx-4">
-                <h3 className="text-lg font-bold text-white mb-4">Update Status</h3>
+                <h3 className="text-lg font-bold text-white mb-4">{tx('Update Status', 'स्थिति अपडेट करें')}</h3>
                 <select
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
                   className="w-full bg-slate-700 border-none rounded-xl px-4 py-3 text-white mb-4"
                 >
-                  <option value="">Select Status</option>
+                  <option value="">{tx('Select Status', 'स्थिति चुनें')}</option>
                   {STATUS_OPTIONS.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    <option key={opt.value} value={opt.value}>{opt.label[lang]}</option>
                   ))}
                 </select>
                 <textarea
                   value={statusMessage}
                   onChange={(e) => setStatusMessage(e.target.value)}
-                  placeholder="Add a message (optional)"
+                  placeholder={tx('Add a message (optional)', 'संदेश जोड़ें (वैकल्पिक)')}
                   className="w-full bg-slate-700 border-none rounded-xl px-4 py-3 text-white resize-none mb-4"
                   rows={3}
                 />
@@ -495,13 +494,13 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                     disabled={!selectedStatus}
                     className="flex-1 px-4 py-2 bg-cyan-500 text-white rounded-xl hover:bg-cyan-600 transition-colors disabled:opacity-50"
                   >
-                    Update
+                    {tx('Update', 'अपडेट')}
                   </button>
                   <button
                     onClick={() => setShowStatusUpdate(false)}
                     className="px-4 py-2 bg-slate-700 text-white rounded-xl hover:bg-slate-600 transition-colors"
                   >
-                    Cancel
+                    {tx('Cancel', 'रद्द करें')}
                   </button>
                 </div>
               </div>
@@ -512,13 +511,13 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
           {showAssign && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <div className="bg-slate-800 rounded-xl p-6 max-w-md w-full mx-4">
-                <h3 className="text-lg font-bold text-white mb-4">Assign Field Worker</h3>
+                <h3 className="text-lg font-bold text-white mb-4">{tx('Assign Field Worker', 'फील्ड कर्मी आवंटित करें')}</h3>
                 <select
                   value={selectedWorker}
                   onChange={(e) => setSelectedWorker(e.target.value)}
                   className="w-full bg-slate-700 border-none rounded-xl px-4 py-3 text-white mb-4"
                 >
-                  <option value="">Select Worker</option>
+                  <option value="">{tx('Select Worker', 'कर्मी चुनें')}</option>
                   {FIELD_WORKERS.map(worker => (
                     <option key={worker.id} value={worker.id}>
                       {worker.name} - {worker.area}
@@ -531,13 +530,13 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
                     disabled={!selectedWorker}
                     className="flex-1 px-4 py-2 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors disabled:opacity-50"
                   >
-                    Assign
+                    {tx('Assign', 'आवंटित करें')}
                   </button>
                   <button
                     onClick={() => setShowAssign(false)}
                     className="px-4 py-2 bg-slate-700 text-white rounded-xl hover:bg-slate-600 transition-colors"
                   >
-                    Cancel
+                    {tx('Cancel', 'रद्द करें')}
                   </button>
                 </div>
               </div>
@@ -554,19 +553,19 @@ export default function AnonymousReportAdminPanel({ selectedReportId }: Props) {
       <div className="grid grid-cols-4 gap-4 mb-6">
         <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
           <div className="text-3xl font-bold text-white">{stats?.total || 0}</div>
-          <div className="text-sm text-slate-400">Total Reports</div>
+          <div className="text-sm text-slate-400">{tx('Total Reports', 'कुल रिपोर्ट')}</div>
         </div>
         <div className="bg-yellow-500/10 rounded-xl p-4 border border-yellow-500/30">
           <div className="text-3xl font-bold text-yellow-400">{stats?.pending || 0}</div>
-          <div className="text-sm text-slate-400">Pending Review</div>
+          <div className="text-sm text-slate-400">{tx('Pending Review', 'समीक्षा लंबित')}</div>
         </div>
         <div className="bg-red-500/10 rounded-xl p-4 border border-red-500/30">
           <div className="text-3xl font-bold text-red-400">{stats?.escalated || 0}</div>
-          <div className="text-sm text-slate-400">Escalated</div>
+          <div className="text-sm text-slate-400">{tx('Escalated', 'एस्केलेटेड')}</div>
         </div>
         <div className="bg-green-500/10 rounded-xl p-4 border border-green-500/30">
           <div className="text-3xl font-bold text-green-400">{stats?.resolved || 0}</div>
-          <div className="text-sm text-slate-400">Resolved</div>
+          <div className="text-sm text-slate-400">{tx('Resolved', 'समाधान हुआ')}</div>
         </div>
       </div>
 

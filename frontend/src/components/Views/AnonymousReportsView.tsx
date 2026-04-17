@@ -25,37 +25,40 @@ import { useVillageStore } from '../../store/villageStore';
 import AnonymousReportForm from './AnonymousReportForm';
 import AnonymousReportTracker from './AnonymousReportTracker';
 import AnonymousReportAdminPanel from './AnonymousReportAdminPanel';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const AUTHORITY_LEVELS = {
-  0: { name: 'Village Sarpanch', color: 'text-green-400', bg: 'bg-green-500/20' },
-  1: { name: 'Block Officer', color: 'text-blue-400', bg: 'bg-blue-500/20' },
-  2: { name: 'District Magistrate', color: 'text-yellow-400', bg: 'bg-yellow-500/20' },
-  3: { name: 'State Authority', color: 'text-red-400', bg: 'bg-red-500/20' }
+  0: { name: { en: 'Village Sarpanch', hi: 'ग्राम सरपंच' }, color: 'text-green-400', bg: 'bg-green-500/20' },
+  1: { name: { en: 'Block Officer', hi: 'खंड अधिकारी' }, color: 'text-blue-400', bg: 'bg-blue-500/20' },
+  2: { name: { en: 'District Magistrate', hi: 'जिला मजिस्ट्रेट' }, color: 'text-yellow-400', bg: 'bg-yellow-500/20' },
+  3: { name: { en: 'State Authority', hi: 'राज्य प्राधिकरण' }, color: 'text-red-400', bg: 'bg-red-500/20' }
 };
 
 const STATUS_CONFIG = {
-  pending: { label: 'Pending', color: 'text-yellow-400', bg: 'bg-yellow-500/20', icon: Clock },
-  acknowledged: { label: 'Acknowledged', color: 'text-blue-400', bg: 'bg-blue-500/20', icon: Eye },
-  assigned: { label: 'Assigned', color: 'text-purple-400', bg: 'bg-purple-500/20', icon: User },
-  in_progress: { label: 'In Progress', color: 'text-cyan-400', bg: 'bg-cyan-500/20', icon: TrendingUp },
-  resolved: { label: 'Resolved', color: 'text-green-400', bg: 'bg-green-500/20', icon: CheckCircle },
-  closed: { label: 'Closed', color: 'text-slate-400', bg: 'bg-slate-500/20', icon: CheckCircle },
-  rejected: { label: 'Rejected', color: 'text-red-400', bg: 'bg-red-500/20', icon: XCircle }
+  pending: { label: { en: 'Pending', hi: 'लंबित' }, color: 'text-yellow-400', bg: 'bg-yellow-500/20', icon: Clock },
+  acknowledged: { label: { en: 'Acknowledged', hi: 'स्वीकृत' }, color: 'text-blue-400', bg: 'bg-blue-500/20', icon: Eye },
+  assigned: { label: { en: 'Assigned', hi: 'आवंटित' }, color: 'text-purple-400', bg: 'bg-purple-500/20', icon: User },
+  in_progress: { label: { en: 'In Progress', hi: 'प्रगति में' }, color: 'text-cyan-400', bg: 'bg-cyan-500/20', icon: TrendingUp },
+  resolved: { label: { en: 'Resolved', hi: 'समाधान हुआ' }, color: 'text-green-400', bg: 'bg-green-500/20', icon: CheckCircle },
+  closed: { label: { en: 'Closed', hi: 'बंद' }, color: 'text-slate-400', bg: 'bg-slate-500/20', icon: CheckCircle },
+  rejected: { label: { en: 'Rejected', hi: 'अस्वीकृत' }, color: 'text-red-400', bg: 'bg-red-500/20', icon: XCircle }
 };
 
-const CATEGORY_CONFIG: Record<string, { label: string; emoji: string; color: string }> = {
-  road: { label: 'Road & Infrastructure', emoji: '🛣️', color: 'text-amber-400' },
-  water: { label: 'Water Supply', emoji: '💧', color: 'text-blue-400' },
-  power: { label: 'Electricity', emoji: '⚡', color: 'text-yellow-400' },
-  waste: { label: 'Waste Management', emoji: '🗑️', color: 'text-green-400' },
-  healthcare: { label: 'Healthcare', emoji: '🏥', color: 'text-red-400' },
-  education: { label: 'Education', emoji: '📚', color: 'text-purple-400' },
-  corruption: { label: 'Corruption', emoji: '⚖️', color: 'text-orange-400' },
-  safety: { label: 'Safety', emoji: '🛡️', color: 'text-indigo-400' },
-  other: { label: 'Other', emoji: '📝', color: 'text-slate-400' }
+const CATEGORY_CONFIG: Record<string, { label: { en: string; hi: string }; emoji: string; color: string }> = {
+  road: { label: { en: 'Road & Infrastructure', hi: 'सड़क और अवसंरचना' }, emoji: '🛣️', color: 'text-amber-400' },
+  water: { label: { en: 'Water Supply', hi: 'जल आपूर्ति' }, emoji: '💧', color: 'text-blue-400' },
+  power: { label: { en: 'Electricity', hi: 'बिजली' }, emoji: '⚡', color: 'text-yellow-400' },
+  waste: { label: { en: 'Waste Management', hi: 'कचरा प्रबंधन' }, emoji: '🗑️', color: 'text-green-400' },
+  healthcare: { label: { en: 'Healthcare', hi: 'स्वास्थ्य सेवा' }, emoji: '🏥', color: 'text-red-400' },
+  education: { label: { en: 'Education', hi: 'शिक्षा' }, emoji: '📚', color: 'text-purple-400' },
+  corruption: { label: { en: 'Corruption', hi: 'भ्रष्टाचार' }, emoji: '⚖️', color: 'text-orange-400' },
+  safety: { label: { en: 'Safety', hi: 'सुरक्षा' }, emoji: '🛡️', color: 'text-indigo-400' },
+  other: { label: { en: 'Other', hi: 'अन्य' }, emoji: '📝', color: 'text-slate-400' }
 };
 
 export default function AnonymousReportsView() {
+  const { lang } = useLanguage();
+  const tx = (en: string, hi: string) => (lang === 'hi' ? hi : en);
   const { userRole } = useVillageStore();
   const { reports, stats, loading, error, fetchReports, voteOnReport } = useAnonymousReports();
   const [activeTab, setActiveTab] = useState<'browse' | 'submit' | 'track' | 'admin'>('browse');
@@ -93,27 +96,27 @@ export default function AnonymousReportsView() {
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-6">
       <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
         <div className="text-2xl font-bold text-white">{stats?.total || 0}</div>
-        <div className="text-sm text-slate-400">Total Reports</div>
+        <div className="text-sm text-slate-400">{tx('Total Reports', 'कुल रिपोर्ट')}</div>
       </div>
       <div className="bg-yellow-500/10 rounded-xl p-4 border border-yellow-500/30">
         <div className="text-2xl font-bold text-yellow-400">{stats?.pending || 0}</div>
-        <div className="text-sm text-slate-400">Pending</div>
+        <div className="text-sm text-slate-400">{tx('Pending', 'लंबित')}</div>
       </div>
       <div className="bg-blue-500/10 rounded-xl p-4 border border-blue-500/30">
         <div className="text-2xl font-bold text-blue-400">{stats?.inProgress || 0}</div>
-        <div className="text-sm text-slate-400">In Progress</div>
+        <div className="text-sm text-slate-400">{tx('In Progress', 'प्रगति में')}</div>
       </div>
       <div className="bg-green-500/10 rounded-xl p-4 border border-green-500/30">
         <div className="text-2xl font-bold text-green-400">{stats?.resolved || 0}</div>
-        <div className="text-sm text-slate-400">Resolved</div>
+        <div className="text-sm text-slate-400">{tx('Resolved', 'समाधान हुआ')}</div>
       </div>
       <div className="bg-red-500/10 rounded-xl p-4 border border-red-500/30">
         <div className="text-2xl font-bold text-red-400">{stats?.escalated || 0}</div>
-        <div className="text-sm text-slate-400">Escalated</div>
+        <div className="text-sm text-slate-400">{tx('Escalated', 'एस्केलेटेड')}</div>
       </div>
       <div className="bg-purple-500/10 rounded-xl p-4 border border-purple-500/30">
         <div className="text-2xl font-bold text-purple-400">{stats?.avgResolutionTimeDays || 0}d</div>
-        <div className="text-sm text-slate-400">Avg. Resolution</div>
+        <div className="text-sm text-slate-400">{tx('Avg. Resolution', 'औसत समाधान')}</div>
       </div>
     </div>
   );
@@ -134,18 +137,18 @@ export default function AnonymousReportsView() {
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">{categoryConfig.emoji}</span>
-              <span className={`text-sm ${categoryConfig.color}`}>{categoryConfig.label}</span>
+              <span className={`text-sm ${categoryConfig.color}`}>{categoryConfig.label[lang]}</span>
             </div>
             <div className="flex items-center gap-2">
               {report.currentEscalationLevel > 0 && (
                 <span className={`px-2 py-1 rounded-lg text-xs ${authorityLevel.bg} ${authorityLevel.color}`}>
                   <ArrowUpRight className="w-3 h-3 inline mr-1" />
-                  {authorityLevel.name}
+                  {authorityLevel.name[lang]}
                 </span>
               )}
               <span className={`px-2 py-1 rounded-lg text-xs ${statusConfig.bg} ${statusConfig.color}`}>
                 <StatusIcon className="w-3 h-3 inline mr-1" />
-                {statusConfig.label}
+                {statusConfig.label[lang]}
               </span>
             </div>
           </div>
@@ -156,7 +159,7 @@ export default function AnonymousReportsView() {
 
           {/* Intent Badge */}
           <div className="bg-slate-700/50 rounded-lg p-2 mb-3">
-            <div className="text-xs text-slate-500 mb-1">Extracted Intent:</div>
+            <div className="text-xs text-slate-500 mb-1">{tx('Extracted Intent:', 'निकाला गया आशय:')}</div>
             <div className="text-sm text-cyan-400">{report.intent}</div>
           </div>
 
@@ -218,7 +221,7 @@ export default function AnonymousReportsView() {
               <button
                 onClick={() => copyReportId(report.id)}
                 className="flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-slate-700 text-slate-400 transition-colors"
-                title="Copy Report ID"
+                title={tx('Copy Report ID', 'रिपोर्ट आईडी कॉपी करें')}
               >
                 {copiedId === report.id ? (
                   <Check className="w-4 h-4 text-green-400" />
@@ -233,7 +236,7 @@ export default function AnonymousReportsView() {
                   className="flex items-center gap-1 px-2 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 transition-colors"
                 >
                   <Eye className="w-4 h-4" />
-                  <span className="text-sm">Manage</span>
+                  <span className="text-sm">{tx('Manage', 'प्रबंधित करें')}</span>
                 </button>
               )}
             </div>
@@ -252,8 +255,8 @@ export default function AnonymousReportsView() {
             <Shield className="w-6 h-6 text-cyan-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">Anonymous Citizen Reports</h1>
-            <p className="text-slate-400 text-sm">Report issues anonymously • AI-powered anonymization • Blockchain escalation</p>
+            <h1 className="text-2xl font-bold text-white">{tx('Anonymous Citizen Reports', 'गुमनाम नागरिक रिपोर्ट')}</h1>
+            <p className="text-slate-400 text-sm">{tx('Report issues anonymously • AI-powered anonymization • Escalation timeline', 'समस्याएं गुमनाम रूप से रिपोर्ट करें • एआई आधारित अनामीकरण • एस्केलेशन टाइमलाइन')}</p>
           </div>
         </div>
       </div>
@@ -269,7 +272,7 @@ export default function AnonymousReportsView() {
           }`}
         >
           <Eye className="w-4 h-4" />
-          Browse Reports
+          {tx('Browse Reports', 'रिपोर्ट देखें')}
         </button>
         {!isAdmin && (
           <button
@@ -281,7 +284,7 @@ export default function AnonymousReportsView() {
             }`}
           >
             <Send className="w-4 h-4" />
-            Submit Report
+            {tx('Submit Report', 'रिपोर्ट जमा करें')}
           </button>
         )}
         <button
@@ -293,7 +296,7 @@ export default function AnonymousReportsView() {
           }`}
         >
           <Search className="w-4 h-4" />
-          Track My Report
+          {tx('Track My Report', 'मेरी रिपोर्ट ट्रैक करें')}
         </button>
         {isAdmin && (
           <button
@@ -305,7 +308,7 @@ export default function AnonymousReportsView() {
             }`}
           >
             <Users className="w-4 h-4" />
-            Admin Panel
+            {tx('Admin Panel', 'एडमिन पैनल')}
           </button>
         )}
       </div>
@@ -325,13 +328,13 @@ export default function AnonymousReportsView() {
                 onChange={(e) => setFilterStatus(e.target.value)}
                 className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
               >
-                <option value="">All Status</option>
-                <option value="pending">Pending</option>
-                <option value="acknowledged">Acknowledged</option>
-                <option value="assigned">Assigned</option>
-                <option value="in_progress">In Progress</option>
-                <option value="resolved">Resolved</option>
-                <option value="closed">Closed</option>
+                  <option value="">{tx('All Status', 'सभी स्थिति')}</option>
+                  <option value="pending">{tx('Pending', 'लंबित')}</option>
+                  <option value="acknowledged">{tx('Acknowledged', 'स्वीकृत')}</option>
+                  <option value="assigned">{tx('Assigned', 'आवंटित')}</option>
+                  <option value="in_progress">{tx('In Progress', 'प्रगति में')}</option>
+                  <option value="resolved">{tx('Resolved', 'समाधान हुआ')}</option>
+                  <option value="closed">{tx('Closed', 'बंद')}</option>
               </select>
             </div>
             
@@ -340,9 +343,9 @@ export default function AnonymousReportsView() {
               onChange={(e) => setFilterCategory(e.target.value)}
               className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
             >
-              <option value="">All Categories</option>
+              <option value="">{tx('All Categories', 'सभी श्रेणियां')}</option>
               {Object.entries(CATEGORY_CONFIG).map(([key, config]) => (
-                <option key={key} value={key}>{config.emoji} {config.label}</option>
+                <option key={key} value={key}>{config.emoji} {config.label[lang]}</option>
               ))}
             </select>
 
@@ -351,10 +354,10 @@ export default function AnonymousReportsView() {
               onChange={(e) => setSortBy(e.target.value)}
               className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
             >
-              <option value="createdAt">Newest First</option>
-              <option value="priority">By Priority</option>
-              <option value="escalation">By Escalation Level</option>
-              <option value="credibility">By Credibility</option>
+              <option value="createdAt">{tx('Newest First', 'नवीनतम पहले')}</option>
+              <option value="priority">{tx('By Priority', 'प्राथमिकता के अनुसार')}</option>
+              <option value="escalation">{tx('By Escalation Level', 'एस्केलेशन स्तर के अनुसार')}</option>
+              <option value="credibility">{tx('By Credibility', 'विश्वसनीयता के अनुसार')}</option>
             </select>
           </div>
 
@@ -370,7 +373,7 @@ export default function AnonymousReportsView() {
           ) : filteredReports.length === 0 ? (
             <div className="text-center py-12 text-slate-400">
               <Shield className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p>No reports found</p>
+              <p>{tx('No reports found', 'कोई रिपोर्ट नहीं मिली')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

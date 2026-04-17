@@ -18,6 +18,7 @@ import {
 import { useVillageStore, type GovernmentScheme } from '../../store/villageStore';
 import { API_URL } from '../../config/api';
 import { Capacitor } from '@capacitor/core';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 // Define LocalLLM plugin
 const LocalLLM = Capacitor.isNativePlatform() ? {
@@ -30,6 +31,9 @@ export default function CitizenDashboard() {
   const schemes = useVillageStore((state) => state.schemes);
   const setActiveView = useVillageStore((state) => state.setActiveView);
   const username = useVillageStore((state) => state.username);
+  const { lang } = useLanguage();
+  const hi = lang === 'hi';
+  const tx = (en: string, hiText: string) => (hi ? hiText : en);
 
   const [feedbackScheme, setFeedbackScheme] = useState<GovernmentScheme | null>(null);
   const [rating, setRating] = useState(0);
@@ -161,18 +165,18 @@ export default function CitizenDashboard() {
       if (!response.ok) {
         const error = await response.json();
         if (response.status === 429) {
-          alert(error.message || 'You have already submitted feedback recently. Please try again later.');
+          alert(error.message || tx('You have already submitted feedback recently. Please try again later.', 'आपने हाल ही में फीडबैक जमा किया है। कृपया बाद में पुनः प्रयास करें।'));
           setIsProcessing(false);
           closeFeedbackModal();
           return;
         }
-        throw new Error(error.error || 'Failed to submit feedback');
+        throw new Error(error.error || tx('Failed to submit feedback', 'फीडबैक जमा नहीं हो सका'));
       }
 
       const result = await response.json();
       console.log('✅ Feedback submitted successfully:', result);
 
-      setAiStatus({ status: 'complete', message: 'Feedback submitted successfully!', progress: 100 });
+      setAiStatus({ status: 'complete', message: tx('Feedback submitted successfully!', 'फीडबैक सफलतापूर्वक जमा हुआ!'), progress: 100 });
       setIsProcessing(false);
       setSubmitted(true);
 
@@ -184,8 +188,8 @@ export default function CitizenDashboard() {
     } catch (error) {
       console.error('❌ Error submitting feedback:', error);
       setIsProcessing(false);
-      setAiStatus({ status: 'error', message: 'Failed to submit feedback', progress: 0 });
-      alert('Failed to submit feedback. Please try again.');
+      setAiStatus({ status: 'error', message: tx('Failed to submit feedback', 'फीडबैक जमा नहीं हो सका'), progress: 0 });
+      alert(tx('Failed to submit feedback. Please try again.', 'फीडबैक जमा नहीं हो सका। कृपया फिर से प्रयास करें।'));
       setSubmitted(false);
     }
   };
@@ -216,16 +220,15 @@ export default function CitizenDashboard() {
           <div className="relative z-10">
             <div className="flex items-start justify-between">
               <div>
-                <h1 className="text-xl font-bold text-white">Welcome back, Citizen!</h1>
+                <h1 className="text-xl font-bold text-white">{tx('Welcome back, Citizen!', 'फिर से स्वागत है, नागरिक!')}</h1>
                 <p className="mt-1 max-w-xl text-slate-400 text-sm">
-                  Stay updated with the latest development projects in your village. 
-                  Your feedback helps us build a better community together.
+                  {tx('Stay updated with the latest development projects in your communities and cities. Your feedback helps us build better civic services together.', 'अपने समुदायों और शहरों की नवीनतम विकास परियोजनाओं से अपडेट रहें। आपकी प्रतिक्रिया बेहतर नागरिक सेवाएं बनाने में मदद करती है।')}
                 </p>
                 <button 
                   onClick={() => setActiveView('schemes')}
                   className="mt-3 flex items-center gap-2 rounded-lg bg-blue-600/10 px-3 py-1.5 text-sm font-medium text-blue-400 hover:bg-blue-600/20 transition-colors"
                 >
-                  View All Schemes
+                  {tx('View All Schemes', 'सभी योजनाएं देखें')}
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
@@ -236,8 +239,8 @@ export default function CitizenDashboard() {
                       <Sparkles className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-[10px] text-slate-400">Community Impact</p>
-                      <p className="font-bold text-sm text-emerald-400">High Engagement</p>
+                      <p className="text-[10px] text-slate-400">{tx('Community Impact', 'समुदाय प्रभाव')}</p>
+                      <p className="font-bold text-sm text-emerald-400">{tx('High Engagement', 'उच्च सहभागिता')}</p>
                     </div>
                   </div>
                 </div>
@@ -254,7 +257,7 @@ export default function CitizenDashboard() {
               <Briefcase className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm text-slate-400">Active Schemes</p>
+              <p className="text-sm text-slate-400">{tx('Active Schemes', 'सक्रिय योजनाएं')}</p>
               <p className="text-xl font-bold text-white">{activeSchemes.length}</p>
             </div>
           </div>
@@ -266,7 +269,7 @@ export default function CitizenDashboard() {
               <CheckCircle className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm text-slate-400">Completed</p>
+              <p className="text-sm text-slate-400">{tx('Completed', 'पूर्ण')}</p>
               <p className="text-xl font-bold text-white">
                 {schemes.filter(s => s.status === 'completed').length}
               </p>
@@ -280,7 +283,7 @@ export default function CitizenDashboard() {
               <Clock className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm text-slate-400">In Progress</p>
+              <p className="text-sm text-slate-400">{tx('In Progress', 'प्रगति पर')}</p>
               <p className="text-xl font-bold text-white">
                 {schemes.filter(s => s.status === 'on-track' || s.status === 'delayed').length}
               </p>
@@ -294,7 +297,7 @@ export default function CitizenDashboard() {
               <MessageSquare className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm text-slate-400">Your Feedback</p>
+              <p className="text-sm text-slate-400">{tx('Your Feedback', 'आपकी प्रतिक्रिया')}</p>
               <p className="text-xl font-bold text-white">12</p>
             </div>
           </div>
@@ -307,13 +310,13 @@ export default function CitizenDashboard() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
               <Activity className="h-5 w-5 text-blue-400" />
-              Ongoing Projects
+              {tx('Ongoing Projects', 'चल रही परियोजनाएं')}
             </h2>
             <button 
               onClick={() => setActiveView('schemes')}
               className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
             >
-              View All
+              {tx('View All', 'सभी देखें')}
             </button>
           </div>
           
@@ -339,7 +342,7 @@ export default function CitizenDashboard() {
                       <div className="mt-1 flex flex-wrap items-center gap-3 text-sm text-slate-400">
                         <span className="flex items-center gap-1">
                           <Clock className="h-3.5 w-3.5" />
-                          Due: {new Date(scheme.endDate).toLocaleDateString()}
+                          {tx('Due:', 'अंतिम तिथि:')} {new Date(scheme.endDate).toLocaleDateString()}
                         </span>
                         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
                           scheme.status === 'on-track' ? 'bg-emerald-500/10 text-emerald-400' :
@@ -355,7 +358,7 @@ export default function CitizenDashboard() {
                   <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-1">
                     <div className="text-right">
                       <span className="text-2xl font-bold text-white">{scheme.overallProgress}%</span>
-                      <span className="ml-1 text-xs text-slate-500">complete</span>
+                      <span className="ml-1 text-xs text-slate-500">{tx('complete', 'पूर्ण')}</span>
                     </div>
                     <div className="h-1.5 w-full min-w-[100px] overflow-hidden rounded-full bg-slate-700 sm:w-24">
                       <div 
@@ -372,7 +375,7 @@ export default function CitizenDashboard() {
                       className="mt-2 flex items-center gap-1 rounded-lg bg-slate-700/50 px-3 py-1.5 text-xs font-medium text-blue-300 hover:bg-blue-500/20 hover:text-blue-200 transition-colors"
                     >
                       <Star className="h-3 w-3" />
-                      Rate Scheme
+                      {tx('Rate Scheme', 'योजना को रेट करें')}
                     </button>
                   </div>
                 </div>
@@ -385,7 +388,7 @@ export default function CitizenDashboard() {
         <div>
           <h2 className="mb-4 text-lg font-semibold text-white flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-amber-400" />
-            Community Pulse
+            {tx('Community Pulse', 'समुदाय संकेतक')}
           </h2>
           
           <div className="rounded-xl border border-slate-700/50 bg-slate-800/50 p-5 backdrop-blur-sm">
@@ -416,14 +419,14 @@ export default function CitizenDashboard() {
               
               {recentUpdates.length === 0 && (
                 <div className="text-center py-8 text-slate-500">
-                  <p>No recent updates available</p>
+                  <p>{tx('No recent updates available', 'कोई हालिया अपडेट उपलब्ध नहीं है')}</p>
                 </div>
               )}
             </div>
 
             <div className="mt-6 border-t border-slate-700 pt-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-400">Satisfaction Rate</span>
+                <span className="text-slate-400">{tx('Satisfaction Rate', 'संतुष्टि दर')}</span>
                 <div className="flex items-center gap-1 text-emerald-400">
                   <ThumbsUp className="h-4 w-4" />
                   <span className="font-bold">94%</span>
@@ -446,7 +449,7 @@ export default function CitizenDashboard() {
               >
                 <X className="h-5 w-5" />
               </button>
-              <h3 className="text-xl font-bold text-white">Rate this Scheme</h3>
+              <h3 className="text-xl font-bold text-white">{tx('Rate this Scheme', 'इस योजना को रेट करें')}</h3>
               <p className="text-blue-100 text-sm mt-1">{feedbackScheme.name}</p>
             </div>
 
@@ -456,7 +459,7 @@ export default function CitizenDashboard() {
                 <div className="space-y-6">
                   {/* Rating Stars */}
                   <div className="flex flex-col items-center gap-2">
-                    <label className="text-sm font-medium text-slate-300">How would you rate the progress?</label>
+                    <label className="text-sm font-medium text-slate-300">{tx('How would you rate the progress?', 'आप प्रगति को कैसे रेट करेंगे?')}</label>
                     <div className="flex gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -471,21 +474,21 @@ export default function CitizenDashboard() {
                       ))}
                     </div>
                     <p className="text-sm text-slate-400 h-5">
-                      {rating === 1 && "Very Dissatisfied"}
-                      {rating === 2 && "Dissatisfied"}
-                      {rating === 3 && "Neutral"}
-                      {rating === 4 && "Satisfied"}
-                      {rating === 5 && "Very Satisfied"}
+                      {rating === 1 && tx('Very Dissatisfied', 'बहुत असंतुष्ट')}
+                      {rating === 2 && tx('Dissatisfied', 'असंतुष्ट')}
+                      {rating === 3 && tx('Neutral', 'सामान्य')}
+                      {rating === 4 && tx('Satisfied', 'संतुष्ट')}
+                      {rating === 5 && tx('Very Satisfied', 'बहुत संतुष्ट')}
                     </p>
                   </div>
 
                   {/* Comment Area */}
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-300">Your Feedback (Optional)</label>
+                    <label className="text-sm font-medium text-slate-300">{tx('Your Feedback (Optional)', 'आपकी प्रतिक्रिया (वैकल्पिक)')}</label>
                     <textarea
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
-                      placeholder="Share your thoughts on the implementation..."
+                      placeholder={tx('Share your thoughts on the implementation...', 'कार्यान्वयन पर अपनी राय साझा करें...')}
                       className="w-full rounded-xl border border-slate-600 bg-slate-900/50 p-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       rows={4}
                     />
@@ -497,8 +500,8 @@ export default function CitizenDashboard() {
                       <Flag className="h-5 w-5" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-white">Flag as Urgent Issue</p>
-                      <p className="text-xs text-slate-400">Mark if this requires immediate attention</p>
+                      <p className="text-sm font-medium text-white">{tx('Flag as Urgent Issue', 'तत्काल मुद्दा चिह्नित करें')}</p>
+                      <p className="text-xs text-slate-400">{tx('Mark if this requires immediate attention', 'यदि तत्काल ध्यान चाहिए तो चिह्नित करें')}</p>
                     </div>
                     <button
                       onClick={() => setIsUrgent(!isUrgent)}
@@ -517,12 +520,12 @@ export default function CitizenDashboard() {
                     {isProcessing ? (
                       <>
                         <Loader className="h-5 w-5 animate-spin" />
-                        Processing...
+                        {tx('Processing...', 'प्रोसेस हो रहा है...')}
                       </>
                     ) : (
                       <>
                         <Send className="h-5 w-5" />
-                        Submit Feedback
+                        {tx('Submit Feedback', 'फीडबैक जमा करें')}
                       </>
                     )}
                   </button>
@@ -532,7 +535,7 @@ export default function CitizenDashboard() {
                     <div className="mt-4 rounded-lg bg-slate-900/50 p-3 border border-blue-500/30">
                       <div className="flex items-center gap-3 mb-2">
                         <Cpu className="h-4 w-4 text-blue-400 animate-pulse" />
-                        <span className="text-xs font-medium text-blue-300">AI Analysis in Progress</span>
+                        <span className="text-xs font-medium text-blue-300">{tx('AI Analysis in Progress', 'एआई विश्लेषण जारी है')}</span>
                       </div>
                       <div className="h-1.5 w-full bg-slate-700 rounded-full overflow-hidden">
                         <div 
@@ -549,9 +552,9 @@ export default function CitizenDashboard() {
                   <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-500/20 text-green-400">
                     <CheckCircle className="h-8 w-8" />
                   </div>
-                  <h4 className="text-xl font-bold text-white">Thank You!</h4>
+                  <h4 className="text-xl font-bold text-white">{tx('Thank You!', 'धन्यवाद!')}</h4>
                   <p className="mt-2 text-slate-400">
-                    Your feedback has been recorded and will be analyzed by our AI system to improve the scheme implementation.
+                    {tx('Your feedback has been recorded and will be analyzed by our AI system to improve implementation quality.', 'आपकी प्रतिक्रिया दर्ज कर ली गई है और कार्यान्वयन गुणवत्ता सुधारने के लिए एआई द्वारा विश्लेषित की जाएगी।')}
                   </p>
                 </div>
               )}

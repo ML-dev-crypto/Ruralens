@@ -13,8 +13,8 @@ body {
   font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafaf9; /* Stone 50 */
-  color: #1c1917; /* Stone 900 */
+  background-color: #fdfbf5; /* Off-cream */
+  color: #2b2a28; /* Soft charcoal */
   overflow-x: hidden;
 }
 
@@ -94,10 +94,10 @@ body {
 
 /* MapLibre Controls - Dark Theme for Visibility */
 .maplibregl-ctrl-group {
-  background-color: rgba(15, 23, 42, 0.95) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background-color: rgba(255, 253, 246, 0.95) !important;
+  border: 1px solid rgba(60, 54, 47, 0.15) !important;
   border-radius: 12px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
   overflow: hidden;
 }
 
@@ -105,7 +105,7 @@ body {
   background-color: transparent !important;
   width: 40px !important;
   height: 40px !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(60, 54, 47, 0.1) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -116,11 +116,11 @@ body {
 }
 
 .maplibregl-ctrl-group button:hover {
-  background-color: rgba(56, 189, 248, 0.2) !important;
+  background-color: rgba(153, 142, 126, 0.16) !important;
 }
 
 .maplibregl-ctrl-group button:active {
-  background-color: rgba(56, 189, 248, 0.3) !important;
+  background-color: rgba(153, 142, 126, 0.24) !important;
 }
 
 /* Hide default icons and replace with custom colored SVGs */
@@ -131,7 +131,7 @@ body {
 
 /* Zoom In Button - Plus sign */
 .maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'%3E%3C/line%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235c564f' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'%3E%3C/line%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E") !important;
   background-size: 20px 20px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -139,7 +139,7 @@ body {
 
 /* Zoom Out Button - Minus sign */
 .maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235c564f' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E") !important;
   background-size: 20px 20px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -147,7 +147,7 @@ body {
 
 /* Fullscreen Button - Expand icon */
 .maplibregl-ctrl-fullscreen .maplibregl-ctrl-icon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cpolyline points='9 21 3 21 3 15'%3E%3C/polyline%3E%3Cline x1='21' y1='3' x2='14' y2='10'%3E%3C/line%3E%3Cline x1='3' y1='21' x2='10' y2='14'%3E%3C/line%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235c564f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cpolyline points='9 21 3 21 3 15'%3E%3C/polyline%3E%3Cline x1='21' y1='3' x2='14' y2='10'%3E%3C/line%3E%3Cline x1='3' y1='21' x2='10' y2='14'%3E%3C/line%3E%3C/svg%3E") !important;
   background-size: 18px 18px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -155,7 +155,7 @@ body {
 
 /* Fullscreen Exit Button - Shrink icon */
 .maplibregl-ctrl-shrink .maplibregl-ctrl-icon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 14 10 14 10 20'%3E%3C/polyline%3E%3Cpolyline points='20 10 14 10 14 4'%3E%3C/polyline%3E%3Cline x1='14' y1='10' x2='21' y2='3'%3E%3C/line%3E%3Cline x1='3' y1='21' x2='10' y2='14'%3E%3C/line%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235c564f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 14 10 14 10 20'%3E%3C/polyline%3E%3Cpolyline points='20 10 14 10 14 4'%3E%3C/polyline%3E%3Cline x1='14' y1='10' x2='21' y2='3'%3E%3C/line%3E%3Cline x1='3' y1='21' x2='10' y2='14'%3E%3C/line%3E%3C/svg%3E") !important;
   background-size: 18px 18px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -163,7 +163,7 @@ body {
 
 /* Compass Button - Arrow/compass icon */
 .maplibregl-ctrl-compass .maplibregl-ctrl-icon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f472b6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 19 21 12 17 5 21 12 2'%3E%3C/polygon%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238f7a66' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 19 21 12 17 5 21 12 2'%3E%3C/polygon%3E%3C/svg%3E") !important;
   background-size: 18px 18px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -171,10 +171,82 @@ body {
 
 /* Scale control styling */
 .maplibregl-ctrl-scale {
-  background-color: rgba(15, 23, 42, 0.85) !important;
-  color: #94a3b8 !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: rgba(255, 253, 246, 0.9) !important;
+  color: #5b5650 !important;
+  border: 1px solid rgba(60, 54, 47, 0.2) !important;
   border-radius: 6px !important;
   font-size: 11px !important;
   padding: 2px 6px !important;
+}
+
+/* Global palette override to off-cream */
+.bg-slate-950 { background-color: #fdfbf5 !important; }
+.bg-slate-900 { background-color: #fbf8f1 !important; }
+.bg-slate-800 { background-color: #f6f1e8 !important; }
+.bg-slate-700 { background-color: #efe9dd !important; }
+.bg-slate-600 { background-color: #e6dece !important; }
+
+.text-slate-200 { color: #2b2a28 !important; }
+.text-slate-300 { color: #3a3733 !important; }
+.text-slate-400 { color: #5b5650 !important; }
+.text-slate-500 { color: #6d665f !important; }
+
+.border-slate-700 { border-color: #e7e1d7 !important; }
+.border-slate-600 { border-color: #e0d7c9 !important; }
+.border-slate-500 { border-color: #d6cbb8 !important; }
+
+.glass {
+  background-color: rgba(255, 253, 246, 0.7) !important;
+  border-color: rgba(60, 54, 47, 0.12) !important;
+}
+
+.glass-card {
+  background-color: rgba(255, 253, 246, 0.6) !important;
+  border-color: rgba(60, 54, 47, 0.08) !important;
+}
+
+/* Catch Tailwind opacity variants (e.g. bg-slate-900/50, border-white/10, bg-black/60) */
+[class*="bg-slate-950"] { background-color: #fdfbf5 !important; }
+[class*="bg-slate-900"] { background-color: #fbf8f1 !important; }
+[class*="bg-slate-800"] { background-color: #f6f1e8 !important; }
+[class*="bg-slate-700"] { background-color: #efe9dd !important; }
+[class*="bg-slate-600"] { background-color: #e6dece !important; }
+
+[class*="bg-gray-900"] { background-color: #fbf8f1 !important; }
+[class*="bg-gray-800"] { background-color: #f6f1e8 !important; }
+[class*="bg-gray-700"] { background-color: #efe9dd !important; }
+
+[class*="bg-black"] { background-color: rgba(247, 242, 233, 0.88) !important; }
+
+[class*="text-white"],
+.text-white {
+  color: #2b2a28 !important;
+}
+
+[class*="text-slate-100"] { color: #2f2c28 !important; }
+[class*="text-slate-200"] { color: #3a3733 !important; }
+[class*="text-slate-300"] { color: #4c4741 !important; }
+[class*="text-slate-400"] { color: #5e5750 !important; }
+[class*="text-slate-500"] { color: #6f675f !important; }
+
+[class*="border-white"],
+[class*="border-slate-900"],
+[class*="border-slate-800"],
+[class*="border-slate-700"],
+[class*="border-slate-600"] {
+  border-color: #e6dece !important;
+}
+
+[class*="placeholder-slate-500"],
+[class*="placeholder-slate-400"] {
+  --tw-placeholder-opacity: 1 !important;
+  color: #8d8478 !important;
+}
+
+input[class*="bg-slate"],
+select[class*="bg-slate"],
+textarea[class*="bg-slate"] {
+  background-color: #fffdf8 !important;
+  color: #2b2a28 !important;
+  border-color: #ded3c2 !important;
 }

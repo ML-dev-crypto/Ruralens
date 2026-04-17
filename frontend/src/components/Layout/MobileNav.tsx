@@ -1,14 +1,17 @@
 import { Home, Briefcase, Map, Menu, Shield } from 'lucide-react';
 import { useVillageStore } from '../../store/villageStore';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export default function MobileNav() {
   const { activeView, setActiveView, toggleSidebar } = useVillageStore();
+  const { lang } = useLanguage();
+  const hi = lang === 'hi';
 
   const navItems = [
-    { id: 'dashboard', icon: Home, label: 'Home' },
-    { id: 'schemes', icon: Briefcase, label: 'Schemes' },
-    { id: 'map', icon: Map, label: 'Map' },
-    { id: 'anonymous-reports', icon: Shield, label: 'Report' },
+    { id: 'dashboard', icon: Home, label: hi ? 'होम' : 'Home' },
+    { id: 'schemes', icon: Briefcase, label: hi ? 'योजनाएं' : 'Schemes' },
+    { id: 'map', icon: Map, label: hi ? 'मैप' : 'Map' },
+    { id: 'anonymous-reports', icon: Shield, label: hi ? 'रिपोर्ट' : 'Report' },
   ];
 
   return (
@@ -37,7 +40,7 @@ export default function MobileNav() {
           className="flex flex-col items-center justify-center w-full h-full space-y-1 text-slate-400"
         >
           <Menu size={20} />
-          <span className="text-[10px] font-medium">More</span>
+          <span className="text-[10px] font-medium">{hi ? 'और' : 'More'}</span>
         </button>
       </div>
     </div>

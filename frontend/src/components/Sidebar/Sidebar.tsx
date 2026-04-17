@@ -1,32 +1,26 @@
 import { 
   Home, 
-  Bell,
-  BarChart3,
   Settings,
   ChevronLeft,
   ChevronRight,
   Map,
   Briefcase,
-  Shield,
-  Network
+  Shield
 } from 'lucide-react';
 import { useVillageStore } from '../../store/villageStore';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const menuItems = [
-  { id: 'dashboard', icon: Home, label: 'Dashboard' },
-  { id: 'map', icon: Map, label: '3D Map View' },
-  { id: 'schemes', icon: Briefcase, label: 'Government Schemes' },
-  { id: 'anonymous-reports', icon: Shield, label: 'Citizen Reports' },
-  { id: 'impact-predictor', icon: Network, label: 'Village Analyzer' },
-  { id: 'alerts', icon: Bell, label: 'Alerts & Notifications' },
-  { id: 'analytics', icon: BarChart3, label: 'Analytics' },
-  { id: 'settings', icon: Settings, label: 'Settings' },
+  { id: 'dashboard', icon: Home, labelKey: 'dashboard', label: 'Dashboard' },
+  { id: 'map', icon: Map, labelKey: 'mapView', label: '3D Map View' },
+  { id: 'schemes', icon: Briefcase, labelKey: 'govSchemes', label: 'Government Schemes' },
+  { id: 'anonymous-reports', icon: Shield, labelKey: 'citizenReports', label: 'Citizen Reports' },
+  { id: 'settings', icon: Settings, labelKey: 'settings', label: 'Settings' },
 ];
 
 export default function Sidebar() {
-  const { activeView, setActiveView, sidebarCollapsed, toggleSidebar, alerts, userRole } = useVillageStore();
-
-  const unreadAlerts = alerts.filter(a => a.type === 'critical').length;
+  const { activeView, setActiveView, sidebarCollapsed, toggleSidebar, userRole } = useVillageStore();
+  const { t } = useLanguage();
 
   // Filter menu items based on user role
   const getMenuItems = () => {
@@ -94,7 +88,6 @@ export default function Sidebar() {
           {getMenuItems().map((item) => {
             const Icon = item.icon;
             const isActive = activeView === item.id;
-            const showBadge = item.id === 'alerts' && unreadAlerts > 0;
 
             return (
               <button
@@ -105,19 +98,14 @@ export default function Sidebar() {
                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' 
                     : 'text-slate-400 hover:bg-white/5 hover:text-white'
                 }`}
-                title={sidebarCollapsed ? item.label : ''}
+                title={sidebarCollapsed ? t(item.labelKey, item.label) : ''}
               >
                 <Icon size={20} className="flex-shrink-0" />
                 {!sidebarCollapsed && (
                   <>
                     <span className="text-sm font-medium flex-1 text-left whitespace-nowrap">
-                      {item.label}
+                      {t(item.labelKey, item.label)}
                     </span>
-                    {showBadge && (
-                      <span className="px-2 py-0.5 bg-red-500 text-white text-xs rounded-full flex-shrink-0">
-                        {unreadAlerts}
-                      </span>
-                    )}
                   </>
                 )}
               </button>

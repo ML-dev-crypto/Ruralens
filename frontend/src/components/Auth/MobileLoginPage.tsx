@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { User, Shield, Briefcase, ArrowLeft, Mail, Lock, Loader, AlertCircle } from 'lucide-react';
 import { useVillageStore } from '../../store/villageStore';
 import { API_URL } from '../../config/api';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface MobileLoginPageProps {
   onBack?: () => void;
@@ -17,6 +18,9 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
   const [loading, setLoading] = useState(false);
   
   const login = useVillageStore((state) => state.login);
+  const { lang, toggleLang } = useLanguage();
+  const hi = lang === 'hi';
+  const tx = (en: string, hiText: string) => (hi ? hiText : en);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,6 +111,14 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
   if (!selectedRole) {
     return (
       <div className="min-h-screen bg-slate-950 text-white p-6 flex flex-col">
+        <div className="flex items-center justify-end mb-2">
+          <button
+            onClick={toggleLang}
+            className="text-xs font-semibold px-3 py-1.5 rounded-full border border-white/15 text-slate-300 hover:text-white hover:border-white/30"
+          >
+            {hi ? 'EN' : 'हि'}
+          </button>
+        </div>
         {onBack && (
           <button onClick={onBack} className="self-start mb-6 p-2 -ml-2 text-slate-400">
             <ArrowLeft size={24} />
@@ -115,40 +127,40 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
         
         <div className="flex flex-col items-center mb-10 mt-4">
           <img src="/ruralens-logo.png" alt="Logo" className="w-16 h-16 mb-4" />
-          <h1 className="text-2xl font-bold">Welcome to RuraLens</h1>
-          <p className="text-slate-400 text-sm">Select your role to continue</p>
+          <h1 className="text-2xl font-bold">{tx('Welcome to RuraLens', 'RuraLens में आपका स्वागत है')}</h1>
+          <p className="text-slate-400 text-sm">{tx('Select your role to continue', 'जारी रखने के लिए भूमिका चुनें')}</p>
         </div>
 
         <div className="space-y-4 flex-1">
           <RoleCard 
             icon={User} 
-            title="Citizen" 
-            desc="View schemes & report issues"
+            title={hi ? 'नागरिक' : 'Citizen'} 
+            desc={hi ? 'योजनाएं देखें और मुद्दे रिपोर्ट करें' : 'View schemes and report issues'}
             onClick={() => setSelectedRole('user')}
             color="bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
           />
           <RoleCard 
             icon={Briefcase} 
-            title="Field Worker" 
-            desc="Update status & verify reports"
+            title={hi ? 'फील्ड वर्कर' : 'Field Worker'} 
+            desc={hi ? 'स्टेटस अपडेट करें और रिपोर्ट सत्यापित करें' : 'Update status and verify reports'}
             onClick={() => setSelectedRole('field_worker')}
             color="bg-orange-500/10 border-orange-500/20 text-orange-400"
           />
           <RoleCard 
             icon={Shield} 
-            title="Administrator" 
-            desc="Manage village infrastructure"
+            title={hi ? 'प्रशासक' : 'Administrator'} 
+            desc={hi ? 'इंफ्रास्ट्रक्चर प्रबंधन करें' : 'Manage infrastructure operations'}
             onClick={() => setSelectedRole('admin')}
             color="bg-purple-500/10 border-purple-500/20 text-purple-400"
           />
         </div>
 
         <div className="mt-8">
-          <p className="text-center text-xs text-slate-500 uppercase tracking-widest mb-4">Quick Demo Access</p>
+          <p className="text-center text-xs text-slate-500 uppercase tracking-widest mb-4">{tx('Quick Demo Access', 'त्वरित डेमो एक्सेस')}</p>
           <div className="grid grid-cols-3 gap-2">
-            <DemoButton label="Citizen" onClick={() => quickLogin('citizen@village.com', 'user123', 'user')} />
-            <DemoButton label="Worker" onClick={() => quickLogin('field@village.com', 'field123', 'field_worker')} />
-            <DemoButton label="Admin" onClick={() => quickLogin('admin@village.com', 'admin123', 'admin')} />
+            <DemoButton label={tx('Citizen', 'नागरिक')} onClick={() => quickLogin('citizen@village.com', 'user123', 'user')} />
+            <DemoButton label={tx('Worker', 'वर्कर')} onClick={() => quickLogin('field@village.com', 'field123', 'field_worker')} />
+            <DemoButton label={tx('Admin', 'एडमिन')} onClick={() => quickLogin('admin@village.com', 'admin123', 'admin')} />
           </div>
         </div>
       </div>
@@ -162,16 +174,16 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
         className="self-start mb-8 flex items-center gap-2 text-slate-400"
       >
         <ArrowLeft size={20} />
-        <span className="text-sm">Back to Roles</span>
+        <span className="text-sm">{tx('Back to Roles', 'भूमिकाओं पर वापस')}</span>
       </button>
 
       <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-2">
-            {isRegister ? 'Create Account' : 'Welcome Back'}
+            {isRegister ? tx('Create Account', 'खाता बनाएं') : tx('Welcome Back', 'फिर से स्वागत है')}
           </h2>
           <p className="text-slate-400 text-sm">
-            Login as <span className="text-white font-medium capitalize">{selectedRole.replace('_', ' ')}</span>
+            {tx('Login as', 'लॉगिन करें:')} <span className="text-white font-medium capitalize">{selectedRole.replace('_', ' ')}</span>
           </p>
         </div>
 
@@ -185,7 +197,7 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           {isRegister && (
             <div className="space-y-1">
-              <label className="text-xs text-slate-400 ml-1">Full Name</label>
+              <label className="text-xs text-slate-400 ml-1">{tx('Full Name', 'पूरा नाम')}</label>
               <div className="relative">
                 <User size={18} className="absolute left-3 top-3.5 text-slate-500" />
                 <input
@@ -193,7 +205,7 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
-                  placeholder="John Doe"
+                  placeholder={tx('John Doe', 'आपका नाम')}
                   required={isRegister}
                 />
               </div>
@@ -201,7 +213,7 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
           )}
 
           <div className="space-y-1">
-            <label className="text-xs text-slate-400 ml-1">Email Address</label>
+            <label className="text-xs text-slate-400 ml-1">{tx('Email Address', 'ईमेल पता')}</label>
             <div className="relative">
               <Mail size={18} className="absolute left-3 top-3.5 text-slate-500" />
               <input
@@ -209,14 +221,14 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
-                placeholder="name@example.com"
+                placeholder={tx('name@example.com', 'नाम@example.com')}
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs text-slate-400 ml-1">Password</label>
+            <label className="text-xs text-slate-400 ml-1">{tx('Password', 'पासवर्ड')}</label>
             <div className="relative">
               <Lock size={18} className="absolute left-3 top-3.5 text-slate-500" />
               <input
@@ -224,7 +236,7 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
-                placeholder="••••••••"
+                placeholder={tx('••••••••', '••••••••')}
                 required
                 minLength={6}
               />
@@ -236,7 +248,7 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
             disabled={loading}
             className="w-full py-3.5 rounded-xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-all mt-4 flex items-center justify-center gap-2"
           >
-            {loading ? <Loader size={20} className="animate-spin" /> : (isRegister ? 'Create Account' : 'Sign In')}
+            {loading ? <Loader size={20} className="animate-spin" /> : (isRegister ? tx('Create Account', 'खाता बनाएं') : tx('Sign In', 'साइन इन'))}
           </button>
         </form>
 
@@ -245,7 +257,7 @@ export default function MobileLoginPage({ onBack }: MobileLoginPageProps) {
             onClick={() => { setIsRegister(!isRegister); setError(''); }}
             className="text-sm text-slate-400 hover:text-white transition-colors"
           >
-            {isRegister ? 'Already have an account? Sign in' : 'Need an account? Register'}
+            {isRegister ? tx('Already have an account? Sign in', 'पहले से खाता है? साइन इन करें') : tx('Need an account? Register', 'खाता चाहिए? रजिस्टर करें')}
           </button>
         </div>
       </div>

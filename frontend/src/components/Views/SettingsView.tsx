@@ -12,9 +12,12 @@ import {
   Upload
 } from 'lucide-react';
 import { useVillageStore } from '../../store/villageStore';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export default function SettingsView() {
   const { userRole, username } = useVillageStore();
+  const { lang } = useLanguage();
+  const tx = (en: string, hi: string) => (lang === 'hi' ? hi : en);
   const [activeTab, setActiveTab] = useState('general');
   const [settings, setSettings] = useState({
     notifications: {
@@ -40,12 +43,12 @@ export default function SettingsView() {
   });
 
   const tabs = [
-    { id: 'general', icon: Settings, label: 'General' },
-    { id: 'profile', icon: User, label: 'Profile' },
-    { id: 'notifications', icon: Bell, label: 'Notifications' },
-    { id: 'display', icon: Monitor, label: 'Display' },
-    { id: 'privacy', icon: Lock, label: 'Privacy' },
-    { id: 'data', icon: Database, label: 'Data Management' },
+    { id: 'general', icon: Settings, label: tx('General', 'सामान्य') },
+    { id: 'profile', icon: User, label: tx('Profile', 'प्रोफाइल') },
+    { id: 'notifications', icon: Bell, label: tx('Notifications', 'सूचनाएं') },
+    { id: 'display', icon: Monitor, label: tx('Display', 'डिस्प्ले') },
+    { id: 'privacy', icon: Lock, label: tx('Privacy', 'गोपनीयता') },
+    { id: 'data', icon: Database, label: tx('Data Management', 'डेटा प्रबंधन') },
   ];
 
   return (
@@ -53,8 +56,8 @@ export default function SettingsView() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Settings</h1>
-          <p className="text-slate-400">Manage your preferences and account settings</p>
+          <h1 className="text-3xl font-bold text-white mb-2">{tx('Settings', 'सेटिंग्स')}</h1>
+          <p className="text-slate-400">{tx('Manage your preferences and account settings', 'अपनी प्राथमिकताएं और खाता सेटिंग्स प्रबंधित करें')}</p>
         </div>
 
         <div className="flex gap-6">
@@ -83,12 +86,12 @@ export default function SettingsView() {
           <div className="flex-1 bg-slate-900/50 backdrop-blur-md rounded-xl p-8 border border-white/10">
             {activeTab === 'general' && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white mb-6">General Settings</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{tx('General Settings', 'सामान्य सेटिंग्स')}</h2>
                 
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      System Name
+                      {tx('System Name', 'सिस्टम नाम')}
                     </label>
                     <input
                       type="text"
@@ -100,7 +103,7 @@ export default function SettingsView() {
 
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Location
+                      {tx('Location', 'स्थान')}
                     </label>
                     <input
                       type="text"
@@ -112,7 +115,7 @@ export default function SettingsView() {
 
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Time Zone
+                      {tx('Time Zone', 'समय क्षेत्र')}
                     </label>
                     <select
                       value={settings.display.timezone}
@@ -132,7 +135,7 @@ export default function SettingsView() {
 
             {activeTab === 'profile' && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white mb-6">Profile Information</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{tx('Profile Information', 'प्रोफाइल जानकारी')}</h2>
                 
                 <div className="flex items-center gap-6 mb-8">
                   <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-3xl font-bold text-white">
@@ -147,18 +150,18 @@ export default function SettingsView() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Full Name
+                      {tx('Full Name', 'पूरा नाम')}
                     </label>
                     <input
                       type="text"
-                      placeholder="Enter your full name"
+                      placeholder={tx('Enter your full name', 'अपना पूरा नाम दर्ज करें')}
                       className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white placeholder-slate-500"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Email
+                      {tx('Email', 'ईमेल')}
                     </label>
                     <input
                       type="email"
@@ -169,7 +172,7 @@ export default function SettingsView() {
 
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Phone Number
+                      {tx('Phone Number', 'फोन नंबर')}
                     </label>
                     <input
                       type="tel"
@@ -183,21 +186,25 @@ export default function SettingsView() {
 
             {activeTab === 'notifications' && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white mb-6">Notification Preferences</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{tx('Notification Preferences', 'सूचना प्राथमिकताएं')}</h2>
                 
                 <div className="space-y-4">
                   {Object.entries(settings.notifications).map(([key, value]) => (
                     <div key={key} className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg border border-white/10">
                       <div>
                         <p className="text-white font-medium capitalize">
-                          {key.replace(/([A-Z])/g, ' $1').trim()}
+                          {key === 'email' && tx('Email', 'ईमेल')}
+                          {key === 'sms' && tx('SMS', 'एसएमएस')}
+                          {key === 'push' && tx('Push', 'पुश')}
+                          {key === 'criticalAlerts' && tx('Critical Alerts', 'गंभीर अलर्ट')}
+                          {key === 'dailyReport' && tx('Daily Report', 'दैनिक रिपोर्ट')}
                         </p>
                         <p className="text-sm text-slate-400">
-                          {key === 'email' && 'Receive notifications via email'}
-                          {key === 'sms' && 'Receive SMS alerts for critical issues'}
-                          {key === 'push' && 'Browser push notifications'}
-                          {key === 'criticalAlerts' && 'Immediate alerts for critical infrastructure issues'}
-                          {key === 'dailyReport' && 'Daily summary report at 9:00 AM'}
+                          {key === 'email' && tx('Receive notifications via email', 'ईमेल के माध्यम से सूचनाएं प्राप्त करें')}
+                          {key === 'sms' && tx('Receive SMS alerts for critical issues', 'गंभीर समस्याओं के लिए एसएमएस अलर्ट प्राप्त करें')}
+                          {key === 'push' && tx('Browser push notifications', 'ब्राउज़र पुश सूचनाएं')}
+                          {key === 'criticalAlerts' && tx('Immediate alerts for critical infrastructure issues', 'गंभीर अवसंरचना समस्याओं पर तुरंत अलर्ट')}
+                          {key === 'dailyReport' && tx('Daily summary report at 9:00 AM', 'रोजाना सुबह 9:00 बजे सारांश रिपोर्ट')}
                         </p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
@@ -220,12 +227,12 @@ export default function SettingsView() {
 
             {activeTab === 'display' && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white mb-6">Display Settings</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{tx('Display Settings', 'डिस्प्ले सेटिंग्स')}</h2>
                 
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Theme
+                      {tx('Theme', 'थीम')}
                     </label>
                     <select
                       value={settings.display.theme}
@@ -235,15 +242,15 @@ export default function SettingsView() {
                       })}
                       className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white"
                     >
-                      <option value="dark">Dark</option>
-                      <option value="light">Light</option>
-                      <option value="auto">Auto</option>
+                      <option value="dark">{tx('Dark', 'डार्क')}</option>
+                      <option value="light">{tx('Light', 'लाइट')}</option>
+                      <option value="auto">{tx('Auto', 'ऑटो')}</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Map Style
+                      {tx('Map Style', 'मैप शैली')}
                     </label>
                     <select
                       value={settings.display.mapStyle}
@@ -253,15 +260,15 @@ export default function SettingsView() {
                       })}
                       className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white"
                     >
-                      <option value="satellite">Satellite</option>
-                      <option value="streets">Streets</option>
-                      <option value="terrain">Terrain</option>
+                      <option value="satellite">{tx('Satellite', 'सैटेलाइट')}</option>
+                      <option value="streets">{tx('Streets', 'सड़कें')}</option>
+                      <option value="terrain">{tx('Terrain', 'टेर्रेन')}</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Auto Refresh Interval (seconds)
+                      {tx('Auto Refresh Interval (seconds)', 'ऑटो रिफ्रेश अंतराल (सेकंड)')}
                     </label>
                     <input
                       type="number"
@@ -281,30 +288,30 @@ export default function SettingsView() {
 
             {activeTab === 'data' && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white mb-6">Data Management</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{tx('Data Management', 'डेटा प्रबंधन')}</h2>
                 
                 <div className="grid gap-4">
                   <button className="flex items-center gap-3 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg text-blue-400 hover:bg-blue-500/20 transition-all">
                     <Download size={20} />
                     <div className="text-left flex-1">
-                      <p className="font-semibold">Export Data</p>
-                      <p className="text-sm text-blue-400/80">Download all infrastructure data as CSV/JSON</p>
+                      <p className="font-semibold">{tx('Export Data', 'डेटा एक्सपोर्ट करें')}</p>
+                      <p className="text-sm text-blue-400/80">{tx('Download all infrastructure data as CSV/JSON', 'सभी अवसंरचना डेटा को CSV/JSON में डाउनलोड करें')}</p>
                     </div>
                   </button>
 
                   <button className="flex items-center gap-3 p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg text-purple-400 hover:bg-purple-500/20 transition-all">
                     <Upload size={20} />
                     <div className="text-left flex-1">
-                      <p className="font-semibold">Import Data</p>
-                      <p className="text-sm text-purple-400/80">Upload sensor data or configuration files</p>
+                      <p className="font-semibold">{tx('Import Data', 'डेटा इम्पोर्ट करें')}</p>
+                      <p className="text-sm text-purple-400/80">{tx('Upload sensor data or configuration files', 'सेंसर डेटा या कॉन्फ़िगरेशन फ़ाइलें अपलोड करें')}</p>
                     </div>
                   </button>
 
                   <button className="flex items-center gap-3 p-4 bg-orange-500/10 border border-orange-500/20 rounded-lg text-orange-400 hover:bg-orange-500/20 transition-all">
                     <RefreshCw size={20} />
                     <div className="text-left flex-1">
-                      <p className="font-semibold">Reset Dashboard</p>
-                      <p className="text-sm text-orange-400/80">Reset all views to default configuration</p>
+                      <p className="font-semibold">{tx('Reset Dashboard', 'डैशबोर्ड रीसेट करें')}</p>
+                      <p className="text-sm text-orange-400/80">{tx('Reset all views to default configuration', 'सभी व्यू को डिफ़ॉल्ट कॉन्फ़िगरेशन पर रीसेट करें')}</p>
                     </div>
                   </button>
                 </div>
@@ -315,10 +322,10 @@ export default function SettingsView() {
             <div className="mt-8 flex gap-4">
               <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg hover:shadow-lg transition-all">
                 <Save size={20} />
-                Save Changes
+                {tx('Save Changes', 'परिवर्तन सहेजें')}
               </button>
               <button className="px-6 py-3 border border-white/10 text-slate-300 rounded-lg hover:bg-slate-800 transition-all">
-                Cancel
+                {tx('Cancel', 'रद्द करें')}
               </button>
             </div>
           </div>
