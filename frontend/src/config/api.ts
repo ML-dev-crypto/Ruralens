@@ -2,7 +2,7 @@
 // Automatically detects environment and uses appropriate backend URL
 
 // Production backend URL (deployed on Render)
-const PRODUCTION_API_URL = 'https://village-digital-twin.onrender.com';
+const PRODUCTION_API_URL = 'https://ruralens-backend.onrender.com';
 
 // Local development - use localhost
 const LOCAL_DEV_HOST = 'localhost';
