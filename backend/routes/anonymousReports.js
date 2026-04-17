@@ -14,7 +14,7 @@ import {
   generateVoterId,
   calculateEscalationDeadline,
   getAuthorityDetails
-} from '../utils/blockchainService.js';
+} from '../utils/escalationService.js';
 
 const router = express.Router();
 
@@ -291,17 +291,11 @@ router.post('/:id/escalate', async (req, res) => {
       });
     }
 
-    // Get previous hash
-    const previousHash = report.escalationHistory.length > 0
-      ? report.escalationHistory[report.escalationHistory.length - 1].currentHash
-      : null;
-
     // Create escalation record
-    const escalationRecord = createEscalationRecord(
+    const escalationRecord = await createEscalationRecord(
       report.id,
       nextLevel.level,
-      reason || 'Issue not resolved within timeframe',
-      previousHash
+      reason || 'Issue not resolved within timeframe'
     );
 
     // Update report
@@ -336,8 +330,7 @@ router.post('/:id/escalate', async (req, res) => {
       message: `Report escalated to ${nextLevel.title}`,
       newLevel: nextLevel.level,
       authority: nextLevel.title,
-      newDeadline: report.escalationDeadline,
-      escalationHash: escalationRecord.currentHash
+      newDeadline: report.escalationDeadline
     });
 
   } catch (error) {
@@ -536,7 +529,7 @@ router.get('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Report not found' });
     }
 
-    // Verify escalation chain integrity
+    // Verify escalation timeline integrity
     const chainVerification = verifyEscalationChain(report.escalationHistory);
 
     res.json({
@@ -552,7 +545,7 @@ router.get('/:id', async (req, res) => {
         currentAuthority: getAuthorityDetails(report.currentEscalationLevel),
         escalationDeadline: report.escalationDeadline,
         escalationHistory: report.escalationHistory,
-        chainIntegrity: chainVerification,
+        escalationIntegrity: chainVerification,
         statusUpdates: report.statusUpdates,
         votes: {
           upvotes: report.upvoteCount,

@@ -1,345 +1,315 @@
-import { 
-  ArrowRight, 
-  ShieldCheck, 
-  Users, 
-  Database,
-  Globe2,
-  Zap,
-  Activity,
-  Droplets,
-  Building2,
-  Landmark,
-  Handshake,
-} from 'lucide-react';
+import { ArrowRight, Activity, Bot, GitBranch, ShieldAlert } from 'lucide-react';
+import { useLanguage } from '../../i18n/LanguageContext';
+import ragImg from '../../../assets/RAG.jpeg';
+import gnnImg from '../../../assets/gnn.jpeg';
+import discrepancyImg from '../../../assets/discrepency.jpeg';
+import sdg6Img from '../../../assets/sdg6.jpeg';
+import sdg9Img from '../../../assets/sdg9.jpeg';
+import sdg11Img from '../../../assets/sdg11.jpeg';
+import sdg16Img from '../../../assets/sdg16.jpeg';
 
 interface LandingPageProps {
   onGetStarted: () => void;
 }
 
-const SDG_LIST = [
+const FEATURE_RAILS = [
   {
-    number: 6,
-    title: 'Clean Water & Sanitation',
-    desc: 'Real-time monitoring of water pipelines, pumps and tanks ensures safe, continuous water supply.',
-    color: 'bg-blue-100 border-blue-300',
-    textColor: 'text-blue-700',
-    icon: <Droplets size={22} className="text-blue-600" />,
-    badge: 'SDG 6',
-    badgeColor: 'bg-blue-600',
+    id: '01',
+    title: { hi: 'RAG ज्ञान इंजन', en: 'RAG Knowledge Engine' },
+    subtitle: { hi: 'नीति, योजना और अनुपालन से जुड़े प्रश्न साधारण भाषा में पूछें।', en: 'Ask policy, scheme, and compliance questions in plain language.' },
+    desc: { hi: 'Retrieval-Augmented Generation सरकारी परिपत्र, टेंडर रिकॉर्ड और योजना दस्तावेज़ खोजकर अधिकारियों और नागरिकों को तथ्य-आधारित उत्तर देता है।', en: 'Retrieval-Augmented Generation searches circulars, tenders, and scheme manuals to return grounded answers for officers and citizens.' },
+    icon: Bot,
+    image: ragImg,
+    accent: 'from-emerald-500/25 to-lime-300/10'
   },
   {
-    number: 9,
-    title: 'Industry, Innovation & Infrastructure',
-    desc: 'AI-powered digital twins and IoT sensor grids drive smarter infrastructure planning and maintenance.',
-    color: 'bg-orange-50 border-orange-300',
-    textColor: 'text-orange-700',
-    icon: <Building2 size={22} className="text-orange-600" />,
-    badge: 'SDG 9',
-    badgeColor: 'bg-orange-500',
+    id: '02',
+    title: { hi: 'GNN प्रभाव पूर्वानुमान', en: 'GNN Impact Forecaster' },
+    subtitle: { hi: 'एक विफलता पूरे इंफ्रास्ट्रक्चर में कैसे फैलती है, इसका पूर्वानुमान।', en: 'Model how one failure can ripple across infrastructure.' },
+    desc: { hi: 'Graph Neural Networks पंप, टैंक, सड़क और बिजली नोड्स के बीच छिपे संबंधों को मैप करके सेवा बाधा का पहले से अनुमान लगाता है।', en: 'Graph Neural Networks map hidden dependencies between pumps, tanks, roads, and power nodes to forecast disruption.' },
+    icon: GitBranch,
+    image: gnnImg,
+    accent: 'from-teal-500/25 to-green-300/10'
   },
   {
-    number: 11,
-    title: 'Sustainable Cities & Communities',
-    desc: 'Spatial digital twin mapping and predictive analytics support long-term urban-rural planning.',
-    color: 'bg-yellow-50 border-yellow-300',
-    textColor: 'text-yellow-700',
-    icon: <Globe2 size={22} className="text-yellow-600" />,
-    badge: 'SDG 11',
-    badgeColor: 'bg-yellow-500',
+    id: '03',
+    title: { hi: 'डिस्क्रेपेंसी डिटेक्टर', en: 'Discrepancy Detector' },
+    subtitle: { hi: 'योजना माइलस्टोन की फील्ड और वेंडर साक्ष्य से स्वचालित तुलना।', en: 'Auto-compare milestones against field and vendor evidence.' },
+    desc: { hi: 'रिपोर्ट, इनवॉइस, जियोटैग और दस्तावेज़ साक्ष्य को जोड़कर बजट लीकेज, प्रगति असंगति और समय-सीमा देरी पकड़ता है।', en: 'Detects budget leakage, progress mismatch, and timeline slippage by correlating reports and evidence.' },
+    icon: ShieldAlert,
+    image: discrepancyImg,
+    accent: 'from-lime-500/20 to-emerald-300/10'
   },
   {
-    number: 16,
-    title: 'Peace, Justice & Strong Institutions',
-    desc: 'Transparent fund tracking and anonymous citizen reporting strengthen accountability and public trust.',
-    color: 'bg-sky-50 border-sky-300',
-    textColor: 'text-sky-700',
-    icon: <Landmark size={22} className="text-sky-600" />,
-    badge: 'SDG 16',
-    badgeColor: 'bg-sky-600',
-  },
-  {
-    number: 17,
-    title: 'Partnerships for the Goals',
-    desc: 'Open APIs and interoperable data layers enable collaboration across government bodies and NGOs.',
-    color: 'bg-indigo-50 border-indigo-300',
-    textColor: 'text-indigo-700',
-    icon: <Handshake size={22} className="text-indigo-600" />,
-    badge: 'SDG 17',
-    badgeColor: 'bg-indigo-600',
-  },
+    id: '04',
+    title: { hi: 'गुमनाम शिकायत रिपोर्टिंग', en: 'Anonymous Issue Reporting' },
+    subtitle: { hi: 'लोग सुरक्षित रूप से रिपोर्ट करें, और प्रशासन तेजी से समाधान करे।', en: 'Residents report safely while teams resolve quickly.' },
+    desc: { hi: 'नागरिक गोपनीयता-सुरक्षित तरीके से लोकेशन-आधारित शिकायतें दर्ज करते हैं। केस स्वतः एस्केलेट होते हैं और पूरी टाइमलाइन ट्रेसेबल रहती है।', en: 'Citizens submit location-based issues with privacy protection and traceable escalation timelines.' },
+    icon: Activity,
+    image: sdg16Img,
+    accent: 'from-green-500/25 to-emerald-200/10'
+  }
 ];
 
-export default function LandingPage({ onGetStarted }: LandingPageProps) {
-  return (
-    <div className="bg-stone-50 font-sans text-stone-800 overflow-x-hidden">
+const SDG_BLOCKS = [
+  {
+    goal: 'SDG 6',
+    title: { hi: 'स्वच्छ जल और स्वच्छता', en: 'Clean Water and Sanitation' },
+    icon: sdg6Img,
+    photo: sdg6Img,
+    objectPosition: 'object-center'
+  },
+  {
+    goal: 'SDG 9',
+    title: { hi: 'उद्योग, नवाचार और अवसंरचना', en: 'Industry, Innovation and Infrastructure' },
+    icon: sdg9Img,
+    photo: sdg9Img,
+    objectPosition: 'object-center'
+  },
+  {
+    goal: 'SDG 11',
+    title: { hi: 'टिकाऊ शहर और समुदाय', en: 'Sustainable Cities and Communities' },
+    icon: sdg11Img,
+    photo: sdg11Img,
+    objectPosition: 'object-center'
+  },
+  {
+    goal: 'SDG 16',
+    title: { hi: 'शांति, न्याय और सशक्त संस्थान', en: 'Peace, Justice and Strong Institutions' },
+    icon: sdg16Img,
+    photo: sdg16Img,
+    objectPosition: 'object-[50%_35%]'
+  }
+];
 
-      {/* ── NAVBAR ── */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-stone-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+const SDG_IMAGE_FALLBACK =
+  'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=1400&auto=format&fit=crop';
+const HERO_CITY_IMAGE =
+  'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop';
+
+export default function LandingPage({ onGetStarted }: LandingPageProps) {
+  const { t, lang, toggleLang } = useLanguage();
+  const hi = lang === 'hi';
+  const tx = (en: string, hiText: string) => (hi ? hiText : en);
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-[#fdfcf6] via-[#f6f5ec] to-[#eef2e6] text-[#1f2b24]">
+      <header className="sticky top-0 z-50 border-b border-[#dce5d1] bg-[#fbfbf3]/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <img src="/ruralens-logo.png" alt="RuraLens" className="w-9 h-9 object-contain" />
-            <span className="text-lg font-bold text-stone-900 tracking-tight">RuraLens</span>
+            <img src="/ruralens-logo.png" alt="RuraLens" className="h-10 w-10 object-contain" />
+            <div>
+              <p className="text-2xl font-extrabold tracking-tight text-[#1a2c24]">{t('appBrand', 'RuraLens')}</p>
+              <p className="text-xs font-medium text-[#5f7769]">{t('appTagline', 'AI Governance Twin')}</p>
+            </div>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
-            <a href="#features" className="hover:text-blue-600">Platform</a>
-            <a href="#sdgs" className="hover:text-blue-600">SDGs</a>
-            <a href="#stats" className="hover:text-blue-600">Impact</a>
+          <nav className="hidden items-center gap-8 text-sm font-semibold text-[#4f665a] md:flex">
+            <a href="#features" className="hover:text-[#1f5f46]">{t('capabilities', 'Capabilities')}</a>
+            <a href="#sdgs" className="hover:text-[#1f5f46]">{t('sdgs', 'SDGs')}</a>
+            <a href="#impact" className="hover:text-[#1f5f46]">{t('impact', 'Impact')}</a>
           </nav>
-
+          <button
+            onClick={toggleLang}
+            className="rounded-lg border border-[#9cb7a6] px-3 py-1.5 text-xs font-bold text-[#2a5f46]"
+          >
+            {lang === 'hi' ? 'EN' : 'हि'}
+          </button>
           <button
             onClick={onGetStarted}
-            className="px-5 py-2 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700"
+            className="rounded-full border border-[#8dad9a] bg-gradient-to-r from-[#d7e8dc] to-[#c7ddcf] px-6 py-2.5 text-sm font-bold text-[#1b3f31] shadow-sm transition hover:from-[#cde1d2] hover:to-[#bdd5c5]"
           >
-            Sign In
+            {t('enterPlatform', 'Enter Platform')}
           </button>
         </div>
       </header>
 
-      {/* ── HERO ── */}
-      <section className="max-w-7xl mx-auto px-6 pt-16 pb-20 grid md:grid-cols-2 gap-12 items-center">
-        <div className="space-y-6">
-          <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold uppercase tracking-wide">
-            Next-Gen GovTech Platform
-          </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 leading-tight">
-            The Digital Twin for<br />
-            <span className="text-blue-600">Smart Governance</span>
+      <section className="mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-14 md:grid-cols-2 md:items-center">
+        <div>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#c2d7c8] bg-[#edf6ec] px-4 py-1.5 text-xs font-bold tracking-wide text-[#2f614b]">
+            {tx('Unified Civic Intelligence Platform', 'एकीकृत नागरिक इंटेलिजेंस प्लेटफॉर्म')}
+          </div>
+          <h1 className="text-5xl font-black leading-[1.05] text-[#19372c] md:text-6xl">
+            {tx('Governance that feels', 'ऐसा शासन जो हो')}
+            <span className="block bg-gradient-to-r from-[#2f7a5b] to-[#78a66f] bg-clip-text text-transparent">
+              {tx('predictive, accountable, and human.', 'पूर्वानुमेय, जवाबदेह और मानवीय।')}
+            </span>
           </h1>
-          <p className="text-lg text-stone-600 leading-relaxed max-w-lg">
-            Empowering administrations with real-time infrastructure monitoring, transparent fund tracking, and AI-driven insights — all in one unified platform.
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#4f665a]">
+            {tx('A living civic intelligence surface combining RAG, GNN, discrepancy forensics, and privacy-first issue reporting for faster and fairer administration.', 'RAG, GNN, डिस्क्रेपेंसी फॉरेंसिक्स और गोपनीयता-प्रथम शिकायत प्रणाली का एकीकृत प्लेटफॉर्म, ताकि प्रशासन तेज, निष्पक्ष और पारदर्शी बने।')}
           </p>
-          <div className="flex flex-wrap gap-4 pt-2">
+
+          <div className="mt-8 flex flex-wrap gap-4">
             <button
               onClick={onGetStarted}
-              className="flex items-center gap-2 px-7 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700"
+              className="inline-flex items-center gap-2 rounded-full bg-[#1f5f46] px-8 py-3 font-semibold text-[#f5fbf4] shadow-lg shadow-[#366a52]/20 transition hover:bg-[#194d39]"
             >
-              Launch Platform <ArrowRight size={16} />
+                  {t('launchDashboard', 'Launch Dashboard')}
+              <ArrowRight size={18} />
             </button>
-            <button
-              onClick={() => window.open('https://youtu.be/K7QxVA4PYDA', '_blank')}
-              className="flex items-center gap-2 px-7 py-3 bg-white border border-stone-300 text-stone-700 rounded-full font-semibold hover:border-stone-400"
+            <a
+              href="#features"
+              className="rounded-full border border-[#adc5b6] bg-[#fbfdf8] px-8 py-3 font-semibold text-[#2f614b] transition hover:bg-[#f1f7ee]"
             >
-              <svg className="w-5 h-5 text-red-600" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              Watch Demo
-            </button>
+                  {tx('Explore Stack', 'फीचर देखें')}
+            </a>
           </div>
         </div>
 
-        {/* Hero image */}
-        <div className="rounded-2xl overflow-hidden shadow-lg border border-stone-200">
-          <img
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&auto=format&fit=crop&q=80"
-            alt="Smart governance dashboard analytics"
-            className="w-full h-72 md:h-96 object-cover"
-            loading="eager"
-          />
-        </div>
-      </section>
-
-      {/* ── STATS ── */}
-      <section id="stats" className="bg-blue-600 py-14">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-          <StatItem value="600K+" label="Localities Monitored" />
-          <StatItem value="₹2.4T" label="Funds Tracked" />
-          <StatItem value="10M+" label="Daily Data Points" />
-          <StatItem value="99.9%" label="Uptime SLA" />
-        </div>
-      </section>
-
-      {/* ── PLATFORM IMAGE STRIP ── */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="rounded-xl overflow-hidden shadow border border-stone-200">
+        <div className="relative">
+          <div className="overflow-hidden rounded-[28px] border border-[#cfdccc] bg-[#f8fbf4] p-3 shadow-xl shadow-[#8fa88e]/20">
             <img
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop&q=80"
-              alt="Water infrastructure monitoring"
-              className="w-full h-48 object-cover"
-              loading="lazy"
+              src={HERO_CITY_IMAGE}
+              alt="सिटी गवर्नेंस"
+              className="h-[420px] w-full rounded-2xl object-cover"
             />
-            <div className="p-4 bg-white">
-              <p className="font-semibold text-stone-800">Water Infrastructure</p>
-              <p className="text-sm text-stone-500 mt-1">Live sensor feeds from pipelines, tanks and pumping stations.</p>
-            </div>
           </div>
-          <div className="rounded-xl overflow-hidden shadow border border-stone-200">
-            <img
-              src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&auto=format&fit=crop&q=80"
-              alt="Government analytics team"
-              className="w-full h-48 object-cover"
-              loading="lazy"
-            />
-            <div className="p-4 bg-white">
-              <p className="font-semibold text-stone-800">Data-Driven Administration</p>
-              <p className="text-sm text-stone-500 mt-1">AI insights help officials make faster, evidence-based decisions.</p>
-            </div>
-          </div>
-          <div className="rounded-xl overflow-hidden shadow border border-stone-200">
-            <img
-              src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&auto=format&fit=crop&q=80"
-              alt="Community engagement"
-              className="w-full h-48 object-cover"
-              loading="lazy"
-            />
-            <div className="p-4 bg-white">
-              <p className="font-semibold text-stone-800">Citizen Engagement</p>
-              <p className="text-sm text-stone-500 mt-1">Anonymous reporting channels connect residents directly to officials.</p>
-            </div>
+          <div className="absolute -bottom-5 -left-5 rounded-2xl border border-[#c8d9ca] bg-[#f5faf0] px-5 py-3 shadow-lg">
+            <p className="text-xs font-semibold tracking-wide text-[#557061]">{tx('LIVE GOVERNANCE GRID', 'लाइव गवर्नेंस ग्रिड')}</p>
+            <p className="text-2xl font-black text-[#204735]">{tx('4 Core Engines', '4 मुख्य इंजन')}</p>
           </div>
         </div>
       </section>
 
-      {/* ── FEATURES ── */}
-      <section id="features" className="bg-white py-20 border-y border-stone-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
-              Comprehensive <span className="text-blue-600">Platform Capabilities</span>
-            </h2>
-            <p className="text-stone-500 max-w-2xl mx-auto text-lg">
-              An integrated suite of enterprise-grade tools designed to modernize infrastructure management and ensure accountability.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <FeatureCard
-              icon={<Zap className="text-blue-600" />}
-              title="IoT Infrastructure Grid"
-              desc="Real-time telemetry from water, power, and environmental sensors with predictive maintenance alerts."
-            />
-            <FeatureCard
-              icon={<ShieldCheck className="text-emerald-600" />}
-              title="Fiscal Transparency"
-              desc="Blockchain-verified fund allocation and utilization tracking to prevent discrepancies."
-            />
-            <FeatureCard
-              icon={<Users className="text-indigo-600" />}
-              title="Citizen Engagement"
-              desc="Secure, anonymous reporting channels connecting residents directly to administration."
-            />
-            <FeatureCard
-              icon={<Database className="text-purple-600" />}
-              title="Neural Search (RAG)"
-              desc="Instant access to thousands of government documents using natural language queries."
-            />
-            <FeatureCard
-              icon={<Globe2 className="text-cyan-600" />}
-              title="Spatial Digital Twin"
-              desc="High-fidelity 3D map visualization of public assets for better planning and response."
-            />
-            <FeatureCard
-              icon={<Activity className="text-rose-600" />}
-              title="Predictive Analytics"
-              desc="Machine learning models that forecast resource needs and potential system failures."
-            />
-          </div>
+      <section id="impact" className="border-y border-[#dbe5d2] bg-[#f2f6ec] py-10">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 text-center md:grid-cols-4">
+          <Metric value="2.8M+" label={tx('Daily Civic Signals', 'दैनिक नागरिक संकेत')} />
+          <Metric value="96.4%" label={tx('Issue Traceability', 'शिकायत ट्रेसबिलिटी')} />
+          <Metric value="3.2x" label={tx('Faster Escalation', 'तेज एस्केलेशन')} />
+          <Metric value="18 States" label={tx('Deployment Footprint', 'तैनाती कवरेज')} />
         </div>
       </section>
 
-      {/* ── UN SDGs ── */}
-      <section id="sdgs" className="py-20 bg-stone-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-14">
-            <span className="inline-block px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wide mb-4">
-              UN Sustainable Development Goals
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
-              Aligned with Global Priorities
-            </h2>
-            <p className="text-stone-500 max-w-2xl mx-auto text-lg">
-              RuraLens directly supports five UN SDGs, helping governments measure and demonstrate real-world impact.
-            </p>
+      <section id="features" className="mx-auto max-w-7xl px-6 py-16">
+        <div className="mb-10 flex items-end justify-between gap-6">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#62836f]">{tx('Core Feature Stack', 'मुख्य फीचर स्टैक')}</p>
+            <h2 className="mt-3 text-4xl font-black text-[#1e3b30]">{tx('Four engines. One seamless command surface.', 'चार इंजन। एक एकीकृत कमांड सतह।')}</h2>
           </div>
+        </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SDG_LIST.map((sdg) => (
-              <div
-                key={sdg.number}
-                className={`rounded-2xl border p-6 ${sdg.color} flex flex-col gap-3`}
+        <div className="space-y-6">
+          {FEATURE_RAILS.map((feature) => {
+            const Icon = feature.icon;
+            return (
+              <article
+                key={feature.id}
+                className="group overflow-hidden rounded-[26px] border border-[#c9d9ca] bg-gradient-to-r from-[#f9fcf5] via-[#f4f8ef] to-[#edf3e7]"
               >
-                <div className="flex items-center gap-3">
-                  <span className={`text-white text-xs font-bold px-2.5 py-1 rounded-full ${sdg.badgeColor}`}>
-                    {sdg.badge}
-                  </span>
-                  {sdg.icon}
+                <div className="grid md:grid-cols-[140px_1fr_280px]">
+                  <div className="flex items-center justify-center border-b border-[#d8e4d5] p-6 md:border-b-0 md:border-r">
+                    <div className="text-center">
+                      <p className="text-4xl font-black text-[#285640]">{feature.id}</p>
+                      <div className="mx-auto mt-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#d7e8dc] text-[#1f5f46]">
+                        <Icon size={20} />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-7 md:p-8">
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#698874]">{feature.subtitle[lang]}</p>
+                    <h3 className="mt-2 text-3xl font-black text-[#1c3a2f]">{feature.title[lang]}</h3>
+                    <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#4f665a]">{feature.desc[lang]}</p>
+                    {feature.id === '03' ? (
+                      <div className="mt-6 space-y-3">
+                        <div className="grid grid-cols-3 gap-2 text-center">
+                          <div className="rounded-xl border border-[#c8ddc9] bg-[#eef6ea] px-2 py-2">
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-[#5f7868]">{tx('Budget Drift', 'बजट ड्रिफ्ट')}</p>
+                            <p className="text-xl font-black text-[#24533f]">-18%</p>
+                          </div>
+                          <div className="rounded-xl border border-[#c8ddc9] bg-[#eef6ea] px-2 py-2">
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-[#5f7868]">{tx('Timeline Risk', 'टाइमलाइन जोखिम')}</p>
+                            <p className="text-xl font-black text-[#24533f]">{tx('High', 'उच्च')}</p>
+                          </div>
+                          <div className="rounded-xl border border-[#c8ddc9] bg-[#eef6ea] px-2 py-2">
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-[#5f7868]">{tx('Evidence Match', 'एविडेंस मैच')}</p>
+                            <p className="text-xl font-black text-[#24533f]">72%</p>
+                          </div>
+                        </div>
+                        <div className="h-2 w-full rounded-full bg-[#dfead9]">
+                          <div className="h-2 w-[78%] rounded-full bg-gradient-to-r from-[#89b35f] via-[#4d9968] to-[#2b6d50]" />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="mt-5 h-2 w-full rounded-full bg-[#dfead9]">
+                        <div className={`h-2 w-2/3 rounded-full bg-gradient-to-r ${feature.accent}`} />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="relative min-h-[180px] md:min-h-full">
+                    <img src={feature.image} alt={feature.title[lang]} className="h-full w-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-l from-[#eaf3e5]/20 to-[#f6fbf2]/65" />
+                  </div>
                 </div>
-                <h3 className={`font-bold text-base ${sdg.textColor}`}>{sdg.title}</h3>
-                <p className="text-stone-600 text-sm leading-relaxed">{sdg.desc}</p>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="sdgs" className="border-t border-[#d9e3d0] bg-[#f7faf3] py-16">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mb-10 text-center">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#67816f]">{tx('UN SDG Visual Alignment', 'UN SDG विज़ुअल अलाइनमेंट')}</p>
+            <h2 className="mt-3 text-4xl font-black text-[#1e3b30]">{tx('SDG imagery integrated into civic operations', 'SDG इमेजरी को नागरिक संचालन से जोड़ा गया')}</h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {SDG_BLOCKS.map((sdg) => (
+              <div key={sdg.goal} className="overflow-hidden rounded-[24px] border border-[#cddac9] bg-[#fbfdf8]">
+                <div className="grid grid-cols-[90px_1fr] items-center border-b border-[#dce5d2] bg-[#f0f6ec] p-4">
+                  <img
+                    src={sdg.icon}
+                    alt={sdg.goal}
+                    className="h-16 w-16 rounded-lg object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = SDG_IMAGE_FALLBACK;
+                    }}
+                  />
+                  <div>
+                    <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#698571]">{sdg.goal}</p>
+                    <h3 className="text-xl font-bold text-[#1f3c31]">{sdg.title[lang]}</h3>
+                  </div>
+                </div>
+                <div className="h-56 w-full overflow-hidden">
+                  <img
+                    src={sdg.photo}
+                    alt={sdg.title[lang]}
+                    className={`h-full w-full object-cover ${sdg.objectPosition}`}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = SDG_IMAGE_FALLBACK;
+                    }}
+                  />
+                </div>
               </div>
             ))}
-
-            {/* UN Logo / Info card */}
-            <div className="rounded-2xl border border-stone-200 bg-white p-6 flex flex-col items-center justify-center text-center gap-3">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Sustainable_Development_Goals.png/800px-Sustainable_Development_Goals.png"
-                alt="UN Sustainable Development Goals"
-                className="w-40 object-contain"
-                loading="lazy"
-              />
-              <p className="text-xs text-stone-500 mt-2">
-                United Nations 2030 Agenda for Sustainable Development
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="bg-blue-600 py-20 px-6 text-center text-white">
-        <h2 className="text-3xl md:text-5xl font-bold mb-5">Ready to Modernize Governance?</h2>
-        <p className="text-blue-100 text-lg max-w-xl mx-auto mb-8">
-          Deploy RuraLens today — join administrations using data to drive accountability, efficiency, and citizen trust.
+      <section className="bg-gradient-to-r from-[#214f3d] to-[#537a5f] py-16 text-center text-[#f4fbf2]">
+        <h2 className="text-4xl font-black">{tx('Build trust faster than issues spread.', 'मुद्दे फैलने से पहले भरोसा बनाइए।')}</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-[#dcecdf]">
+          {tx('Start with one district, then scale to a full-state governance twin without replacing current systems.', 'एक जिले से शुरुआत करें, फिर मौजूदा सिस्टम बदले बिना पूरे राज्य तक स्केल करें।')}
         </p>
         <button
           onClick={onGetStarted}
-          className="px-10 py-4 bg-white text-blue-700 rounded-full font-bold text-lg hover:bg-blue-50"
+          className="mt-8 rounded-full bg-[#f4fbf2] px-10 py-3.5 text-lg font-bold text-[#1f4a38] transition hover:bg-[#e9f4e8]"
         >
-          Get Started Now
+          {tx('Start Now', 'अभी शुरू करें')}
         </button>
       </section>
-
-      {/* ── FOOTER ── */}
-      <footer className="bg-stone-100 border-t border-stone-200 py-10 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2">
-            <img src="/ruralens-logo.png" alt="RuraLens" className="w-6 h-6 object-contain" />
-            <span className="font-bold text-stone-800">RuraLens</span>
-          </div>
-
-          <div className="flex gap-8 text-sm text-stone-500">
-            <a href="#" className="hover:text-stone-800">Privacy Policy</a>
-            <a href="#" className="hover:text-stone-800">Terms of Service</a>
-            <a href="#" className="hover:text-stone-800">Security</a>
-          </div>
-
-          <p className="text-stone-400 text-xs">© 2025 RuraLens Inc. All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   );
 }
 
-// ── Helper Components ──
-
-function StatItem({ value, label }: { value: string; label: string }) {
+function Metric({ value, label }: { value: string; label: string }) {
   return (
-    <div>
-      <div className="text-3xl md:text-4xl font-bold mb-1">{value}</div>
-      <div className="text-blue-200 text-sm font-medium">{label}</div>
-    </div>
-  );
-}
-
-function FeatureCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
-  return (
-    <div className="p-7 rounded-2xl bg-stone-50 border border-stone-200 hover:border-blue-300 hover:shadow-md transition-shadow">
-      <div className="w-11 h-11 rounded-xl bg-white border border-stone-200 flex items-center justify-center mb-5 shadow-sm">
-        {icon}
-      </div>
-      <h3 className="text-lg font-bold text-stone-900 mb-2">{title}</h3>
-      <p className="text-stone-500 text-sm leading-relaxed">{desc}</p>
+    <div className="rounded-2xl border border-[#d4e0ce] bg-[#f8fbf4] px-4 py-5">
+      <p className="text-3xl font-black text-[#1f4a38]">{value}</p>
+      <p className="mt-1 text-sm font-semibold text-[#60786a]">{label}</p>
     </div>
   );
 }

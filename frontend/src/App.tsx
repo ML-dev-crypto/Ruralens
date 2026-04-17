@@ -9,9 +9,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import StatusBar from './components/Layout/StatusBar';
 import InfoPanel from './components/InfoPanel/InfoPanel';
 import Dashboard from './components/Dashboard/Dashboard';
-import AlertsView from './components/Views/AlertsView';
 import SettingsView from './components/Views/SettingsView';
-import AnalyticsView from './components/Views/AnalyticsView';
 import AnonymousReportsView from './components/Views/AnonymousReportsView';
 import MobileAnonymousReports from './components/Views/MobileAnonymousReports';
 import FieldWorkerView from './components/Views/FieldWorkerView';
@@ -23,11 +21,14 @@ import MobileHeader from './components/Layout/MobileHeader';
 import MobileLandingPage from './components/Landing/MobileLandingPage';
 import MobileLoginPage from './components/Auth/MobileLoginPage';
 import MobileDashboard from './components/Dashboard/MobileDashboard';
+import { useLanguage } from './i18n/LanguageContext';
 
 function App() {
   const { activeView, sidebarCollapsed, infoPanelOpen, isAuthenticated, userRole, fetchSchemes, waterTanks, setVillageData } = useVillageStore();
+  const { lang, t } = useLanguage();
   const [showLanding, setShowLanding] = useState(true);
   const isMobile = Capacitor.isNativePlatform();
+  const hi = lang === 'hi';
 
   // Load demo data on startup if no data loaded
   useEffect(() => {
@@ -86,13 +87,9 @@ function App() {
         return <MapView />;
       case 'schemes':
         return <SchemesView />;
-      case 'alerts':
-        return <AlertsView />;
       case 'reports':
       case 'anonymous-reports':
         return isMobile ? <MobileAnonymousReports /> : <AnonymousReportsView />;
-      case 'analytics':
-        return userRole === 'admin' ? <AnalyticsView /> : <Dashboard />;
       case 'impact-predictor':
         return <ImpactPredictorView />;
       case 'settings':
@@ -142,19 +139,19 @@ function App() {
               onClick={useVillageStore.getState().toggleSidebar}
             />
             <div className="absolute right-0 top-0 bottom-0 w-64 bg-slate-900 border-l border-white/10 p-4 pt-16 animate-in slide-in-from-right">
-              <h3 className="text-white font-bold mb-4 text-lg">Menu</h3>
+              <h3 className="text-white font-bold mb-4 text-lg">{hi ? 'मेनू' : 'Menu'}</h3>
               {/* You can reuse specific Sidebar items here manually or import Sidebar list */}
               <button 
                 onClick={() => { useVillageStore.getState().setActiveView('settings'); useVillageStore.getState().toggleSidebar(); }}
                 className="w-full text-left p-3 text-slate-300 hover:bg-white/10 rounded-lg"
               >
-                Settings
+                {t('settings', 'Settings')}
               </button>
               <button 
                 onClick={() => { useVillageStore.getState().logout(); }}
                 className="w-full text-left p-3 text-red-400 hover:bg-red-500/10 rounded-lg mt-2"
               >
-                Logout
+                {hi ? 'लॉगआउट' : 'Logout'}
               </button>
             </div>
           </div>

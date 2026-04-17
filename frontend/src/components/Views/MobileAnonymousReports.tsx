@@ -25,39 +25,42 @@ import {
 import { format } from 'date-fns';
 import { useAnonymousReports } from '../../hooks/useAnonymousReports';
 import { API_URL } from '../../config/api';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const CATEGORIES = [
-  { id: 'road', label: 'Road', emoji: '🛣️' },
-  { id: 'water', label: 'Water', emoji: '💧' },
-  { id: 'power', label: 'Power', emoji: '⚡' },
-  { id: 'waste', label: 'Waste', emoji: '🗑️' },
-  { id: 'healthcare', label: 'Health', emoji: '🏥' },
-  { id: 'education', label: 'Education', emoji: '📚' },
-  { id: 'corruption', label: 'Corruption', emoji: '⚖️' },
-  { id: 'safety', label: 'Safety', emoji: '🛡️' },
-  { id: 'other', label: 'Other', emoji: '📝' }
+  { id: 'road', label: { en: 'Road', hi: 'सड़क' }, emoji: '🛣️' },
+  { id: 'water', label: { en: 'Water', hi: 'पानी' }, emoji: '💧' },
+  { id: 'power', label: { en: 'Power', hi: 'बिजली' }, emoji: '⚡' },
+  { id: 'waste', label: { en: 'Waste', hi: 'कचरा' }, emoji: '🗑️' },
+  { id: 'healthcare', label: { en: 'Health', hi: 'स्वास्थ्य' }, emoji: '🏥' },
+  { id: 'education', label: { en: 'Education', hi: 'शिक्षा' }, emoji: '📚' },
+  { id: 'corruption', label: { en: 'Corruption', hi: 'भ्रष्टाचार' }, emoji: '⚖️' },
+  { id: 'safety', label: { en: 'Safety', hi: 'सुरक्षा' }, emoji: '🛡️' },
+  { id: 'other', label: { en: 'Other', hi: 'अन्य' }, emoji: '📝' }
 ];
 
-const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
-  pending: { label: 'Pending', color: 'text-yellow-400', bg: 'bg-yellow-500/20' },
-  acknowledged: { label: 'Acknowledged', color: 'text-blue-400', bg: 'bg-blue-500/20' },
-  assigned: { label: 'Assigned', color: 'text-purple-400', bg: 'bg-purple-500/20' },
-  in_progress: { label: 'In Progress', color: 'text-cyan-400', bg: 'bg-cyan-500/20' },
-  resolved: { label: 'Resolved', color: 'text-green-400', bg: 'bg-green-500/20' },
-  closed: { label: 'Closed', color: 'text-slate-400', bg: 'bg-slate-500/20' },
-  rejected: { label: 'Rejected', color: 'text-red-400', bg: 'bg-red-500/20' }
+const STATUS_CONFIG: Record<string, { label: { en: string; hi: string }; color: string; bg: string }> = {
+  pending: { label: { en: 'Pending', hi: 'लंबित' }, color: 'text-yellow-400', bg: 'bg-yellow-500/20' },
+  acknowledged: { label: { en: 'Acknowledged', hi: 'स्वीकृत' }, color: 'text-blue-400', bg: 'bg-blue-500/20' },
+  assigned: { label: { en: 'Assigned', hi: 'आवंटित' }, color: 'text-purple-400', bg: 'bg-purple-500/20' },
+  in_progress: { label: { en: 'In Progress', hi: 'प्रगति में' }, color: 'text-cyan-400', bg: 'bg-cyan-500/20' },
+  resolved: { label: { en: 'Resolved', hi: 'समाधान हुआ' }, color: 'text-green-400', bg: 'bg-green-500/20' },
+  closed: { label: { en: 'Closed', hi: 'बंद' }, color: 'text-slate-400', bg: 'bg-slate-500/20' },
+  rejected: { label: { en: 'Rejected', hi: 'अस्वीकृत' }, color: 'text-red-400', bg: 'bg-red-500/20' }
 };
 
-const AUTHORITY_LEVELS: Record<number, { name: string; color: string }> = {
-  0: { name: 'Sarpanch', color: 'text-green-400' },
-  1: { name: 'Block Officer', color: 'text-blue-400' },
-  2: { name: 'District Magistrate', color: 'text-yellow-400' },
-  3: { name: 'State Authority', color: 'text-red-400' }
+const AUTHORITY_LEVELS: Record<number, { name: { en: string; hi: string }; color: string }> = {
+  0: { name: { en: 'Sarpanch', hi: 'सरपंच' }, color: 'text-green-400' },
+  1: { name: { en: 'Block Officer', hi: 'खंड अधिकारी' }, color: 'text-blue-400' },
+  2: { name: { en: 'District Magistrate', hi: 'जिला मजिस्ट्रेट' }, color: 'text-yellow-400' },
+  3: { name: { en: 'State Authority', hi: 'राज्य प्राधिकरण' }, color: 'text-red-400' }
 };
 
 type TabType = 'browse' | 'submit' | 'track';
 
 export default function MobileAnonymousReports() {
+  const { lang } = useLanguage();
+  const tx = (en: string, hi: string) => (lang === 'hi' ? hi : en);
   const { 
     reports, 
     stats, 
@@ -127,7 +130,7 @@ export default function MobileAnonymousReports() {
   const detectLocation = () => {
     setDetecting(true);
     if (!navigator.geolocation) {
-      alert('Geolocation not supported');
+      alert(tx('Geolocation not supported', 'जियोलोकेशन समर्थित नहीं है'));
       setDetecting(false);
       return;
     }
@@ -137,7 +140,7 @@ export default function MobileAnonymousReports() {
         setDetecting(false);
       },
       () => {
-        alert('Could not detect location');
+        alert(tx('Could not detect location', 'स्थान का पता नहीं चल सका'));
         setDetecting(false);
       },
       { enableHighAccuracy: true, timeout: 10000 }
@@ -147,7 +150,7 @@ export default function MobileAnonymousReports() {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     if (files.length + photos.length > 3) {
-      alert('Maximum 3 photos');
+      alert(tx('Maximum 3 photos', 'अधिकतम 3 फोटो'));
       return;
     }
     const validFiles = files.filter(f => f.type.startsWith('image/') && f.size <= 5 * 1024 * 1024);
@@ -163,7 +166,7 @@ export default function MobileAnonymousReports() {
 
   const handleSubmit = async () => {
     if (!formData.title || !formData.description || !formData.category) {
-      alert('Please fill required fields');
+      alert(tx('Please fill required fields', 'कृपया आवश्यक फ़ील्ड भरें'));
       return;
     }
     setSubmitting(true);
@@ -184,7 +187,7 @@ export default function MobileAnonymousReports() {
 
   const handleTrack = async () => {
     if (!trackToken.trim()) {
-      setTrackError('Enter your tracking token');
+      setTrackError(tx('Enter your tracking token', 'अपना ट्रैकिंग टोकन दर्ज करें'));
       return;
     }
     setTrackError(null);
@@ -192,24 +195,24 @@ export default function MobileAnonymousReports() {
     if (result.success) {
       setTrackedReport(result.report);
     } else {
-      setTrackError(result.error || 'Report not found');
+      setTrackError(result.error || tx('Report not found', 'रिपोर्ट नहीं मिली'));
       setTrackedReport(null);
     }
   };
 
   const handleEscalate = async () => {
     if (!escalateReason.trim()) {
-      alert('Please provide a reason');
+      alert(tx('Please provide a reason', 'कृपया कारण दें'));
       return;
     }
     const result = await escalateReport(trackedReport.id, trackToken, escalateReason);
     if (result.success) {
-      alert(`Escalated to ${result.authority}`);
+      alert(tx(`Escalated to ${result.authority}`, `${result.authority} तक एस्केलेट किया गया`));
       setShowEscalate(false);
       setEscalateReason('');
       handleTrack();
     } else {
-      alert(result.error || 'Failed to escalate');
+      alert(result.error || tx('Failed to escalate', 'एस्केलेट करने में विफल'));
     }
   };
 
@@ -222,7 +225,7 @@ export default function MobileAnonymousReports() {
       feedbackData.feedback
     );
     if (result.success) {
-      alert('Feedback submitted!');
+      alert(tx('Feedback submitted!', 'प्रतिक्रिया जमा हो गई!'));
       setShowFeedback(false);
       handleTrack();
     }
@@ -246,9 +249,9 @@ export default function MobileAnonymousReports() {
   const renderTabs = () => (
     <div className="flex bg-slate-800/50 rounded-xl p-1 mb-4">
       {[
-        { id: 'browse', label: 'Browse', icon: Eye },
-        { id: 'submit', label: 'Submit', icon: Send },
-        { id: 'track', label: 'Track', icon: Search }
+        { id: 'browse', label: tx('Browse', 'देखें'), icon: Eye },
+        { id: 'submit', label: tx('Submit', 'जमा करें'), icon: Send },
+        { id: 'track', label: tx('Track', 'ट्रैक करें'), icon: Search }
       ].map(tab => (
         <button
           key={tab.id}
@@ -302,15 +305,15 @@ export default function MobileAnonymousReports() {
       <div className="grid grid-cols-3 gap-2">
         <div className="bg-slate-800/50 rounded-xl p-3 text-center">
           <div className="text-xl font-bold text-white">{stats?.total || 0}</div>
-          <div className="text-xs text-slate-400">Total</div>
+          <div className="text-xs text-slate-400">{tx('Total', 'कुल')}</div>
         </div>
         <div className="bg-yellow-500/10 rounded-xl p-3 text-center">
           <div className="text-xl font-bold text-yellow-400">{stats?.pending || 0}</div>
-          <div className="text-xs text-slate-400">Pending</div>
+          <div className="text-xs text-slate-400">{tx('Pending', 'लंबित')}</div>
         </div>
         <div className="bg-green-500/10 rounded-xl p-3 text-center">
           <div className="text-xl font-bold text-green-400">{stats?.resolved || 0}</div>
-          <div className="text-xs text-slate-400">Resolved</div>
+          <div className="text-xs text-slate-400">{tx('Resolved', 'समाधान हुआ')}</div>
         </div>
       </div>
 
@@ -320,7 +323,7 @@ export default function MobileAnonymousReports() {
         className="flex items-center gap-2 text-sm text-slate-400"
       >
         <Filter size={16} />
-        Filter by Category
+        {tx('Filter by Category', 'श्रेणी के अनुसार फ़िल्टर')}
         <ChevronDown size={16} className={`transition-transform ${showFilters ? 'rotate-180' : ''}`} />
       </button>
 
@@ -332,7 +335,7 @@ export default function MobileAnonymousReports() {
               !filterCategory ? 'bg-cyan-500 text-white' : 'bg-slate-800 text-slate-400'
             }`}
           >
-            All
+            {tx('All', 'सभी')}
           </button>
           {CATEGORIES.map(cat => (
             <button
@@ -342,7 +345,7 @@ export default function MobileAnonymousReports() {
                 filterCategory === cat.id ? 'bg-cyan-500 text-white' : 'bg-slate-800 text-slate-400'
               }`}
             >
-              {cat.emoji} {cat.label}
+              {cat.emoji} {cat.label[lang]}
             </button>
           ))}
         </div>
@@ -356,7 +359,7 @@ export default function MobileAnonymousReports() {
       ) : filteredReports.length === 0 ? (
         <div className="text-center py-8 text-slate-400">
           <Shield className="w-12 h-12 mx-auto mb-2 opacity-50" />
-          <p>No reports found</p>
+          <p>{tx('No reports found', 'कोई रिपोर्ट नहीं मिली')}</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -374,7 +377,7 @@ export default function MobileAnonymousReports() {
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{category?.emoji || '📝'}</span>
                     <span className={`px-2 py-0.5 rounded text-xs ${status.bg} ${status.color}`}>
-                      {status.label}
+                      {status.label[lang]}
                     </span>
                   </div>
                   {report.currentEscalationLevel > 0 && (
@@ -430,7 +433,7 @@ export default function MobileAnonymousReports() {
               <div className="flex items-center gap-2">
                 <span className="text-2xl">{CATEGORIES.find(c => c.id === selectedReport.category)?.emoji}</span>
                 <span className={`px-2 py-1 rounded text-sm ${STATUS_CONFIG[selectedReport.status]?.bg} ${STATUS_CONFIG[selectedReport.status]?.color}`}>
-                  {STATUS_CONFIG[selectedReport.status]?.label}
+                  {STATUS_CONFIG[selectedReport.status]?.label[lang]}
                 </span>
               </div>
               
@@ -439,7 +442,7 @@ export default function MobileAnonymousReports() {
               
               {selectedReport.intent && (
                 <div className="bg-cyan-500/10 rounded-xl p-3">
-                  <div className="text-xs text-slate-400 mb-1">AI Extracted Intent</div>
+                  <div className="text-xs text-slate-400 mb-1">{tx('AI Extracted Intent', 'एआई द्वारा निकाला गया आशय')}</div>
                   <div className="text-cyan-400 text-sm">{selectedReport.intent}</div>
                 </div>
               )}
@@ -459,15 +462,15 @@ export default function MobileAnonymousReports() {
                   selectedReport.credibilityScore >= 70 ? 'text-green-400' :
                   selectedReport.credibilityScore >= 40 ? 'text-yellow-400' : 'text-red-400'
                 }`}>
-                  {selectedReport.credibilityScore}% Credibility
+                  {selectedReport.credibilityScore}% {tx('Credibility', 'विश्वसनीयता')}
                 </div>
               </div>
 
               {selectedReport.currentEscalationLevel > 0 && (
                 <div className="bg-orange-500/10 rounded-xl p-3">
-                  <div className="text-xs text-orange-400 mb-1">Escalation Level</div>
+                  <div className="text-xs text-orange-400 mb-1">{tx('Escalation Level', 'एस्केलेशन स्तर')}</div>
                   <div className="text-white">
-                    {AUTHORITY_LEVELS[selectedReport.currentEscalationLevel]?.name}
+                    {AUTHORITY_LEVELS[selectedReport.currentEscalationLevel]?.name[lang]}
                   </div>
                 </div>
               )}
@@ -477,13 +480,13 @@ export default function MobileAnonymousReports() {
                   onClick={() => handleVote(selectedReport.id, 'upvote', {} as any)}
                   className="flex-1 py-3 bg-green-500/20 text-green-400 rounded-xl flex items-center justify-center gap-2"
                 >
-                  <ThumbsUp size={18} /> Verify
+                  <ThumbsUp size={18} /> {tx('Verify', 'समर्थन')}
                 </button>
                 <button
                   onClick={() => handleVote(selectedReport.id, 'downvote', {} as any)}
                   className="flex-1 py-3 bg-red-500/20 text-red-400 rounded-xl flex items-center justify-center gap-2"
                 >
-                  <ThumbsDown size={18} /> Doubt
+                  <ThumbsDown size={18} /> {tx('Doubt', 'आपत्ति')}
                 </button>
               </div>
             </div>
@@ -500,16 +503,16 @@ export default function MobileAnonymousReports() {
         <div className="space-y-4">
           <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6 text-center">
             <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-white mb-2">Report Submitted!</h2>
-            <p className="text-slate-400 text-sm mb-4">Save your tracking token</p>
+            <h2 className="text-xl font-bold text-white mb-2">{tx('Report Submitted!', 'रिपोर्ट जमा हो गई!')}</h2>
+            <p className="text-slate-400 text-sm mb-4">{tx('Save your tracking token', 'अपना ट्रैकिंग टोकन सुरक्षित रखें')}</p>
             
             <div className="bg-slate-800 rounded-xl p-3 mb-3">
-              <div className="text-xs text-slate-400 mb-1">Report ID</div>
+              <div className="text-xs text-slate-400 mb-1">{tx('Report ID', 'रिपोर्ट आईडी')}</div>
               <div className="text-cyan-400 font-mono text-sm">{submitResult.reportId}</div>
             </div>
             
             <div className="bg-slate-800 rounded-xl p-3 mb-4">
-              <div className="text-xs text-slate-400 mb-1">Tracking Token</div>
+              <div className="text-xs text-slate-400 mb-1">{tx('Tracking Token', 'ट्रैकिंग टोकन')}</div>
               <div className="flex items-center justify-between">
                 <div className="text-yellow-400 font-mono text-xs break-all pr-2">
                   {submitResult.reporterToken}
@@ -524,7 +527,7 @@ export default function MobileAnonymousReports() {
               onClick={() => setSubmitResult(null)}
               className="w-full py-3 bg-cyan-500 text-white rounded-xl font-medium"
             >
-              Submit Another Report
+              {tx('Submit Another Report', 'एक और रिपोर्ट जमा करें')}
             </button>
           </div>
         </div>
@@ -538,15 +541,15 @@ export default function MobileAnonymousReports() {
           <div className="flex items-start gap-2">
             <Shield size={18} className="text-blue-400 flex-shrink-0 mt-0.5" />
             <p className="text-xs text-slate-300">
-              <span className="text-blue-400 font-medium">Privacy Protected: </span>
-              AI will automatically remove all personal information from your report.
+              <span className="text-blue-400 font-medium">{tx('Privacy Protected: ', 'गोपनीयता सुरक्षित: ')}</span>
+              {tx('AI will automatically remove all personal information from your report.', 'एआई आपकी रिपोर्ट से सभी व्यक्तिगत जानकारी स्वतः हटा देगा।')}
             </p>
           </div>
         </div>
 
         {/* Category */}
         <div>
-          <label className="text-sm text-slate-300 mb-2 block">Category *</label>
+          <label className="text-sm text-slate-300 mb-2 block">{tx('Category', 'श्रेणी')} *</label>
           <div className="grid grid-cols-3 gap-2">
             {CATEGORIES.map(cat => (
               <button
@@ -559,7 +562,7 @@ export default function MobileAnonymousReports() {
                 }`}
               >
                 <div className="text-xl mb-1">{cat.emoji}</div>
-                <div className="text-xs text-slate-300">{cat.label}</div>
+                <div className="text-xs text-slate-300">{cat.label[lang]}</div>
               </button>
             ))}
           </div>
@@ -567,23 +570,23 @@ export default function MobileAnonymousReports() {
 
         {/* Title */}
         <div>
-          <label className="text-sm text-slate-300 mb-2 block">Title *</label>
+          <label className="text-sm text-slate-300 mb-2 block">{tx('Title', 'शीर्षक')} *</label>
           <input
             type="text"
             value={formData.title}
             onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-            placeholder="Brief title of the issue"
+            placeholder={tx('Brief title of the issue', 'समस्या का संक्षिप्त शीर्षक')}
             className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="text-sm text-slate-300 mb-2 block">Description *</label>
+          <label className="text-sm text-slate-300 mb-2 block">{tx('Description', 'विवरण')} *</label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-            placeholder="Describe the issue in detail. Include names, dates - AI will anonymize them."
+            placeholder={tx('Describe the issue in detail. Include names, dates - AI will anonymize them.', 'समस्या का विस्तृत विवरण दें। नाम, तारीख शामिल करें - एआई उन्हें अनामीकृत कर देगा।')}
             rows={4}
             className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 resize-none"
           />
@@ -592,22 +595,22 @@ export default function MobileAnonymousReports() {
         {/* Location */}
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-sm text-slate-300 mb-2 block">Area</label>
+            <label className="text-sm text-slate-300 mb-2 block">{tx('Area', 'क्षेत्र')}</label>
             <input
               type="text"
               value={formData.location}
               onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
-              placeholder="Village/Area"
+              placeholder={tx('Village/Area', 'गांव/क्षेत्र')}
               className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500"
             />
           </div>
           <div>
-            <label className="text-sm text-slate-300 mb-2 block">District</label>
+            <label className="text-sm text-slate-300 mb-2 block">{tx('District', 'जिला')}</label>
             <input
               type="text"
               value={formData.district}
               onChange={(e) => setFormData(prev => ({ ...prev, district: e.target.value }))}
-              placeholder="District"
+              placeholder={tx('District', 'जिला')}
               className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500"
             />
           </div>
@@ -620,12 +623,12 @@ export default function MobileAnonymousReports() {
           className="flex items-center gap-2 px-4 py-2 bg-slate-800 rounded-xl text-slate-300"
         >
           {detecting ? <Loader2 size={16} className="animate-spin" /> : <MapPin size={16} />}
-          {detecting ? 'Detecting...' : coords ? '✓ Location Added' : 'Add GPS Location'}
+          {detecting ? tx('Detecting...', 'पता लगाया जा रहा है...') : coords ? tx('✓ Location Added', '✓ स्थान जोड़ दिया गया') : tx('Add GPS Location', 'जीपीएस स्थान जोड़ें')}
         </button>
 
         {/* Photos */}
         <div>
-          <label className="text-sm text-slate-300 mb-2 block">Photos (Optional)</label>
+          <label className="text-sm text-slate-300 mb-2 block">{tx('Photos (Optional)', 'फोटो (वैकल्पिक)')}</label>
           <div className="flex gap-2 flex-wrap">
             {previewUrls.map((url, i) => (
               <div key={i} className="relative">
@@ -656,12 +659,12 @@ export default function MobileAnonymousReports() {
           {submitting ? (
             <>
               <Loader2 size={18} className="animate-spin" />
-              Anonymizing...
+                {tx('Anonymizing...', 'अनामीकरण...')}
             </>
           ) : (
             <>
               <Send size={18} />
-              Submit Anonymous Report
+                {tx('Submit Anonymous Report', 'गुमनाम रिपोर्ट जमा करें')}
             </>
           )}
         </button>
@@ -676,14 +679,14 @@ export default function MobileAnonymousReports() {
       <div className="bg-slate-800/50 rounded-xl p-4">
         <div className="flex items-center gap-2 mb-3">
           <Search size={18} className="text-cyan-400" />
-          <span className="text-white font-medium">Track Your Report</span>
+          <span className="text-white font-medium">{tx('Track Your Report', 'अपनी रिपोर्ट ट्रैक करें')}</span>
         </div>
         <div className="flex gap-2">
           <input
             type="text"
             value={trackToken}
             onChange={(e) => setTrackToken(e.target.value)}
-            placeholder="Enter tracking token"
+            placeholder={tx('Enter tracking token', 'ट्रैकिंग टोकन दर्ज करें')}
             className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 font-mono text-sm"
           />
           <button
@@ -708,30 +711,30 @@ export default function MobileAnonymousReports() {
               <div className="flex items-center gap-2">
                 <CheckCircle className={`w-5 h-5 ${STATUS_CONFIG[trackedReport.status]?.color}`} />
                 <span className={`font-medium ${STATUS_CONFIG[trackedReport.status]?.color}`}>
-                  {STATUS_CONFIG[trackedReport.status]?.label}
+                  {STATUS_CONFIG[trackedReport.status]?.label[lang]}
                 </span>
               </div>
               <span className={AUTHORITY_LEVELS[trackedReport.currentEscalationLevel]?.color}>
-                {AUTHORITY_LEVELS[trackedReport.currentEscalationLevel]?.name}
+                {AUTHORITY_LEVELS[trackedReport.currentEscalationLevel]?.name[lang]}
               </span>
             </div>
           </div>
 
           <div className="p-4 space-y-4">
             <div>
-              <div className="text-xs text-slate-400 mb-1">Report ID</div>
+              <div className="text-xs text-slate-400 mb-1">{tx('Report ID', 'रिपोर्ट आईडी')}</div>
               <div className="text-white font-mono text-sm">{trackedReport.id}</div>
             </div>
 
             <div>
-              <div className="text-xs text-slate-400 mb-1">Title</div>
+              <div className="text-xs text-slate-400 mb-1">{tx('Title', 'शीर्षक')}</div>
               <div className="text-white">{trackedReport.title}</div>
             </div>
 
             {/* Timeline */}
             <div>
               <div className="text-xs text-slate-400 mb-2 flex items-center gap-1">
-                <Clock size={12} /> Status Timeline
+                <Clock size={12} /> {tx('Status Timeline', 'स्थिति समयरेखा')}
               </div>
               <div className="space-y-2">
                 {trackedReport.statusUpdates?.slice(-3).map((update: any, i: number) => (
@@ -764,14 +767,14 @@ export default function MobileAnonymousReports() {
                 trackedReport.credibilityScore >= 70 ? 'text-green-400' :
                 trackedReport.credibilityScore >= 40 ? 'text-yellow-400' : 'text-red-400'
               }`}>
-                {trackedReport.credibilityScore}% Credibility
+                {trackedReport.credibilityScore}% {tx('Credibility', 'विश्वसनीयता')}
               </span>
             </div>
 
             {/* Assigned Worker */}
             {trackedReport.assignedTo && (
               <div className="bg-purple-500/10 rounded-xl p-3">
-                <div className="text-xs text-slate-400 mb-1">Assigned To</div>
+                <div className="text-xs text-slate-400 mb-1">{tx('Assigned To', 'आवंटित')}</div>
                 <div className="text-purple-400">{trackedReport.assignedTo}</div>
               </div>
             )}
@@ -781,7 +784,7 @@ export default function MobileAnonymousReports() {
               <div className={`rounded-xl p-3 ${canEscalate ? 'bg-red-500/10' : 'bg-slate-700/50'}`}>
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-xs text-slate-400 mb-1">Escalation Deadline</div>
+                    <div className="text-xs text-slate-400 mb-1">{tx('Escalation Deadline', 'एस्केलेशन समयसीमा')}</div>
                     <div className={canEscalate ? 'text-red-400' : 'text-white'}>
                       {format(new Date(trackedReport.escalationDeadline), 'MMM d, yyyy')}
                     </div>
@@ -791,7 +794,7 @@ export default function MobileAnonymousReports() {
                       onClick={() => setShowEscalate(true)}
                       className="px-3 py-2 bg-red-500 text-white rounded-lg text-sm flex items-center gap-1"
                     >
-                      <ArrowUpRight size={14} /> Escalate
+                      <ArrowUpRight size={14} /> {tx('Escalate', 'एस्केलेट करें')}
                     </button>
                   )}
                 </div>
@@ -801,14 +804,14 @@ export default function MobileAnonymousReports() {
             {/* Escalate Modal */}
             {showEscalate && (
               <div className="bg-slate-700/50 rounded-xl p-4">
-                <h4 className="text-white font-medium mb-2">Escalate Report</h4>
+                <h4 className="text-white font-medium mb-2">{tx('Escalate Report', 'रिपोर्ट एस्केलेट करें')}</h4>
                 <p className="text-xs text-slate-400 mb-3">
-                  This will escalate to {AUTHORITY_LEVELS[(trackedReport.currentEscalationLevel + 1)]?.name}
+                  {tx('This will escalate to', 'यह एस्केलेट करेगा:')} {AUTHORITY_LEVELS[(trackedReport.currentEscalationLevel + 1)]?.name[lang]}
                 </p>
                 <textarea
                   value={escalateReason}
                   onChange={(e) => setEscalateReason(e.target.value)}
-                  placeholder="Reason for escalation..."
+                  placeholder={tx('Reason for escalation...', 'एस्केलेशन का कारण...')}
                   rows={2}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white placeholder-slate-500 resize-none mb-3"
                 />
@@ -817,13 +820,13 @@ export default function MobileAnonymousReports() {
                     onClick={handleEscalate}
                     className="flex-1 py-2 bg-red-500 text-white rounded-lg"
                   >
-                    Confirm
+                    {tx('Confirm', 'पुष्टि करें')}
                   </button>
                   <button
                     onClick={() => setShowEscalate(false)}
                     className="flex-1 py-2 bg-slate-700 text-white rounded-lg"
                   >
-                    Cancel
+                    {tx('Cancel', 'रद्द करें')}
                   </button>
                 </div>
               </div>
@@ -833,13 +836,13 @@ export default function MobileAnonymousReports() {
             {(trackedReport.status === 'resolved' || trackedReport.status === 'closed') && 
              !trackedReport.resolutionFeedback && (
               <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
-                <h4 className="text-green-400 font-medium mb-2">Was your issue resolved?</h4>
+                <h4 className="text-green-400 font-medium mb-2">{tx('Was your issue resolved?', 'क्या आपकी समस्या का समाधान हुआ?')}</h4>
                 {!showFeedback ? (
                   <button
                     onClick={() => setShowFeedback(true)}
                     className="w-full py-2 bg-green-500 text-white rounded-lg"
                   >
-                    Provide Feedback
+                    {tx('Provide Feedback', 'प्रतिक्रिया दें')}
                   </button>
                 ) : (
                   <div className="space-y-3">
@@ -850,7 +853,7 @@ export default function MobileAnonymousReports() {
                           feedbackData.isResolved ? 'bg-green-500 text-white' : 'bg-slate-700 text-slate-300'
                         }`}
                       >
-                        Yes
+                        {tx('Yes', 'हां')}
                       </button>
                       <button
                         onClick={() => setFeedbackData(p => ({ ...p, isResolved: false }))}
@@ -858,7 +861,7 @@ export default function MobileAnonymousReports() {
                           !feedbackData.isResolved ? 'bg-red-500 text-white' : 'bg-slate-700 text-slate-300'
                         }`}
                       >
-                        No
+                        {tx('No', 'नहीं')}
                       </button>
                     </div>
                     <div className="flex justify-center gap-1">
@@ -877,7 +880,7 @@ export default function MobileAnonymousReports() {
                     <textarea
                       value={feedbackData.feedback}
                       onChange={(e) => setFeedbackData(p => ({ ...p, feedback: e.target.value }))}
-                      placeholder="Comments (optional)"
+                      placeholder={tx('Comments (optional)', 'टिप्पणियां (वैकल्पिक)')}
                       rows={2}
                       className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white placeholder-slate-500 resize-none"
                     />
@@ -885,7 +888,7 @@ export default function MobileAnonymousReports() {
                       onClick={handleFeedbackSubmit}
                       className="w-full py-2 bg-green-500 text-white rounded-lg"
                     >
-                      Submit Feedback
+                      {tx('Submit Feedback', 'प्रतिक्रिया जमा करें')}
                     </button>
                   </div>
                 )}
@@ -895,10 +898,10 @@ export default function MobileAnonymousReports() {
             {/* Already submitted feedback */}
             {trackedReport.resolutionFeedback && (
               <div className="bg-slate-700/50 rounded-xl p-3">
-                <div className="text-xs text-slate-400 mb-1">Your Feedback</div>
+                <div className="text-xs text-slate-400 mb-1">{tx('Your Feedback', 'आपकी प्रतिक्रिया')}</div>
                 <div className="flex items-center gap-2">
                   <span className={trackedReport.resolutionFeedback.isResolved ? 'text-green-400' : 'text-red-400'}>
-                    {trackedReport.resolutionFeedback.isResolved ? '✓ Resolved' : '✗ Not Resolved'}
+                    {trackedReport.resolutionFeedback.isResolved ? tx('✓ Resolved', '✓ समाधान हुआ') : tx('✗ Not Resolved', '✗ समाधान नहीं हुआ')}
                   </span>
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map(r => (
@@ -920,7 +923,7 @@ export default function MobileAnonymousReports() {
       {!trackedReport && !trackError && (
         <div className="text-center py-8 text-slate-400">
           <Shield className="w-12 h-12 mx-auto mb-2 opacity-50" />
-          <p className="text-sm">Enter your tracking token to see report status</p>
+          <p className="text-sm">{tx('Enter your tracking token to see report status', 'रिपोर्ट स्थिति देखने के लिए ट्रैकिंग टोकन दर्ज करें')}</p>
         </div>
       )}
     </div>
@@ -934,8 +937,8 @@ export default function MobileAnonymousReports() {
           <Shield size={20} className="text-cyan-400" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-white">Anonymous Reports</h1>
-          <p className="text-xs text-slate-400">Report issues anonymously</p>
+          <h1 className="text-xl font-bold text-white">{tx('Anonymous Reports', 'गुमनाम रिपोर्ट')}</h1>
+          <p className="text-xs text-slate-400">{tx('Report issues anonymously', 'समस्याएं गुमनाम रूप से रिपोर्ट करें')}</p>
         </div>
       </div>
 

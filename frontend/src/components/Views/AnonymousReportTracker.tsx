@@ -13,25 +13,28 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useAnonymousReports } from '../../hooks/useAnonymousReports';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const STATUS_CONFIG = {
-  pending: { label: 'Pending Review', color: 'text-yellow-400', bg: 'bg-yellow-500/20' },
-  acknowledged: { label: 'Acknowledged', color: 'text-blue-400', bg: 'bg-blue-500/20' },
-  assigned: { label: 'Worker Assigned', color: 'text-purple-400', bg: 'bg-purple-500/20' },
-  in_progress: { label: 'Work In Progress', color: 'text-cyan-400', bg: 'bg-cyan-500/20' },
-  resolved: { label: 'Resolved', color: 'text-green-400', bg: 'bg-green-500/20' },
-  closed: { label: 'Closed', color: 'text-slate-400', bg: 'bg-slate-500/20' },
-  rejected: { label: 'Rejected', color: 'text-red-400', bg: 'bg-red-500/20' }
+  pending: { label: { en: 'Pending Review', hi: 'समीक्षा लंबित' }, color: 'text-yellow-400', bg: 'bg-yellow-500/20' },
+  acknowledged: { label: { en: 'Acknowledged', hi: 'स्वीकृत' }, color: 'text-blue-400', bg: 'bg-blue-500/20' },
+  assigned: { label: { en: 'Worker Assigned', hi: 'कर्मी आवंटित' }, color: 'text-purple-400', bg: 'bg-purple-500/20' },
+  in_progress: { label: { en: 'Work In Progress', hi: 'कार्य प्रगति में' }, color: 'text-cyan-400', bg: 'bg-cyan-500/20' },
+  resolved: { label: { en: 'Resolved', hi: 'समाधान हुआ' }, color: 'text-green-400', bg: 'bg-green-500/20' },
+  closed: { label: { en: 'Closed', hi: 'बंद' }, color: 'text-slate-400', bg: 'bg-slate-500/20' },
+  rejected: { label: { en: 'Rejected', hi: 'अस्वीकृत' }, color: 'text-red-400', bg: 'bg-red-500/20' }
 };
 
 const AUTHORITY_LEVELS = {
-  0: { name: 'Village Sarpanch', color: 'text-green-400' },
-  1: { name: 'Block Officer', color: 'text-blue-400' },
-  2: { name: 'District Magistrate', color: 'text-yellow-400' },
-  3: { name: 'State Authority', color: 'text-red-400' }
+  0: { name: { en: 'Village Sarpanch', hi: 'ग्राम सरपंच' }, color: 'text-green-400' },
+  1: { name: { en: 'Block Officer', hi: 'खंड अधिकारी' }, color: 'text-blue-400' },
+  2: { name: { en: 'District Magistrate', hi: 'जिला मजिस्ट्रेट' }, color: 'text-yellow-400' },
+  3: { name: { en: 'State Authority', hi: 'राज्य प्राधिकरण' }, color: 'text-red-400' }
 };
 
 export default function AnonymousReportTracker() {
+  const { lang } = useLanguage();
+  const tx = (en: string, hi: string) => (lang === 'hi' ? hi : en);
   const { trackReport, escalateReport, submitFeedback, loading } = useAnonymousReports();
   const [token, setToken] = useState('');
   const [report, setReport] = useState<any>(null);
@@ -47,7 +50,7 @@ export default function AnonymousReportTracker() {
 
   const handleTrack = async () => {
     if (!token.trim()) {
-      setError('Please enter your tracking token');
+      setError(tx('Please enter your tracking token', 'कृपया अपना ट्रैकिंग टोकन दर्ज करें'));
       return;
     }
 
@@ -57,27 +60,27 @@ export default function AnonymousReportTracker() {
     if (result.success) {
       setReport(result.report);
     } else {
-      setError(result.error || 'Report not found');
+      setError(result.error || tx('Report not found', 'रिपोर्ट नहीं मिली'));
       setReport(null);
     }
   };
 
   const handleEscalate = async () => {
     if (!escalateReason.trim()) {
-      alert('Please provide a reason for escalation');
+      alert(tx('Please provide a reason for escalation', 'कृपया एस्केलेशन का कारण दें'));
       return;
     }
 
     const result = await escalateReport(report.id, token, escalateReason);
     
     if (result.success) {
-      alert(`Report escalated to ${result.authority}`);
+      alert(tx(`Report escalated to ${result.authority}`, `रिपोर्ट ${result.authority} तक एस्केलेट की गई`));
       setShowEscalate(false);
       setEscalateReason('');
       // Refresh report
       handleTrack();
     } else {
-      alert(result.error || 'Failed to escalate');
+      alert(result.error || tx('Failed to escalate', 'एस्केलेट करने में विफल'));
     }
   };
 
@@ -91,11 +94,11 @@ export default function AnonymousReportTracker() {
     );
 
     if (result.success) {
-      alert('Thank you for your feedback!');
+      alert(tx('Thank you for your feedback!', 'आपकी प्रतिक्रिया के लिए धन्यवाद!'));
       setShowFeedback(false);
       handleTrack();
     } else {
-      alert(result.error || 'Failed to submit feedback');
+      alert(result.error || tx('Failed to submit feedback', 'प्रतिक्रिया भेजने में विफल'));
     }
   };
 
@@ -118,8 +121,8 @@ export default function AnonymousReportTracker() {
             <Search className="w-6 h-6 text-cyan-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Track Your Report</h2>
-            <p className="text-slate-400 text-sm">Enter your tracking token to check status</p>
+            <h2 className="text-xl font-bold text-white">{tx('Track Your Report', 'अपनी रिपोर्ट ट्रैक करें')}</h2>
+            <p className="text-slate-400 text-sm">{tx('Enter your tracking token to check status', 'स्थिति जांचने के लिए ट्रैकिंग टोकन दर्ज करें')}</p>
           </div>
         </div>
 
@@ -128,7 +131,7 @@ export default function AnonymousReportTracker() {
             type="text"
             value={token}
             onChange={(e) => setToken(e.target.value)}
-            placeholder="Enter your tracking token"
+            placeholder={tx('Enter your tracking token', 'अपना ट्रैकिंग टोकन दर्ज करें')}
             className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
             onKeyPress={(e) => e.key === 'Enter' && handleTrack()}
           />
@@ -138,7 +141,7 @@ export default function AnonymousReportTracker() {
             className="px-6 py-3 bg-cyan-500 text-white rounded-xl hover:bg-cyan-600 transition-colors disabled:opacity-50 flex items-center gap-2"
           >
             {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Search className="w-5 h-5" />}
-            Track
+            {tx('Track', 'ट्रैक करें')}
           </button>
         </div>
 
@@ -159,15 +162,15 @@ export default function AnonymousReportTracker() {
                 <CheckCircle className={`w-6 h-6 ${STATUS_CONFIG[report.status as keyof typeof STATUS_CONFIG]?.color}`} />
                 <div>
                   <div className={`font-medium ${STATUS_CONFIG[report.status as keyof typeof STATUS_CONFIG]?.color}`}>
-                    {STATUS_CONFIG[report.status as keyof typeof STATUS_CONFIG]?.label}
+                    {STATUS_CONFIG[report.status as keyof typeof STATUS_CONFIG]?.label[lang]}
                   </div>
-                  <div className="text-sm text-slate-400">Report ID: {report.id}</div>
+                  <div className="text-sm text-slate-400">{tx('Report ID:', 'रिपोर्ट आईडी:')} {report.id}</div>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm text-slate-400">Current Authority</div>
+                <div className="text-sm text-slate-400">{tx('Current Authority', 'वर्तमान प्राधिकरण')}</div>
                 <div className={AUTHORITY_LEVELS[report.currentEscalationLevel as keyof typeof AUTHORITY_LEVELS]?.color}>
-                  {AUTHORITY_LEVELS[report.currentEscalationLevel as keyof typeof AUTHORITY_LEVELS]?.name}
+                  {AUTHORITY_LEVELS[report.currentEscalationLevel as keyof typeof AUTHORITY_LEVELS]?.name[lang]}
                 </div>
               </div>
             </div>
@@ -184,7 +187,7 @@ export default function AnonymousReportTracker() {
             <div>
               <h4 className="text-sm font-medium text-slate-300 mb-3 flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                Status Timeline
+                {tx('Status Timeline', 'स्थिति समयरेखा')}
               </h4>
               <div className="space-y-3">
                 {report.statusUpdates?.map((update: any, index: number) => (
@@ -206,11 +209,11 @@ export default function AnonymousReportTracker() {
               <div className="bg-orange-500/10 border border-orange-500/30 rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <ArrowUpRight className="w-5 h-5 text-orange-400" />
-                  <span className="text-orange-400 font-medium">Escalation History</span>
+                  <span className="text-orange-400 font-medium">{tx('Escalation History', 'एस्केलेशन इतिहास')}</span>
                 </div>
                 {report.escalationHistory?.map((esc: any, index: number) => (
                   <div key={index} className="text-sm text-slate-300 mb-1">
-                    Level {esc.level}: {esc.authorityName} - {esc.reason}
+                    {tx('Level', 'स्तर')} {esc.level}: {esc.authorityName} - {esc.reason}
                     <div className="text-xs text-slate-500">
                       {format(new Date(esc.escalatedAt), 'MMM d, yyyy')}
                     </div>
@@ -232,7 +235,7 @@ export default function AnonymousReportTracker() {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm text-slate-400">Credibility Score</div>
+                <div className="text-sm text-slate-400">{tx('Credibility Score', 'विश्वसनीयता स्कोर')}</div>
                 <div className={`text-lg font-bold ${
                   report.credibilityScore >= 70 ? 'text-green-400' :
                   report.credibilityScore >= 40 ? 'text-yellow-400' : 'text-red-400'
@@ -245,7 +248,7 @@ export default function AnonymousReportTracker() {
             {/* Assigned Worker */}
             {report.assignedTo && (
               <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
-                <div className="text-sm text-slate-400 mb-1">Assigned To</div>
+                <div className="text-sm text-slate-400 mb-1">{tx('Assigned To', 'आवंटित')}</div>
                 <div className="text-purple-400 font-medium">{report.assignedTo}</div>
               </div>
             )}
@@ -255,10 +258,10 @@ export default function AnonymousReportTracker() {
               <div className={`rounded-xl p-4 ${canEscalate ? 'bg-red-500/10 border border-red-500/30' : 'bg-slate-700/50'}`}>
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-sm text-slate-400 mb-1">Escalation Deadline</div>
+                    <div className="text-sm text-slate-400 mb-1">{tx('Escalation Deadline', 'एस्केलेशन समयसीमा')}</div>
                     <div className={canEscalate ? 'text-red-400' : 'text-white'}>
                       {format(new Date(report.escalationDeadline), 'MMM d, yyyy')}
-                      {canEscalate ? ' (Passed)' : ` (${daysUntilEscalation} days remaining)`}
+                      {canEscalate ? tx(' (Passed)', ' (समाप्त)') : tx(` (${daysUntilEscalation} days remaining)`, ` (${daysUntilEscalation} दिन शेष)`)}
                     </div>
                   </div>
                   {canEscalate && (
@@ -267,7 +270,7 @@ export default function AnonymousReportTracker() {
                       className="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors flex items-center gap-2"
                     >
                       <ArrowUpRight className="w-4 h-4" />
-                      Escalate
+                      {tx('Escalate', 'एस्केलेट करें')}
                     </button>
                   )}
                 </div>
@@ -277,15 +280,15 @@ export default function AnonymousReportTracker() {
             {/* Escalate Modal */}
             {showEscalate && (
               <div className="bg-slate-700/50 rounded-xl p-4 border border-red-500/30">
-                <h4 className="text-white font-medium mb-3">Escalate to Higher Authority</h4>
+                <h4 className="text-white font-medium mb-3">{tx('Escalate to Higher Authority', 'उच्च प्राधिकरण को एस्केलेट करें')}</h4>
                 <p className="text-sm text-slate-400 mb-3">
-                  This will escalate your report to {AUTHORITY_LEVELS[(report.currentEscalationLevel + 1) as keyof typeof AUTHORITY_LEVELS]?.name}.
-                  This action is recorded on blockchain and cannot be reversed.
+                  {tx('This will escalate your report to', 'यह आपकी रिपोर्ट को एस्केलेट करेगा:')} {AUTHORITY_LEVELS[(report.currentEscalationLevel + 1) as keyof typeof AUTHORITY_LEVELS]?.name[lang]}.
+                  {' '}{tx('This action is recorded in the escalation timeline and cannot be reversed.', 'यह कार्रवाई एस्केलेशन टाइमलाइन में दर्ज होगी और वापस नहीं ली जा सकती।')}
                 </p>
                 <textarea
                   value={escalateReason}
                   onChange={(e) => setEscalateReason(e.target.value)}
-                  placeholder="Reason for escalation..."
+                  placeholder={tx('Reason for escalation...', 'एस्केलेशन का कारण...')}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 resize-none mb-3"
                   rows={3}
                 />
@@ -294,13 +297,13 @@ export default function AnonymousReportTracker() {
                     onClick={handleEscalate}
                     className="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors"
                   >
-                    Confirm Escalation
+                    {tx('Confirm Escalation', 'एस्केलेशन की पुष्टि करें')}
                   </button>
                   <button
                     onClick={() => setShowEscalate(false)}
                     className="px-4 py-2 bg-slate-700 text-white rounded-xl hover:bg-slate-600 transition-colors"
                   >
-                    Cancel
+                    {tx('Cancel', 'रद्द करें')}
                   </button>
                 </div>
               </div>
@@ -309,16 +312,16 @@ export default function AnonymousReportTracker() {
             {/* Resolution Feedback */}
             {(report.status === 'resolved' || report.status === 'closed') && !report.resolutionFeedback && (
               <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
-                <h4 className="text-green-400 font-medium mb-2">Was your issue resolved?</h4>
+                <h4 className="text-green-400 font-medium mb-2">{tx('Was your issue resolved?', 'क्या आपकी समस्या का समाधान हुआ?')}</h4>
                 <p className="text-sm text-slate-400 mb-3">
-                  Please provide feedback to help improve our services
+                  {tx('Please provide feedback to help improve our services', 'हमारी सेवाएं बेहतर बनाने के लिए कृपया प्रतिक्रिया दें')}
                 </p>
                 {!showFeedback ? (
                   <button
                     onClick={() => setShowFeedback(true)}
                     className="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors"
                   >
-                    Provide Feedback
+                    {tx('Provide Feedback', 'प्रतिक्रिया दें')}
                   </button>
                 ) : (
                   <div className="space-y-3">
@@ -331,7 +334,7 @@ export default function AnonymousReportTracker() {
                             : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
                         }`}
                       >
-                        Yes, Resolved
+                        {tx('Yes, Resolved', 'हां, समाधान हुआ')}
                       </button>
                       <button
                         onClick={() => setFeedbackData(prev => ({ ...prev, isResolved: false }))}
@@ -341,11 +344,11 @@ export default function AnonymousReportTracker() {
                             : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
                         }`}
                       >
-                        No, Not Resolved
+                        {tx('No, Not Resolved', 'नहीं, समाधान नहीं हुआ')}
                       </button>
                     </div>
                     <div>
-                      <div className="text-sm text-slate-400 mb-2">Satisfaction Rating</div>
+                      <div className="text-sm text-slate-400 mb-2">{tx('Satisfaction Rating', 'संतुष्टि रेटिंग')}</div>
                       <div className="flex gap-2">
                         {[1, 2, 3, 4, 5].map(rating => (
                           <button
@@ -365,7 +368,7 @@ export default function AnonymousReportTracker() {
                     <textarea
                       value={feedbackData.feedback}
                       onChange={(e) => setFeedbackData(prev => ({ ...prev, feedback: e.target.value }))}
-                      placeholder="Additional comments (optional)"
+                      placeholder={tx('Additional comments (optional)', 'अतिरिक्त टिप्पणियां (वैकल्पिक)')}
                       className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-green-500 resize-none"
                       rows={2}
                     />
@@ -374,7 +377,7 @@ export default function AnonymousReportTracker() {
                       className="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors flex items-center gap-2"
                     >
                       <Send className="w-4 h-4" />
-                      Submit Feedback
+                      {tx('Submit Feedback', 'प्रतिक्रिया जमा करें')}
                     </button>
                   </div>
                 )}
@@ -384,10 +387,10 @@ export default function AnonymousReportTracker() {
             {/* Already Submitted Feedback */}
             {report.resolutionFeedback && (
               <div className="bg-slate-700/50 rounded-xl p-4">
-                <div className="text-sm text-slate-400 mb-2">Your Feedback</div>
+                <div className="text-sm text-slate-400 mb-2">{tx('Your Feedback', 'आपकी प्रतिक्रिया')}</div>
                 <div className="flex items-center gap-4">
                   <span className={report.resolutionFeedback.isResolved ? 'text-green-400' : 'text-red-400'}>
-                    {report.resolutionFeedback.isResolved ? '✓ Confirmed Resolved' : '✗ Not Resolved'}
+                    {report.resolutionFeedback.isResolved ? tx('✓ Confirmed Resolved', '✓ समाधान की पुष्टि') : tx('✗ Not Resolved', '✗ समाधान नहीं हुआ')}
                   </span>
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map(r => (
@@ -411,10 +414,9 @@ export default function AnonymousReportTracker() {
       {!report && !error && (
         <div className="bg-slate-800/30 rounded-2xl border border-slate-700/50 p-8 text-center">
           <Shield className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-slate-400 mb-2">Track Your Anonymous Report</h3>
+          <h3 className="text-lg font-medium text-slate-400 mb-2">{tx('Track Your Anonymous Report', 'अपनी गुमनाम रिपोर्ट ट्रैक करें')}</h3>
           <p className="text-slate-500 text-sm max-w-md mx-auto">
-            Enter the tracking token you received when submitting your report to see its current status, 
-            escalate if needed, or provide feedback on resolution.
+            {tx('Enter the tracking token you received when submitting your report to see its current status, escalate if needed, or provide feedback on resolution.', 'रिपोर्ट जमा करते समय मिला ट्रैकिंग टोकन दर्ज करें ताकि वर्तमान स्थिति देखें, जरूरत पर एस्केलेट करें, या समाधान पर प्रतिक्रिया दे सकें।')}
           </p>
         </div>
       )}

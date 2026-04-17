@@ -229,7 +229,7 @@ export default function SchemesView() {
               </div>
               <div>
                 <h1 className="text-xl md:text-3xl font-bold text-white">Government Schemes Dashboard</h1>
-                <p className="text-sm md:text-base text-slate-400">Real-time monitoring of rural development projects</p>
+                <p className="text-sm md:text-base text-slate-400">Real-time monitoring of development projects</p>
               </div>
             </div>
             {/* Action Buttons */}
@@ -366,17 +366,17 @@ export default function SchemesView() {
                 setModalInitialTab('overview');
                 setShowDetailsModal(true);
               }}
-              className="group bg-slate-900/40 backdrop-blur-md rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col h-full hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-1"
+              className="group bg-[#f8fbf4] backdrop-blur-md rounded-2xl border border-[#d5e2d1] hover:border-purple-300 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col h-full hover:shadow-xl hover:shadow-[#93af95]/20 hover:-translate-y-1"
             >
               {/* Card Header */}
               <div className="p-5 pb-0 flex justify-between items-start">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-slate-800 border border-white/5 flex items-center justify-center text-xl shadow-inner">
+                  <div className="w-10 h-10 rounded-xl bg-[#eaf2e6] border border-[#d1decd] flex items-center justify-center text-xl shadow-inner">
                     {categoryIcons[scheme.category] || '📋'}
                   </div>
                   <div>
-                    <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{scheme.category}</span>
-                    <h3 className="text-lg font-bold text-white leading-tight line-clamp-1 group-hover:text-purple-400 transition-colors">
+                    <span className="text-xs font-medium text-[#6f8677] uppercase tracking-wider">{scheme.category}</span>
+                    <h3 className="text-lg font-bold text-[#1f2e26] leading-tight line-clamp-1 group-hover:text-purple-600 transition-colors">
                       {scheme.name}
                     </h3>
                   </div>
@@ -387,7 +387,7 @@ export default function SchemesView() {
               {/* Card Body */}
               <div className="p-5 flex-1 flex flex-col gap-4">
                 {/* Location & ID */}
-                <div className="flex items-center gap-3 text-xs text-slate-500">
+                <div className="flex items-center gap-3 text-xs text-[#728477]">
                   <div className="flex items-center gap-1">
                     <MapPin size={12} />
                     <span className="truncate max-w-[100px]">{scheme.village}</span>
@@ -399,10 +399,10 @@ export default function SchemesView() {
                 {/* Progress Section */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Completion</span>
-                    <span className="font-bold text-white">{scheme.overallProgress}%</span>
+                    <span className="text-[#647a6b]">Completion</span>
+                    <span className="font-bold text-[#1f2e26]">{scheme.overallProgress}%</span>
                   </div>
-                  <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-2 w-full bg-[#dce8d8] rounded-full overflow-hidden">
                     <div 
                       className={`h-full rounded-full transition-all duration-500 ${
                         scheme.status === 'on-track' ? 'bg-gradient-to-r from-emerald-500 to-emerald-400' :
@@ -417,15 +417,15 @@ export default function SchemesView() {
 
                 {/* Key Metrics Grid */}
                 <div className="grid grid-cols-2 gap-3 mt-auto">
-                  <div className="bg-slate-800/50 rounded-lg p-2.5 border border-white/5">
-                    <div className="text-[10px] text-slate-500 uppercase tracking-wide mb-0.5">Budget Used</div>
-                    <div className="text-sm font-bold text-white">
+                  <div className="bg-[#edf4ea] rounded-lg p-2.5 border border-[#d3e0cf]">
+                    <div className="text-[10px] text-[#75897b] uppercase tracking-wide mb-0.5">Budget Used</div>
+                    <div className="text-sm font-bold text-[#203228]">
                       {Math.round((scheme.budgetUtilized / scheme.totalBudget) * 100)}%
                     </div>
                   </div>
-                  <div className="bg-slate-800/50 rounded-lg p-2.5 border border-white/5">
-                    <div className="text-[10px] text-slate-500 uppercase tracking-wide mb-0.5">Deadline</div>
-                    <div className="text-sm font-bold text-white">
+                  <div className="bg-[#edf4ea] rounded-lg p-2.5 border border-[#d3e0cf]">
+                    <div className="text-[10px] text-[#75897b] uppercase tracking-wide mb-0.5">Deadline</div>
+                    <div className="text-sm font-bold text-[#203228]">
                       {new Date(scheme.endDate).toLocaleDateString(undefined, { month: 'short', year: '2-digit' })}
                     </div>
                   </div>
@@ -441,16 +441,16 @@ export default function SchemesView() {
               </div>
 
               {/* Card Footer */}
-              <div className="px-5 py-3 bg-white/5 border-t border-white/5 flex justify-between items-center group-hover:bg-white/10 transition-colors">
+              <div className="px-5 py-3 bg-[#eef5ea] border-t border-[#d6e1d1] flex justify-between items-center group-hover:bg-[#e6efe1] transition-colors">
                 <div className="flex items-center gap-1 text-xs">
                   <Star size={12} className="text-yellow-500 fill-yellow-500" />
                   {scheme.feedbackCount > 0 ? (
                     <>
-                      <span className="font-medium text-slate-300">{scheme.citizenRating.toFixed(1)}</span>
-                      <span className="text-slate-500">({scheme.feedbackCount} {scheme.feedbackCount === 1 ? 'review' : 'reviews'})</span>
+                      <span className="font-medium text-[#2a3d31]">{scheme.citizenRating.toFixed(1)}</span>
+                      <span className="text-[#728477]">({scheme.feedbackCount} {scheme.feedbackCount === 1 ? 'review' : 'reviews'})</span>
                     </>
                   ) : (
-                    <span className="text-slate-500 italic">No reviews yet</span>
+                    <span className="text-[#728477] italic">No reviews yet</span>
                   )}
                 </div>
                 <div className="flex items-center gap-3">

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Capacitor } from '@capacitor/core';
 import App from './App.tsx';
 import './index.css';
+import { LanguageProvider } from './i18n/LanguageContext';
 
 // Load mobile-specific styles only when running in Capacitor (Android/iOS)
 if (Capacitor.isNativePlatform()) {
@@ -14,6 +15,8 @@ if (Capacitor.isNativePlatform()) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
   </StrictMode>,
 );

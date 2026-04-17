@@ -1,198 +1,141 @@
-import { 
-  ArrowRight, 
-  Menu,
-  ShieldCheck,
-  MessageSquare,
-  AlertCircle,
-  LucideIcon
-} from 'lucide-react';
-
-// --- Constants ---
-const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000&auto=format&fit=crop", 
-  // Audit AI - Financial/document analysis image
-  auditAI: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
-  // Scheme Bot - AI/chatbot/conversation image  
-  schemeBot: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=800&auto=format&fit=crop",
-  // Anonymous - Privacy/security/shield image
-  anonymous: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop",
-  drone: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=800&auto=format&fit=crop"
-};
-
-// --- Types ---
-interface FeatureCardProps {
-  title: string;
-  subtitle: string;
-  img: string;
-  icon: LucideIcon;
-  colorClass: string;
-}
-
-interface LandingScreenProps {
-  onStart: () => void;
-}
-
-// --- Sub-components ---
-
-const FeatureCard = ({ title, subtitle, img, icon: Icon, colorClass }: FeatureCardProps) => (
-  <div className="relative min-w-[240px] h-[160px] rounded-2xl overflow-hidden snap-center border border-white/20 shadow-2xl shrink-0 group">
-    {/* Background Image with Overlay */}
-    <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-    <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/50 transition-colors" />
-    
-    {/* Content */}
-    <div className="absolute inset-0 p-5 flex flex-col justify-between">
-      <div className={`w-8 h-8 rounded-full ${colorClass} flex items-center justify-center backdrop-blur-md bg-opacity-80`}>
-        <Icon size={16} className="text-white" />
-      </div>
-      <div>
-        <h3 className="text-white font-bold text-lg leading-tight mb-1">{title}</h3>
-        <p className="text-white/70 text-xs font-medium">{subtitle}</p>
-      </div>
-    </div>
-  </div>
-);
-
-// --- Main Views ---
-
-const LandingScreen = ({ onStart }: LandingScreenProps) => {
-  return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-slate-900 font-sans">
-      
-      {/* 1. IMMERSIVE BACKGROUND */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={IMAGES.hero} 
-          alt="Rural Landscape" 
-          className="w-full h-full object-cover animate-slow-zoom opacity-90"
-        />
-        {/* Cinematic Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-transparent to-slate-900" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent" />
-      </div>
-
-      {/* 2. TOP BAR (Floating) */}
-      <header className="absolute top-0 left-0 right-0 z-20 px-6 py-6 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <img 
-            src="/ruralens-logo.png" 
-            alt="RuraLens Logo" 
-            className="w-9 h-9 object-contain drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]"
-          />
-          <span className="text-white font-bold text-lg tracking-tight drop-shadow-md">RuraLens</span>
-        </div>
-        <button className="text-white/90 hover:text-white p-2 bg-white/10 backdrop-blur-md rounded-full">
-          <Menu size={20} />
-        </button>
-      </header>
-
-      {/* 3. MAIN VISUAL DECORATION (Floating Data Tags) */}
-      <div className="absolute top-[20%] left-6 z-10 animate-fade-in-delayed">
-        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full shadow-lg">
-          <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
-          <span className="text-amber-100 text-xs font-mono tracking-wider">ALERT: Vendor Discrepancy Found</span>
-        </div>
-      </div>
-
-      {/* 4. BOTTOM INTERACTION PANEL (The "No Scroll" Content Area) */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col justify-end pb-8">
-        
-        {/* Headlines */}
-        <div className="px-6 mb-6">
-          <h1 className="text-4xl font-bold text-white leading-[1.05] mb-2 drop-shadow-xl">
-            Smart Villages,<br />
-            <span className="text-emerald-400">Digitally Twin'd.</span>
-          </h1>
-          <p className="text-slate-300 text-sm max-w-[280px] leading-relaxed">
-            Monitor schemes, verify vendors, and protect citizen identity.
-          </p>
-        </div>
-
-        {/* Horizontal Scroll "Bento" Deck */}
-        <div className="w-full mb-8">
-          <div className="flex overflow-x-auto gap-4 px-6 pb-4 snap-x scrollbar-hide no-scrollbar">
-            {/* Feature 1: Discrepancy Detection */}
-            <FeatureCard 
-              title="Audit AI" 
-              subtitle="Scheme vs Vendor Check" 
-              img={IMAGES.auditAI} 
-              icon={AlertCircle}
-              colorClass="bg-red-500"
-            />
-            {/* Feature 2: Live RAG */}
-            <FeatureCard 
-              title="Scheme Bot" 
-              subtitle="Live RAG Q&A" 
-              img={IMAGES.schemeBot} 
-              icon={MessageSquare}
-              colorClass="bg-blue-500"
-            />
-            {/* Feature 3: Anonymization */}
-            <FeatureCard 
-              title="Anonymous" 
-              subtitle="Secure Feedback" 
-              img={IMAGES.anonymous} 
-              icon={ShieldCheck}
-              colorClass="bg-emerald-500"
-            />
-            {/* Spacer for right padding */}
-            <div className="min-w-[10px] shrink-0" />
-          </div>
-        </div>
-
-        {/* Primary CTA */}
-        <div className="px-6">
-          <button 
-            onClick={onStart}
-            className="w-full bg-white text-slate-900 h-14 rounded-2xl font-bold text-lg shadow-xl shadow-emerald-900/20 flex items-center justify-between px-2 pl-6 group active:scale-95 transition-all"
-          >
-            <span>Launch Dashboard</span>
-            <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white group-hover:bg-emerald-600 transition-colors">
-              <ArrowRight size={20} />
-            </div>
-          </button>
-        </div>
-
-      </div>
-    </div>
-  );
-};
-
-// --- Entry Point ---
+import { ArrowRight, Bot, GitBranch, ShieldAlert, Activity } from 'lucide-react';
+import { useLanguage } from '../../i18n/LanguageContext';
+import sdg6Img from '../../../assets/sdg6.jpeg';
+import sdg9Img from '../../../assets/sdg9.jpeg';
+import sdg11Img from '../../../assets/sdg11.jpeg';
+import sdg16Img from '../../../assets/sdg16.jpeg';
 
 interface MobileLandingPageProps {
   onGetStarted: () => void;
 }
 
+const mobileFeatures = [
+  {
+    title: { hi: 'RAG ज्ञान इंजन', en: 'RAG Knowledge Engine' },
+    note: { hi: 'नीति और योजना दस्तावेज़ों से प्रमाणित उत्तर प्राप्त करें।', en: 'Search policy and scheme docs with grounded answers.' },
+    icon: Bot
+  },
+  {
+    title: { hi: 'GNN प्रभाव पूर्वानुमान', en: 'GNN Impact Forecaster' },
+    note: { hi: 'स्थानीय विफलता के नेटवर्क-स्तरीय प्रभाव का अनुमान लगाएं।', en: 'Predict network-wide effects of local failures.' },
+    icon: GitBranch
+  },
+  {
+    title: { hi: 'डिस्क्रेपेंसी डिटेक्टर', en: 'Discrepancy Detector' },
+    note: { hi: 'बजट, टाइमलाइन और फील्ड डेटा असंगति जल्दी पकड़ें।', en: 'Catch budget, timeline, and field-data mismatches early.' },
+    icon: ShieldAlert
+  },
+  {
+    title: { hi: 'शिकायत रिपोर्टिंग', en: 'Issue Reporting' },
+    note: { hi: 'गोपनीयता-प्रथम रिपोर्टिंग और ट्रेसेबल एस्केलेशन।', en: 'Privacy-first reporting with escalation trails.' },
+    icon: Activity
+  }
+];
+
+const HERO_CITY_IMAGE =
+  'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop';
+
 export default function MobileLandingPage({ onGetStarted }: MobileLandingPageProps) {
+  const { t, lang, toggleLang } = useLanguage();
+  const hi = lang === 'hi';
+  const tx = (en: string, hiText: string) => (hi ? hiText : en);
   return (
-    <>
-      <style>{`
-        /* Utility to hide scrollbar but keep functionality */
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        @keyframes slow-zoom {
-          0% { transform: scale(1); }
-          100% { transform: scale(1.1); }
-        }
-        .animate-slow-zoom {
-          animation: slow-zoom 20s infinite alternate linear;
-        }
-        .animate-fade-in-delayed {
-           animation: fadeIn 1s ease-out 0.5s forwards;
-           opacity: 0;
-        }
-        @keyframes fadeIn {
-          to { opacity: 1; }
-        }
-      `}</style>
-      
-      <LandingScreen onStart={onGetStarted} />
-    </>
+    <div className="min-h-screen bg-gradient-to-b from-[#fefdf8] via-[#f4f7ef] to-[#edf2e6] text-[#1f2c24]">
+      <header className="border-b border-[#d8e2d1] bg-[#fbfdf8]/90 px-4 py-3 backdrop-blur">
+        <div className="flex items-center gap-3">
+          <img src="/ruralens-logo.png" alt="RuraLens" className="h-9 w-9 object-contain" />
+          <div>
+            <h1 className="text-2xl font-black tracking-tight text-[#1b3a2f]">{t('appBrand', 'RuraLens')}</h1>
+            <p className="text-xs font-semibold text-[#62796b]">{t('appTagline', 'AI Governance Twin')}</p>
+          </div>
+          <button
+            onClick={toggleLang}
+            className="ml-auto rounded-md border border-[#9cb7a6] px-2.5 py-1 text-xs font-bold text-[#2a5f46]"
+          >
+            {lang === 'hi' ? 'EN' : 'हि'}
+          </button>
+        </div>
+      </header>
+
+      <main className="px-4 pb-8 pt-5">
+        <div className="overflow-hidden rounded-[24px] border border-[#cddac9] bg-[#f7fbf3] p-2 shadow-lg">
+          <img
+            src={HERO_CITY_IMAGE}
+            alt="सिटी गवर्नेंस"
+            className="h-52 w-full rounded-[18px] object-cover"
+          />
+        </div>
+
+        <h2 className="mt-6 text-4xl font-black leading-[1.05] text-[#1d3f31]">
+          {tx('One civic brain for', 'एकीकृत नागरिक दिमाग')}
+          <span className="block bg-gradient-to-r from-[#2f7a5b] to-[#7ba471] bg-clip-text text-transparent">
+            {tx('data, trust, and action.', 'डेटा, भरोसा और कार्रवाई के लिए।')}
+          </span>
+        </h2>
+
+        <p className="mt-3 text-sm leading-relaxed text-[#51685b]">
+          {tx('RuraLens combines RAG, GNN, discrepancy intelligence, and citizen issue workflows into one command layer.', 'RuraLens, RAG, GNN, डिस्क्रेपेंसी इंटेलिजेंस और नागरिक शिकायत वर्कफ्लो को एक कमांड लेयर में जोड़ता है।')}
+        </p>
+
+        <section className="mt-6 space-y-2">
+          {mobileFeatures.map((feature, idx) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={feature.title.en}
+                className="grid grid-cols-[40px_1fr] gap-3 border-b border-[#dce7d5] py-3 last:border-b-0"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#d8eadb] text-[#1e5a43]">
+                  <Icon size={18} />
+                </div>
+                <div>
+                  <p className="text-xs font-bold tracking-[0.16em] text-[#6e8877]">0{idx + 1}</p>
+                  <h3 className="text-lg font-extrabold text-[#1f3e31]">{feature.title[lang]}</h3>
+                  <p className="text-sm text-[#576f60]">{feature.note[lang]}</p>
+                </div>
+              </div>
+            );
+          })}
+        </section>
+
+        <section className="mt-7">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#668371]">{tx('SDG Image Strip', 'SDG इमेज स्ट्रिप')}</p>
+          <div className="flex gap-2 overflow-x-auto pb-2">
+            <img
+              src={sdg6Img}
+              alt="SDG 6"
+              className="h-20 w-20 shrink-0 rounded-lg border border-[#cad9c8] bg-white object-cover"
+            />
+            <img
+              src={sdg9Img}
+              alt="SDG 9"
+              className="h-20 w-20 shrink-0 rounded-lg border border-[#cad9c8] bg-white object-cover"
+            />
+            <img
+              src={sdg11Img}
+              alt="SDG 11"
+              className="h-20 w-20 shrink-0 rounded-lg border border-[#cad9c8] bg-white object-cover"
+            />
+            <img
+              src={sdg16Img}
+              alt="SDG 16"
+              className="h-20 w-20 shrink-0 rounded-lg border border-[#cad9c8] bg-white object-cover"
+            />
+          </div>
+        </section>
+      </main>
+
+      <div className="sticky bottom-0 border-t border-[#d8e2d1] bg-[#fbfdf8]/95 p-4 backdrop-blur">
+        <button
+          onClick={onGetStarted}
+          className="flex w-full items-center justify-between rounded-2xl bg-[#1f5f46] px-5 py-3.5 text-lg font-bold text-[#eff8ee]"
+        >
+          {t('launchDashboard', 'Launch Dashboard')}
+          <span className="rounded-xl bg-[#174435] p-2">
+            <ArrowRight size={20} />
+          </span>
+        </button>
+      </div>
+    </div>
   );
 }

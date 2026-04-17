@@ -28,7 +28,7 @@ interface AnonymousReport {
     authorityName: string;
     escalatedAt: string;
     reason: string;
-    currentHash: string;
+    escalationId: string;
   }>;
   upvoteCount: number;
   downvoteCount: number;
