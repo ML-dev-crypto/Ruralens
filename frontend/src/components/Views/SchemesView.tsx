@@ -24,6 +24,7 @@ import {
 import { useVillageStore, type GovernmentScheme } from '../../store/villageStore';
 import { API_URL } from '../../config/api';
 import RagQueryModal from '../Rag/RagQueryModal';
+import CallRecordsPanel from '../Dashboard/CallRecordsPanel';
 import FeedbackView from './FeedbackView';
 import type { Citation } from '../../hooks/useRagQuery';
 import { Capacitor } from '@capacitor/core';
@@ -355,6 +356,13 @@ export default function SchemesView() {
             </button>
           </div>
         </div>
+
+        {/* Admin Call History Panel */}
+        {userRole === 'admin' && (
+          <div className="mb-6 md:mb-8">
+            <CallRecordsPanel />
+          </div>
+        )}
 
         {/* Schemes Grid - Modular & Modern Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">

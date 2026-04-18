@@ -13,6 +13,7 @@ import ragRoutes from './routes/rag.js';
 import anonymousReportsRoutes from './routes/anonymousReports.js';
 import gnnRoutes from './routes/gnn.js';
 import issuesRoutes from './routes/issues.js';
+import ringgRoutes from './routes/ringg.js';
 import Scheme from './models/Scheme.js';
 import Feedback from './models/Feedback.js';
 import { startEscalationCron } from './utils/escalationCron.js';
@@ -56,6 +57,7 @@ app.use('/api/rag-query', ragRoutes);
 app.use('/api/anonymous-reports', anonymousReportsRoutes);
 app.use('/api/gnn', gnnRoutes);
 app.use('/api/issues', issuesRoutes);
+app.use('/api/ringg', ringgRoutes);
 
 startEscalationCron();
 startAnonymousReportEscalationCron();
