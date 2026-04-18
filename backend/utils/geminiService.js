@@ -108,3 +108,43 @@ Output: "Resident reported concerns about contractor work quality requiring atte
     };
   }
 }
+
+export async function translateTextToHindi(text) {
+  try {
+    const sourceText = String(text || '').trim();
+    if (!sourceText) return '';
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return sourceText;
+    }
+
+    if (!genAI) {
+      genAI = new GoogleGenerativeAI(apiKey);
+    }
+
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const prompt = `Translate the following text to natural Hindi (Devanagari).
+Rules:
+- Keep meaning accurate and concise.
+- Keep numbers, IDs, and proper nouns unchanged.
+- Return ONLY translated Hindi text.
+
+Text:
+${sourceText}`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const translated = String(response.text() || '').trim();
+
+    if (!translated) return sourceText;
+
+    // Strip common markdown code fences if model returns them.
+    return translated
+      .replace(/^```[a-zA-Z]*\n?/g, '')
+      .replace(/```$/g, '')
+      .trim();
+  } catch (error) {
+    return String(text || '');
+  }
+}
