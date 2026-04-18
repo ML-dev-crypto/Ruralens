@@ -1,4 +1,4 @@
-"""
+﻿"""
 Pathway-based Document Extraction Service for Government Schemes
 
 This module provides accurate, AI-powered extraction from complex government 
@@ -29,7 +29,7 @@ try:
     PATHWAY_AVAILABLE = True
 except ImportError:
     PATHWAY_AVAILABLE = False
-    print("⚠️ Pathway not installed, using fallback extraction methods")
+    print("âš ï¸ Pathway not installed, using fallback extraction methods")
 
 # Import Google's Generative AI for enhanced extraction
 GEMINI_AVAILABLE = False
@@ -50,7 +50,7 @@ except ImportError:
     pass
 
 if not GEMINI_AVAILABLE and not HUGGINGFACE_AVAILABLE:
-    print("⚠️ No LLM API configured (need GEMINI_API_KEY or HUGGINGFACE_API_KEY)")
+    print("âš ï¸ No LLM API configured (need GEMINI_API_KEY or HUGGINGFACE_API_KEY)")
 
 # PDF parsing
 try:
@@ -194,14 +194,14 @@ class PathwayDocumentExtractor:
             genai.configure(api_key=self.gemini_api_key)
             self.model = genai.GenerativeModel('gemini-2.0-flash')
             self.llm_backend = 'gemini'
-            print("✅ Gemini AI configured for document extraction")
+            print("âœ… Gemini AI configured for document extraction")
         # Fallback to HuggingFace
         elif HUGGINGFACE_AVAILABLE and self.huggingface_api_key:
             self.hf_client = InferenceClient(token=self.huggingface_api_key)
             self.llm_backend = 'huggingface'
-            print("✅ HuggingFace AI configured for document extraction")
+            print("âœ… HuggingFace AI configured for document extraction")
         else:
-            print("⚠️ No LLM configured, using regex-only extraction")
+            print("âš ï¸ No LLM configured, using regex-only extraction")
         
         # Extraction patterns for fallback
         self._compile_patterns()
@@ -215,8 +215,8 @@ class PathwayDocumentExtractor:
                 r'(?:title|name)[\s:-]+([^\n]{10,100})',
             ],
             'budget': [
-                r'(?:budget|cost|outlay|fund|amount|allocation)[\s:-]*(?:Rs\.?|₹|INR)?[\s]*([0-9,]+(?:\.[0-9]+)?)\s*(crore|cr|lakh|lakhs|million|billion)?',
-                r'₹\s*([0-9,]+(?:\.[0-9]+)?)\s*(crore|cr|lakh|lakhs)?',
+                r'(?:budget|cost|outlay|fund|amount|allocation)[\s:-]*(?:Rs\.?|â‚¹|INR)?[\s]*([0-9,]+(?:\.[0-9]+)?)\s*(crore|cr|lakh|lakhs|million|billion)?',
+                r'â‚¹\s*([0-9,]+(?:\.[0-9]+)?)\s*(crore|cr|lakh|lakhs)?',
                 r'(?:total|project)\s+(?:budget|cost)[\s:-]*([0-9,]+(?:\.[0-9]+)?)\s*(crore|cr|lakh|lakhs)?',
             ],
             'dates': [
@@ -234,8 +234,8 @@ class PathwayDocumentExtractor:
                 r'(?:M/s\.?|Messrs\.?)[\s]+([A-Za-z\s&\.]+)',
             ],
             'expense': [
-                r'(?:expense|expenditure|spent|claimed|utilized)[\s:-]*(?:Rs\.?|₹)?[\s]*([0-9,]+(?:\.[0-9]+)?)',
-                r'(?:amount\s+claimed)[\s:-]*(?:Rs\.?|₹)?[\s]*([0-9,]+(?:\.[0-9]+)?)',
+                r'(?:expense|expenditure|spent|claimed|utilized)[\s:-]*(?:Rs\.?|â‚¹)?[\s]*([0-9,]+(?:\.[0-9]+)?)',
+                r'(?:amount\s+claimed)[\s:-]*(?:Rs\.?|â‚¹)?[\s]*([0-9,]+(?:\.[0-9]+)?)',
             ],
         }
         
@@ -264,20 +264,20 @@ class PathwayDocumentExtractor:
                             for row in table:
                                 if row:
                                     text += " | ".join(str(cell) if cell else "" for cell in row) + "\n"
-                print(f"✅ Extracted {len(text)} chars using pdfplumber")
+                print(f"âœ… Extracted {len(text)} chars using pdfplumber")
                 return text
             except Exception as e:
-                print(f"⚠️ pdfplumber error: {e}")
+                print(f"âš ï¸ pdfplumber error: {e}")
         
         if PYPDF2_AVAILABLE:
             try:
                 reader = PdfReader(pdf_path)
                 for page in reader.pages:
                     text += page.extract_text() or ""
-                print(f"✅ Extracted {len(text)} chars using PyPDF2")
+                print(f"âœ… Extracted {len(text)} chars using PyPDF2")
                 return text
             except Exception as e:
-                print(f"⚠️ PyPDF2 error: {e}")
+                print(f"âš ï¸ PyPDF2 error: {e}")
         
         raise RuntimeError("No PDF extraction library available")
     
@@ -317,7 +317,7 @@ class PathwayDocumentExtractor:
                 scheme = self._merge_extractions(regex_data, llm_data)
                 scheme.extraction_method = "pathway_llm"
             except Exception as e:
-                print(f"⚠️ LLM extraction failed: {e}")
+                print(f"âš ï¸ LLM extraction failed: {e}")
                 scheme = self._apply_regex_data(scheme, regex_data)
                 scheme.extraction_method = "regex_fallback"
         else:
@@ -513,7 +513,7 @@ IMPORTANT:
                         )
                 return extracted
         except Exception as e:
-            print(f"⚠️ LLM extraction error: {e}")
+            print(f"âš ï¸ LLM extraction error: {e}")
         
         return {}
     
@@ -650,7 +650,7 @@ IMPORTANT:
                 llm_data = await self._extract_vendor_with_llm(pdf_text)
                 report = self._merge_vendor_extractions(regex_data, llm_data)
             except Exception as e:
-                print(f"⚠️ Vendor LLM extraction failed: {e}")
+                print(f"âš ï¸ Vendor LLM extraction failed: {e}")
                 report = self._apply_vendor_regex_data(report, regex_data)
         else:
             report = self._apply_vendor_regex_data(report, regex_data)
@@ -799,7 +799,7 @@ IMPORTANT:
                         )
                 return extracted
         except Exception as e:
-            print(f"⚠️ Vendor LLM error: {e}")
+            print(f"âš ï¸ Vendor LLM error: {e}")
         
         return {}
     
@@ -897,13 +897,13 @@ IMPORTANT:
                     category='budget',
                     severity=DiscrepancySeverity.CRITICAL,
                     title='Critical Budget Overrun',
-                    description=f"Vendor claimed ₹{vendor_report.expense_claimed:,.0f} which is {variance_pct:.1f}% over the allocated budget of ₹{scheme.total_budget:,.0f}",
-                    planned_value=f"₹{scheme.total_budget:,.0f}",
-                    actual_value=f"₹{vendor_report.expense_claimed:,.0f}",
+                    description=f"Vendor claimed â‚¹{vendor_report.expense_claimed:,.0f} which is {variance_pct:.1f}% over the allocated budget of â‚¹{scheme.total_budget:,.0f}",
+                    planned_value=f"â‚¹{scheme.total_budget:,.0f}",
+                    actual_value=f"â‚¹{vendor_report.expense_claimed:,.0f}",
                     variance=budget_variance,
                     variance_percentage=variance_pct,
                     recommendation="Immediate audit required. Verify all expense claims with supporting documents.",
-                    evidence=[f"Budget allocated: ₹{scheme.total_budget:,.0f}", f"Amount claimed: ₹{vendor_report.expense_claimed:,.0f}"]
+                    evidence=[f"Budget allocated: â‚¹{scheme.total_budget:,.0f}", f"Amount claimed: â‚¹{vendor_report.expense_claimed:,.0f}"]
                 ))
                 analysis.budget_compliance = max(0, 100 - variance_pct)
             elif variance_pct > thresholds['budget_variance_high']:
@@ -912,8 +912,8 @@ IMPORTANT:
                     severity=DiscrepancySeverity.HIGH,
                     title='Significant Budget Overrun',
                     description=f"Expenses exceed budget by {variance_pct:.1f}%",
-                    planned_value=f"₹{scheme.total_budget:,.0f}",
-                    actual_value=f"₹{vendor_report.expense_claimed:,.0f}",
+                    planned_value=f"â‚¹{scheme.total_budget:,.0f}",
+                    actual_value=f"â‚¹{vendor_report.expense_claimed:,.0f}",
                     variance=budget_variance,
                     variance_percentage=variance_pct,
                     recommendation="Review expense breakdown and request detailed justification for overrun."
@@ -925,8 +925,8 @@ IMPORTANT:
                     severity=DiscrepancySeverity.MEDIUM,
                     title='Budget Variance Detected',
                     description=f"Expenses are {variance_pct:.1f}% over budget",
-                    planned_value=f"₹{scheme.total_budget:,.0f}",
-                    actual_value=f"₹{vendor_report.expense_claimed:,.0f}",
+                    planned_value=f"â‚¹{scheme.total_budget:,.0f}",
+                    actual_value=f"â‚¹{vendor_report.expense_claimed:,.0f}",
                     variance=budget_variance,
                     variance_percentage=variance_pct,
                     recommendation="Monitor closely. Request explanation if trend continues."
@@ -1020,7 +1020,7 @@ IMPORTANT:
         
         # 4. SCOPE COMPLIANCE
         if vendor_report.milestones_achieved:
-            analysis.matching_items.extend([f"✓ {m}" for m in vendor_report.milestones_achieved[:5]])
+            analysis.matching_items.extend([f"âœ“ {m}" for m in vendor_report.milestones_achieved[:5]])
             analysis.scope_compliance = min(100, len(vendor_report.milestones_achieved) * 20)
         else:
             analysis.scope_compliance = 50
@@ -1068,13 +1068,13 @@ IMPORTANT:
         prompt = f"""You are a government compliance auditor. Provide a concise executive summary (4-5 sentences).
 
 SCHEME: {scheme.name}
-- Budget: ₹{scheme.total_budget:,.0f}
+- Budget: â‚¹{scheme.total_budget:,.0f}
 - Timeline: {scheme.start_date} to {scheme.end_date}
 
 VENDOR REPORT:
 - Vendor: {report.vendor_name}
 - Phase: {report.phase_reported}
-- Expense Claimed: ₹{report.expense_claimed:,.0f}
+- Expense Claimed: â‚¹{report.expense_claimed:,.0f}
 - Work Completed: {report.work_completed}
 
 ANALYSIS:
@@ -1268,7 +1268,7 @@ if __name__ == "__main__":
         
         Total Project Budget: Rs. 75.50 Lakhs
         Duration: 24 months
-        Start Date: 01-04-2025
+        Start Date: 01-04-2026
         End Date: 31-03-2027
         
         Implementing Agency: Public Works Department
@@ -1287,7 +1287,8 @@ if __name__ == "__main__":
         print("Testing scheme extraction...")
         scheme = await extractor.extract_scheme_data(sample_text)
         print(f"Extracted scheme: {scheme.name}")
-        print(f"Budget: ₹{scheme.total_budget:,.0f}")
+        print(f"Budget: â‚¹{scheme.total_budget:,.0f}")
         print(f"Confidence: {scheme.extraction_confidence:.2%}")
     
     asyncio.run(test())
+

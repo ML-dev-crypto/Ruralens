@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Demo Village Data for offline/development mode
  * Uses Pune coordinates (Village Center: 73.8567, 18.5204)
  * 
@@ -23,7 +23,7 @@ export const demoVillageData = {
       capacity: 50000,
       currentLevel: 75,
       status: 'operational',
-      lastMaintenance: '2025-12-15',
+      lastMaintenance: '2026-12-15',
     },
   ],
 
@@ -125,3 +125,4 @@ export const demoVillageData = {
 };
 
 export default demoVillageData;
+

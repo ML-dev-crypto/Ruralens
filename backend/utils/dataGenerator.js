@@ -1,13 +1,13 @@
-// Realistic data generation for Sundarpur Village Digital Twin
+﻿// Realistic data generation for Sundarpur Village Digital Twin
 
 export function generateVillageData() {
   return {
     waterTanks: [
-      { id: 'wt001', name: 'Central Water Tank', coords: [73.8567, 18.5204], elevation: 665, capacity: 50000, currentLevel: 85.5, status: 'good', flowRate: -125, lastRefill: '2024-10-08', nextService: '2024-10-25' },
-      { id: 'wt002', name: 'North Tank', coords: [73.8577, 18.5224], elevation: 670, capacity: 30000, currentLevel: 67.2, status: 'warning', flowRate: -98, lastRefill: '2024-10-07', nextService: '2024-10-22' },
-      { id: 'wt003', name: 'South Tank', coords: [73.8557, 18.5184], elevation: 655, capacity: 40000, currentLevel: 92.1, status: 'good', flowRate: -110, lastRefill: '2024-10-09', nextService: '2024-10-26' },
-      { id: 'wt004', name: 'East Tank', coords: [73.8597, 18.5204], elevation: 660, capacity: 25000, currentLevel: 45.8, status: 'critical', flowRate: -85, lastRefill: '2024-10-05', nextService: '2024-10-20' },
-      { id: 'wt005', name: 'West Tank', coords: [73.8537, 18.5204], elevation: 675, capacity: 35000, currentLevel: 78.3, status: 'good', flowRate: -105, lastRefill: '2024-10-08', nextService: '2024-10-24' }
+      { id: 'wt001', name: 'Central Water Tank', coords: [73.8567, 18.5204], elevation: 665, capacity: 50000, currentLevel: 85.5, status: 'good', flowRate: -125, lastRefill: '2026-10-08', nextService: '2026-10-25' },
+      { id: 'wt002', name: 'North Tank', coords: [73.8577, 18.5224], elevation: 670, capacity: 30000, currentLevel: 67.2, status: 'warning', flowRate: -98, lastRefill: '2026-10-07', nextService: '2026-10-22' },
+      { id: 'wt003', name: 'South Tank', coords: [73.8557, 18.5184], elevation: 655, capacity: 40000, currentLevel: 92.1, status: 'good', flowRate: -110, lastRefill: '2026-10-09', nextService: '2026-10-26' },
+      { id: 'wt004', name: 'East Tank', coords: [73.8597, 18.5204], elevation: 660, capacity: 25000, currentLevel: 45.8, status: 'critical', flowRate: -85, lastRefill: '2026-10-05', nextService: '2026-10-20' },
+      { id: 'wt005', name: 'West Tank', coords: [73.8537, 18.5204], elevation: 675, capacity: 35000, currentLevel: 78.3, status: 'good', flowRate: -105, lastRefill: '2026-10-08', nextService: '2026-10-24' }
     ],
     
     buildings: [
@@ -37,18 +37,18 @@ export function generateVillageData() {
     ],
     
     roads: [
-      { id: 'r001', name: 'Main Street', path: [[73.8550, 18.5190], [73.8580, 18.5190]], width: 8, condition: 'good', potholes: 0, lastMaintenance: '2024-08-15' },
-      { id: 'r002', name: 'School Road', path: [[73.8567, 18.5204], [73.8567, 18.5214]], width: 6, condition: 'fair', potholes: 3, lastMaintenance: '2024-06-20' },
-      { id: 'r003', name: 'Temple Road', path: [[73.8567, 18.5204], [73.8577, 18.5194]], width: 7, condition: 'good', potholes: 0, lastMaintenance: '2024-09-10' },
-      { id: 'r004', name: 'Health Center Road', path: [[73.8567, 18.5204], [73.8587, 18.5204]], width: 6, condition: 'good', potholes: 1, lastMaintenance: '2024-07-25' },
-      { id: 'r005', name: 'Village Circle', path: [[73.8562, 18.5209], [73.8572, 18.5209], [73.8572, 18.5199], [73.8562, 18.5199], [73.8562, 18.5209]], width: 8, condition: 'fair', potholes: 2, lastMaintenance: '2024-05-12' },
-      { id: 'r006', name: 'Farm Access Road', path: [[73.8580, 18.5190], [73.8592, 18.5219]], width: 5, condition: 'poor', potholes: 7, lastMaintenance: '2024-03-08' }
+      { id: 'r001', name: 'Main Street', path: [[73.8550, 18.5190], [73.8580, 18.5190]], width: 8, condition: 'good', potholes: 0, lastMaintenance: '2026-08-15' },
+      { id: 'r002', name: 'School Road', path: [[73.8567, 18.5204], [73.8567, 18.5214]], width: 6, condition: 'fair', potholes: 3, lastMaintenance: '2026-06-20' },
+      { id: 'r003', name: 'Temple Road', path: [[73.8567, 18.5204], [73.8577, 18.5194]], width: 7, condition: 'good', potholes: 0, lastMaintenance: '2026-09-10' },
+      { id: 'r004', name: 'Health Center Road', path: [[73.8567, 18.5204], [73.8587, 18.5204]], width: 6, condition: 'good', potholes: 1, lastMaintenance: '2026-07-25' },
+      { id: 'r005', name: 'Village Circle', path: [[73.8562, 18.5209], [73.8572, 18.5209], [73.8572, 18.5199], [73.8562, 18.5199], [73.8562, 18.5209]], width: 8, condition: 'fair', potholes: 2, lastMaintenance: '2026-05-12' },
+      { id: 'r006', name: 'Farm Access Road', path: [[73.8580, 18.5190], [73.8592, 18.5219]], width: 5, condition: 'poor', potholes: 7, lastMaintenance: '2026-03-08' }
     ],
     
     sensors: [
       { id: 's001', type: 'soil_moisture', name: 'Field Sensor 1', coords: [73.8560, 18.5200], value: 68, unit: '%', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's002', type: 'air_quality', name: 'AQI Monitor Central', coords: [73.8570, 18.5210], value: 42, unit: 'AQI', status: 'active', lastUpdate: new Date().toISOString() },
-      { id: 's003', type: 'weather', name: 'Weather Station', coords: [73.8567, 18.5204], value: 28.5, unit: '°C', status: 'active', lastUpdate: new Date().toISOString(), humidity: 65, windSpeed: 12 },
+      { id: 's003', type: 'weather', name: 'Weather Station', coords: [73.8567, 18.5204], value: 28.5, unit: 'Â°C', status: 'active', lastUpdate: new Date().toISOString(), humidity: 65, windSpeed: 12 },
       { id: 's004', type: 'water_quality', name: 'Water Quality Monitor', coords: [73.8567, 18.5204], value: 7.2, unit: 'pH', status: 'active', lastUpdate: new Date().toISOString(), tds: 245 },
       { id: 's005', type: 'soil_moisture', name: 'Field Sensor 2', coords: [73.8580, 18.5195], value: 72, unit: '%', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's006', type: 'soil_moisture', name: 'Field Sensor 3', coords: [73.8575, 18.5215], value: 65, unit: '%', status: 'active', lastUpdate: new Date().toISOString() },
@@ -58,8 +58,8 @@ export function generateVillageData() {
       { id: 's012', type: 'rainfall', name: 'Rain Gauge', coords: [73.8567, 18.5204], value: 0, unit: 'mm', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's013', type: 'flood', name: 'Water Level Sensor', coords: [73.8555, 18.5185], value: 0.2, unit: 'm', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's014', type: 'soil_moisture', name: 'Field Sensor 4', coords: [73.8590, 18.5220], value: 71, unit: '%', status: 'active', lastUpdate: new Date().toISOString() },
-      { id: 's015', type: 'temperature', name: 'Temp Sensor School', coords: [73.8567, 18.5214], value: 27.8, unit: '°C', status: 'active', lastUpdate: new Date().toISOString() },
-      { id: 's016', type: 'temperature', name: 'Temp Sensor Health Center', coords: [73.8587, 18.5204], value: 26.5, unit: '°C', status: 'active', lastUpdate: new Date().toISOString() },
+      { id: 's015', type: 'temperature', name: 'Temp Sensor School', coords: [73.8567, 18.5214], value: 27.8, unit: 'Â°C', status: 'active', lastUpdate: new Date().toISOString() },
+      { id: 's016', type: 'temperature', name: 'Temp Sensor Health Center', coords: [73.8587, 18.5204], value: 26.5, unit: 'Â°C', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's017', type: 'parking', name: 'Parking Occupancy', coords: [73.8572, 18.5199], value: 12, unit: 'spaces', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's018', type: 'street_light', name: 'Street Light Monitor', coords: [73.8570, 18.5195], value: 100, unit: '%', status: 'active', lastUpdate: new Date().toISOString() },
       // NEW SENSORS - Adding more for innovation
@@ -71,8 +71,8 @@ export function generateVillageData() {
       { id: 's024', type: 'water_quality', name: 'Water Quality Sensor 3', coords: [73.8557, 18.5184], value: 7.3, unit: 'pH', status: 'active', lastUpdate: new Date().toISOString(), tds: 251 },
       { id: 's027', type: 'noise', name: 'Noise Monitor School', coords: [73.8567, 18.5214], value: 65, unit: 'dB', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's028', type: 'noise', name: 'Noise Monitor Residential', coords: [73.8547, 18.5214], value: 52, unit: 'dB', status: 'active', lastUpdate: new Date().toISOString() },
-      { id: 's029', type: 'temperature', name: 'Temp Sensor Temple', coords: [73.8577, 18.5194], value: 28.2, unit: '°C', status: 'active', lastUpdate: new Date().toISOString() },
-      { id: 's030', type: 'temperature', name: 'Temp Sensor Market', coords: [73.8587, 18.5194], value: 29.1, unit: '°C', status: 'active', lastUpdate: new Date().toISOString() },
+      { id: 's029', type: 'temperature', name: 'Temp Sensor Temple', coords: [73.8577, 18.5194], value: 28.2, unit: 'Â°C', status: 'active', lastUpdate: new Date().toISOString() },
+      { id: 's030', type: 'temperature', name: 'Temp Sensor Market', coords: [73.8587, 18.5194], value: 29.1, unit: 'Â°C', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's031', type: 'street_light', name: 'Street Light Zone 2', coords: [73.8565, 18.5200], value: 100, unit: '%', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's032', type: 'street_light', name: 'Street Light Zone 3', coords: [73.8575, 18.5190], value: 85, unit: '%', status: 'active', lastUpdate: new Date().toISOString() },
       { id: 's033', type: 'parking', name: 'Temple Parking', coords: [73.8577, 18.5196], value: 8, unit: 'spaces', status: 'active', lastUpdate: new Date().toISOString() },
@@ -92,11 +92,11 @@ export function generateVillageData() {
     ],
     
     citizenReports: [
-      { id: 'cr001', category: 'road', title: 'Large pothole on School Road', coords: [73.8567, 18.5210], status: 'in_progress', priority: 'high', createdAt: '2024-10-08T10:30:00Z', assignedTo: 'Field Worker #12', photos: 2, description: 'Large pothole causing vehicle damage near school entrance' },
-      { id: 'cr002', category: 'water', title: 'Water leakage near temple', coords: [73.8575, 18.5194], status: 'pending', priority: 'medium', createdAt: '2024-10-09T14:15:00Z', assignedTo: null, photos: 1, description: 'Continuous water leakage from pipeline' },
-      { id: 'cr003', category: 'power', title: 'Street light not working', coords: [73.8555, 18.5200], status: 'completed', priority: 'low', createdAt: '2024-10-07T19:45:00Z', assignedTo: 'Electrician #5', photos: 0, description: 'Street light pole #23 not functioning' },
-      { id: 'cr004', category: 'waste', title: 'Garbage accumulation', coords: [73.8580, 18.5190], status: 'pending', priority: 'high', createdAt: '2024-10-09T08:20:00Z', assignedTo: null, photos: 3, description: 'Garbage not collected for 3 days' },
-      { id: 'cr005', category: 'road', title: 'Road markings faded', coords: [73.8565, 18.5209], status: 'pending', priority: 'low', createdAt: '2024-10-08T16:00:00Z', assignedTo: null, photos: 1, description: 'Road markings need repainting at village circle' }
+      { id: 'cr001', category: 'road', title: 'Large pothole on School Road', coords: [73.8567, 18.5210], status: 'in_progress', priority: 'high', createdAt: '2026-10-08T10:30:00Z', assignedTo: 'Field Worker #12', photos: 2, description: 'Large pothole causing vehicle damage near school entrance' },
+      { id: 'cr002', category: 'water', title: 'Water leakage near temple', coords: [73.8575, 18.5194], status: 'pending', priority: 'medium', createdAt: '2026-10-09T14:15:00Z', assignedTo: null, photos: 1, description: 'Continuous water leakage from pipeline' },
+      { id: 'cr003', category: 'power', title: 'Street light not working', coords: [73.8555, 18.5200], status: 'completed', priority: 'low', createdAt: '2026-10-07T19:45:00Z', assignedTo: 'Electrician #5', photos: 0, description: 'Street light pole #23 not functioning' },
+      { id: 'cr004', category: 'waste', title: 'Garbage accumulation', coords: [73.8580, 18.5190], status: 'pending', priority: 'high', createdAt: '2026-10-09T08:20:00Z', assignedTo: null, photos: 3, description: 'Garbage not collected for 3 days' },
+      { id: 'cr005', category: 'road', title: 'Road markings faded', coords: [73.8565, 18.5209], status: 'pending', priority: 'low', createdAt: '2026-10-08T16:00:00Z', assignedTo: null, photos: 1, description: 'Road markings need repainting at village circle' }
     ],
     
     schemes: [
@@ -108,20 +108,20 @@ export function generateVillageData() {
         district: 'Pune',
         totalBudget: 2500000,
         budgetUtilized: 1875000,
-        startDate: '2024-01-15',
-        endDate: '2024-12-31',
+        startDate: '2026-01-15',
+        endDate: '2026-12-31',
         overallProgress: 75,
         status: 'on-track',
         description: 'Construction of community toilets and solid waste management infrastructure',
         phases: [
-          { id: 1, name: 'Site Survey & Planning', progress: 100, status: 'completed', startDate: '2024-01-15', endDate: '2024-02-15', budget: 250000, spent: 245000 },
-          { id: 2, name: 'Toilet Construction', progress: 90, status: 'on-track', startDate: '2024-02-16', endDate: '2024-06-30', budget: 1500000, spent: 1350000 },
-          { id: 3, name: 'Waste Management Setup', progress: 55, status: 'on-track', startDate: '2024-05-01', endDate: '2024-10-31', budget: 500000, spent: 275000 },
-          { id: 4, name: 'Awareness Campaign', progress: 40, status: 'delayed', startDate: '2024-08-01', endDate: '2024-12-31', budget: 250000, spent: 5000 }
+          { id: 1, name: 'Site Survey & Planning', progress: 100, status: 'completed', startDate: '2026-01-15', endDate: '2026-02-15', budget: 250000, spent: 245000 },
+          { id: 2, name: 'Toilet Construction', progress: 90, status: 'on-track', startDate: '2026-02-16', endDate: '2026-06-30', budget: 1500000, spent: 1350000 },
+          { id: 3, name: 'Waste Management Setup', progress: 55, status: 'on-track', startDate: '2026-05-01', endDate: '2026-10-31', budget: 500000, spent: 275000 },
+          { id: 4, name: 'Awareness Campaign', progress: 40, status: 'delayed', startDate: '2026-08-01', endDate: '2026-12-31', budget: 250000, spent: 5000 }
         ],
         vendorReports: [
-          { id: 1, vendorName: 'Green Build Contractors', submittedDate: '2024-09-15', phase: 2, workCompleted: 'Construction of 12 toilet units', expenseClaimed: 450000, verificationStatus: 'verified', documents: ['progress-report.pdf', 'bills.pdf'] },
-          { id: 2, vendorName: 'EcoWaste Solutions', submittedDate: '2024-09-10', phase: 3, workCompleted: 'Installation of 5 waste segregation units', expenseClaimed: 125000, verificationStatus: 'pending', documents: ['invoice.pdf'] }
+          { id: 1, vendorName: 'Green Build Contractors', submittedDate: '2026-09-15', phase: 2, workCompleted: 'Construction of 12 toilet units', expenseClaimed: 450000, verificationStatus: 'verified', documents: ['progress-report.pdf', 'bills.pdf'] },
+          { id: 2, vendorName: 'EcoWaste Solutions', submittedDate: '2026-09-10', phase: 3, workCompleted: 'Installation of 5 waste segregation units', expenseClaimed: 125000, verificationStatus: 'pending', documents: ['invoice.pdf'] }
         ],
         discrepancies: [],
         citizenRating: 4.2,
@@ -137,21 +137,21 @@ export function generateVillageData() {
         totalBudget: 4200000,
         budgetUtilized: 2940000,
         startDate: '2023-11-01',
-        endDate: '2024-11-30',
+        endDate: '2026-11-30',
         overallProgress: 70,
         status: 'delayed',
         description: 'Extension of water pipeline network to ensure tap water connection for every household',
         phases: [
-          { id: 1, name: 'Pipeline Procurement', progress: 100, status: 'completed', startDate: '2023-11-01', endDate: '2024-01-31', budget: 1200000, spent: 1180000 },
-          { id: 2, name: 'Excavation & Laying', progress: 85, status: 'delayed', startDate: '2024-02-01', endDate: '2024-07-31', budget: 2000000, spent: 1700000 },
-          { id: 3, name: 'Household Connections', progress: 35, status: 'delayed', startDate: '2024-06-01', endDate: '2024-11-30', budget: 1000000, spent: 60000 }
+          { id: 1, name: 'Pipeline Procurement', progress: 100, status: 'completed', startDate: '2023-11-01', endDate: '2026-01-31', budget: 1200000, spent: 1180000 },
+          { id: 2, name: 'Excavation & Laying', progress: 85, status: 'delayed', startDate: '2026-02-01', endDate: '2026-07-31', budget: 2000000, spent: 1700000 },
+          { id: 3, name: 'Household Connections', progress: 35, status: 'delayed', startDate: '2026-06-01', endDate: '2026-11-30', budget: 1000000, spent: 60000 }
         ],
         vendorReports: [
-          { id: 1, vendorName: 'AquaTech Infrastructure', submittedDate: '2024-09-20', phase: 2, workCompleted: '3.2 km pipeline laid', expenseClaimed: 850000, verificationStatus: 'verified', documents: ['progress-photos.pdf', 'material-bills.pdf'] },
-          { id: 2, vendorName: 'AquaTech Infrastructure', submittedDate: '2024-08-15', phase: 2, workCompleted: '2.1 km pipeline laid', expenseClaimed: 650000, verificationStatus: 'rejected', documents: ['invoice.pdf'] }
+          { id: 1, vendorName: 'AquaTech Infrastructure', submittedDate: '2026-09-20', phase: 2, workCompleted: '3.2 km pipeline laid', expenseClaimed: 850000, verificationStatus: 'verified', documents: ['progress-photos.pdf', 'material-bills.pdf'] },
+          { id: 2, vendorName: 'AquaTech Infrastructure', submittedDate: '2026-08-15', phase: 2, workCompleted: '2.1 km pipeline laid', expenseClaimed: 650000, verificationStatus: 'rejected', documents: ['invoice.pdf'] }
         ],
         discrepancies: [
-          { type: 'budget-overrun', severity: 'medium', description: 'Phase 2 showing 15% higher material costs than estimated', reportedDate: '2024-09-01' }
+          { type: 'budget-overrun', severity: 'medium', description: 'Phase 2 showing 15% higher material costs than estimated', reportedDate: '2026-09-01' }
         ],
         citizenRating: 3.8,
         feedbackCount: 45,
@@ -166,18 +166,18 @@ export function generateVillageData() {
         totalBudget: 8500000,
         budgetUtilized: 7225000,
         startDate: '2023-06-01',
-        endDate: '2024-10-31',
+        endDate: '2026-10-31',
         overallProgress: 85,
         status: 'on-track',
         description: 'Construction of 25 pucca houses for economically weaker sections under Pradhan Mantri Awas Yojana',
         phases: [
           { id: 1, name: 'Beneficiary Selection', progress: 100, status: 'completed', startDate: '2023-06-01', endDate: '2023-07-31', budget: 100000, spent: 95000 },
           { id: 2, name: 'Land Allocation', progress: 100, status: 'completed', startDate: '2023-08-01', endDate: '2023-09-30', budget: 300000, spent: 280000 },
-          { id: 3, name: 'House Construction', progress: 88, status: 'on-track', startDate: '2023-10-01', endDate: '2024-09-30', budget: 7500000, spent: 6600000 },
-          { id: 4, name: 'Handover & Documentation', progress: 60, status: 'on-track', startDate: '2024-09-01', endDate: '2024-10-31', budget: 600000, spent: 250000 }
+          { id: 3, name: 'House Construction', progress: 88, status: 'on-track', startDate: '2023-10-01', endDate: '2026-09-30', budget: 7500000, spent: 6600000 },
+          { id: 4, name: 'Handover & Documentation', progress: 60, status: 'on-track', startDate: '2026-09-01', endDate: '2026-10-31', budget: 600000, spent: 250000 }
         ],
         vendorReports: [
-          { id: 1, vendorName: 'Shree Constructions', submittedDate: '2024-09-25', phase: 3, workCompleted: '22 houses at finishing stage', expenseClaimed: 2200000, verificationStatus: 'verified', documents: ['completion-report.pdf', 'quality-cert.pdf'] }
+          { id: 1, vendorName: 'Shree Constructions', submittedDate: '2026-09-25', phase: 3, workCompleted: '22 houses at finishing stage', expenseClaimed: 2200000, verificationStatus: 'verified', documents: ['completion-report.pdf', 'quality-cert.pdf'] }
         ],
         discrepancies: [],
         citizenRating: 4.6,
@@ -192,19 +192,19 @@ export function generateVillageData() {
         district: 'Pune',
         totalBudget: 1800000,
         budgetUtilized: 540000,
-        startDate: '2024-06-01',
-        endDate: '2025-03-31',
+        startDate: '2026-06-01',
+        endDate: '2026-03-31',
         overallProgress: 30,
         status: 'on-track',
         description: 'Rural road construction and maintenance providing employment to 150 households',
         phases: [
-          { id: 1, name: 'Worker Registration', progress: 100, status: 'completed', startDate: '2024-06-01', endDate: '2024-06-30', budget: 50000, spent: 48000 },
-          { id: 2, name: 'Road Survey & Marking', progress: 100, status: 'completed', startDate: '2024-07-01', endDate: '2024-07-31', budget: 100000, spent: 95000 },
-          { id: 3, name: 'Road Construction Phase 1', progress: 45, status: 'on-track', startDate: '2024-08-01', endDate: '2024-12-31', budget: 900000, spent: 397000 },
-          { id: 4, name: 'Road Construction Phase 2', progress: 0, status: 'not-started', startDate: '2025-01-01', endDate: '2025-03-31', budget: 750000, spent: 0 }
+          { id: 1, name: 'Worker Registration', progress: 100, status: 'completed', startDate: '2026-06-01', endDate: '2026-06-30', budget: 50000, spent: 48000 },
+          { id: 2, name: 'Road Survey & Marking', progress: 100, status: 'completed', startDate: '2026-07-01', endDate: '2026-07-31', budget: 100000, spent: 95000 },
+          { id: 3, name: 'Road Construction Phase 1', progress: 45, status: 'on-track', startDate: '2026-08-01', endDate: '2026-12-31', budget: 900000, spent: 397000 },
+          { id: 4, name: 'Road Construction Phase 2', progress: 0, status: 'not-started', startDate: '2026-01-01', endDate: '2026-03-31', budget: 750000, spent: 0 }
         ],
         vendorReports: [
-          { id: 1, vendorName: 'Village Panchayat (Self)', submittedDate: '2024-09-30', phase: 3, workCompleted: '1.8 km road constructed, 145 workers employed', expenseClaimed: 350000, verificationStatus: 'verified', documents: ['attendance-sheets.pdf', 'wage-disbursement.pdf'] }
+          { id: 1, vendorName: 'Village Panchayat (Self)', submittedDate: '2026-09-30', phase: 3, workCompleted: '1.8 km road constructed, 145 workers employed', expenseClaimed: 350000, verificationStatus: 'verified', documents: ['attendance-sheets.pdf', 'wage-disbursement.pdf'] }
         ],
         discrepancies: [],
         citizenRating: 4.1,
@@ -219,23 +219,23 @@ export function generateVillageData() {
         district: 'Pune',
         totalBudget: 1500000,
         budgetUtilized: 1650000,
-        startDate: '2024-03-01',
-        endDate: '2024-09-30',
+        startDate: '2026-03-01',
+        endDate: '2026-09-30',
         overallProgress: 95,
         status: 'discrepant',
         description: 'Installation of 75 solar-powered LED street lights across the village',
         phases: [
-          { id: 1, name: 'Site Identification', progress: 100, status: 'completed', startDate: '2024-03-01', endDate: '2024-03-31', budget: 100000, spent: 95000 },
-          { id: 2, name: 'Equipment Procurement', progress: 100, status: 'completed', startDate: '2024-04-01', endDate: '2024-05-31', budget: 900000, spent: 1050000 },
-          { id: 3, name: 'Installation & Testing', progress: 100, status: 'completed', startDate: '2024-06-01', endDate: '2024-09-15', budget: 500000, spent: 505000 }
+          { id: 1, name: 'Site Identification', progress: 100, status: 'completed', startDate: '2026-03-01', endDate: '2026-03-31', budget: 100000, spent: 95000 },
+          { id: 2, name: 'Equipment Procurement', progress: 100, status: 'completed', startDate: '2026-04-01', endDate: '2026-05-31', budget: 900000, spent: 1050000 },
+          { id: 3, name: 'Installation & Testing', progress: 100, status: 'completed', startDate: '2026-06-01', endDate: '2026-09-15', budget: 500000, spent: 505000 }
         ],
         vendorReports: [
-          { id: 1, vendorName: 'SolarBright Systems', submittedDate: '2024-09-18', phase: 2, workCompleted: '75 solar light units delivered', expenseClaimed: 1050000, verificationStatus: 'under-review', documents: ['purchase-order.pdf', 'delivery-challan.pdf'] },
-          { id: 2, vendorName: 'ElectroTech Services', submittedDate: '2024-09-20', phase: 3, workCompleted: '75 lights installed and commissioned', expenseClaimed: 505000, verificationStatus: 'verified', documents: ['installation-report.pdf', 'testing-cert.pdf'] }
+          { id: 1, vendorName: 'SolarBright Systems', submittedDate: '2026-09-18', phase: 2, workCompleted: '75 solar light units delivered', expenseClaimed: 1050000, verificationStatus: 'under-review', documents: ['purchase-order.pdf', 'delivery-challan.pdf'] },
+          { id: 2, vendorName: 'ElectroTech Services', submittedDate: '2026-09-20', phase: 3, workCompleted: '75 lights installed and commissioned', expenseClaimed: 505000, verificationStatus: 'verified', documents: ['installation-report.pdf', 'testing-cert.pdf'] }
         ],
         discrepancies: [
-          { type: 'budget-exceeded', severity: 'high', description: 'Total expenditure exceeded approved budget by ₹1.5 Lakh', reportedDate: '2024-09-22' },
-          { type: 'procurement-irregularity', severity: 'high', description: 'Equipment purchased at 16% higher cost than market rate', reportedDate: '2024-09-25' }
+          { type: 'budget-exceeded', severity: 'high', description: 'Total expenditure exceeded approved budget by â‚¹1.5 Lakh', reportedDate: '2026-09-22' },
+          { type: 'procurement-irregularity', severity: 'high', description: 'Equipment purchased at 16% higher cost than market rate', reportedDate: '2026-09-25' }
         ],
         citizenRating: 3.5,
         feedbackCount: 61,
@@ -555,3 +555,4 @@ export function simulateScenario(state, scenario) {
   
   return newState;
 }
+

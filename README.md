@@ -1,4 +1,4 @@
-# 🏘️ RuraLens - AI-Powered Village Digital Twin
+﻿# ðŸ˜ï¸ RuraLens - AI-Powered Village Digital Twin
 
 <div align="center">
 
@@ -9,53 +9,53 @@
 
 **Real-time monitoring and AI-powered insights for rural development projects**
 
-[Features](#-key-features) • [Installation](#-quick-start) • [AI RAG System](#-ai-rag-system) • [Architecture](#-architecture) • [Demo](#-demo)
+[Features](#-key-features) â€¢ [Installation](#-quick-start) â€¢ [AI RAG System](#-ai-rag-system) â€¢ [Architecture](#-architecture) â€¢ [Demo](#-demo)
 
 </div>
 
 ---
 
-## 📋 Overview
+## ðŸ“‹ Overview
 
 RuraLens is a cutting-edge village digital twin platform that combines real-time IoT monitoring, 3D visualization, and **AI-powered Retrieval-Augmented Generation (RAG)** to provide intelligent insights for rural development schemes. The platform enables administrators, field workers, and citizens to ask natural language questions and receive accurate, citation-backed answers from government documents and live data.
 
-### 🎯 Problem Solved
+### ðŸŽ¯ Problem Solved
 
 Rural development projects often suffer from:
-- ❌ Information scattered across multiple documents
-- ❌ Lack of real-time visibility into scheme progress
-- ❌ Difficulty identifying discrepancies and delays
-- ❌ Limited citizen engagement and feedback
+- âŒ Information scattered across multiple documents
+- âŒ Lack of real-time visibility into scheme progress
+- âŒ Difficulty identifying discrepancies and delays
+- âŒ Limited citizen engagement and feedback
 
-### ✨ RuraLens Solution
+### âœ¨ RuraLens Solution
 
-- ✅ **AI-Powered Q&A**: Ask questions in plain language, get instant answers
-- ✅ **Smart Citations**: Every answer backed by verifiable document sources
-- ✅ **Real-Time Monitoring**: Live IoT sensor data and scheme tracking
-- ✅ **Automated Compliance**: AI analyzes vendor reports vs government plans
-- ✅ **Interactive 3D Maps**: Visualize projects and sensor locations
+- âœ… **AI-Powered Q&A**: Ask questions in plain language, get instant answers
+- âœ… **Smart Citations**: Every answer backed by verifiable document sources
+- âœ… **Real-Time Monitoring**: Live IoT sensor data and scheme tracking
+- âœ… **Automated Compliance**: AI analyzes vendor reports vs government plans
+- âœ… **Interactive 3D Maps**: Visualize projects and sensor locations
 
 ---
 
-## 🚀 Key Features
+## ðŸš€ Key Features
 
-### 🤖 AI RAG System (Retrieval-Augmented Generation)
+### ðŸ¤– AI RAG System (Retrieval-Augmented Generation)
 
 The crown jewel of RuraLens - an intelligent question-answering system that understands context and provides accurate, sourced answers.
 
 #### **How It Works:**
 
 ```
-User Question → RAG Backend → Pathway MCP → Document Store
-                    ↓              ↓              ↓
+User Question â†’ RAG Backend â†’ Pathway MCP â†’ Document Store
+                    â†“              â†“              â†“
             PII Filter      Vector Search    Embeddings
-                    ↓              ↓              ↓
+                    â†“              â†“              â†“
             Rate Limit       LLM Processing  Knowledge Base
-                    ↓              ↓              ↓
-            Cache Check   ← Answer Generated ← Top Results
-                    ↓
+                    â†“              â†“              â†“
+            Cache Check   â† Answer Generated â† Top Results
+                    â†“
         Citation Enrichment (Geo + Metadata)
-                    ↓
+                    â†“
         Frontend Display with Map Integration
 ```
 
@@ -63,15 +63,15 @@ User Question → RAG Backend → Pathway MCP → Document Store
 
 | Feature | Description |
 |---------|-------------|
-| 🔍 **Natural Language Queries** | Ask questions like "Why is Swachh Bharat delayed?" |
-| 📚 **Multi-Source Knowledge** | Searches schemes, reports, sensor data, citizen feedback |
-| 🎯 **Smart Citations** | Every answer includes source documents with relevance scores |
-| 🗺️ **Map Integration** | Click citations to view locations on 3D map |
-| ⚡ **Lightning Fast** | 120-second cache, sub-second responses |
-| 🔒 **PII Protection** | Auto-redacts sensitive information (Aadhaar, PAN, emails) |
-| 📊 **Geo-Aware** | Citations include precise coordinates with 4-level fallback |
+| ðŸ” **Natural Language Queries** | Ask questions like "Why is Swachh Bharat delayed?" |
+| ðŸ“š **Multi-Source Knowledge** | Searches schemes, reports, sensor data, citizen feedback |
+| ðŸŽ¯ **Smart Citations** | Every answer includes source documents with relevance scores |
+| ðŸ—ºï¸ **Map Integration** | Click citations to view locations on 3D map |
+| âš¡ **Lightning Fast** | 120-second cache, sub-second responses |
+| ðŸ”’ **PII Protection** | Auto-redacts sensitive information (Aadhaar, PAN, emails) |
+| ðŸ“Š **Geo-Aware** | Citations include precise coordinates with 4-level fallback |
 
-### 🧠 GNN Impact Predictor (Graph Neural Network)
+### ðŸ§  GNN Impact Predictor (Graph Neural Network)
 
 Advanced infrastructure failure prediction using Graph Neural Networks to simulate cascading impacts across village infrastructure.
 
@@ -79,28 +79,28 @@ Advanced infrastructure failure prediction using Graph Neural Networks to simula
 
 | Feature | Description |
 |---------|-------------|
-| 🌐 **Real Infrastructure Network** | Auto-generates graph from water tanks, pumps, power nodes, buildings |
-| 💥 **Failure Simulation** | Click any infrastructure node to trigger realistic failures |
-| 🔄 **Cascading Impact** | AI predicts how failures propagate through connected infrastructure |
-| 📊 **Impact Visualization** | Color-coded nodes show damage levels (green → yellow → orange → red) |
-| ➕ **Dynamic Node Addition** | Right-click map to add new infrastructure nodes with auto-connections |
-| 🔗 **Smart Edge Generation** | Nodes automatically connect based on type and proximity |
-| 📈 **Accumulated Damage** | Multiple failures compound damage realistically |
-| 🗺️ **Interactive 3D Map** | View entire infrastructure network on MapLibre GL with smooth animations |
+| ðŸŒ **Real Infrastructure Network** | Auto-generates graph from water tanks, pumps, power nodes, buildings |
+| ðŸ’¥ **Failure Simulation** | Click any infrastructure node to trigger realistic failures |
+| ðŸ”„ **Cascading Impact** | AI predicts how failures propagate through connected infrastructure |
+| ðŸ“Š **Impact Visualization** | Color-coded nodes show damage levels (green â†’ yellow â†’ orange â†’ red) |
+| âž• **Dynamic Node Addition** | Right-click map to add new infrastructure nodes with auto-connections |
+| ðŸ”— **Smart Edge Generation** | Nodes automatically connect based on type and proximity |
+| ðŸ“ˆ **Accumulated Damage** | Multiple failures compound damage realistically |
+| ðŸ—ºï¸ **Interactive 3D Map** | View entire infrastructure network on MapLibre GL with smooth animations |
 
 #### **How GNN Works:**
 
 ```
-Infrastructure Node Selected → Trigger Failure
-                    ↓
+Infrastructure Node Selected â†’ Trigger Failure
+                    â†“
             GNN API Analysis (or Local Simulation)
-                    ↓
+                    â†“
         Calculate Impact Propagation via Edges
-                    ↓
+                    â†“
         Score Each Connected Node (0-100%)
-                    ↓
+                    â†“
         Update Map Visualization
-                    ↓
+                    â†“
         Display in InfoPanel with Details
 ```
 
@@ -108,23 +108,23 @@ Infrastructure Node Selected → Trigger Failure
 
 1. **View Network**: Navigate to "Village Analyzer" from sidebar
 2. **Explore Map**: All infrastructure appears as labeled nodes on 3D map
-3. **Trigger Failure**: Click any node → Select failure type and severity
+3. **Trigger Failure**: Click any node â†’ Select failure type and severity
 4. **Watch Propagation**: See impacts spread through network in real-time
-5. **Add Nodes**: Right-click map → Add new infrastructure → Auto-connects
+5. **Add Nodes**: Right-click map â†’ Add new infrastructure â†’ Auto-connects
 
 #### **Example Scenarios:**
 
 ```
 Scenario 1: Water Pump Failure
-- Main Pump Station fails → 
-- Connected pipes show 60% impact →
-- Hospital, School lose water supply (80% impact) →
+- Main Pump Station fails â†’ 
+- Connected pipes show 60% impact â†’
+- Hospital, School lose water supply (80% impact) â†’
 - Consumer areas show reduced service (40-70%)
 
 Scenario 2: Power Transformer Failure  
-- Transformer fails →
-- All pumps lose power (90% impact) →
-- Entire water system compromised →
+- Transformer fails â†’
+- All pumps lose power (90% impact) â†’
+- Entire water system compromised â†’
 - Critical buildings affected
 
 Scenario 3: Multiple Cascading Failures
@@ -133,17 +133,17 @@ Scenario 3: Multiple Cascading Failures
 - Third failure: Pump cascades to failure (>90%)
 ```
 
-### 🗺️ Interactive 3D Map View
+### ðŸ—ºï¸ Interactive 3D Map View
 
 **Enhanced Visual Experience:**
-- **Opaque Popups**: Beautiful gradient backgrounds (slate-900 → slate-800) with glowing borders
-- **Color-Coded Infrastructure**: Green (healthy) → Yellow (impacted) → Orange (severe) → Red (failed)
+- **Opaque Popups**: Beautiful gradient backgrounds (slate-900 â†’ slate-800) with glowing borders
+- **Color-Coded Infrastructure**: Green (healthy) â†’ Yellow (impacted) â†’ Orange (severe) â†’ Red (failed)
 - **Smooth Animations**: Pulsing failed nodes, glowing impacts
 - **Detailed Tooltips**: Hover over nodes to see health, type, and impact details
 - **Map Controls**: Zoom, pitch, rotation, fullscreen, reset view
 - **Dual-Mode Display**: Normal monitoring + Failure simulation modes
 
-### 📊 Real-Time Analytics & Monitoring
+### ðŸ“Š Real-Time Analytics & Monitoring
 
 - **Live Dashboard**: Water quality, power consumption, scheme progress
 - **Alert System**: Automatic notifications for critical infrastructure issues
@@ -157,106 +157,106 @@ Q: "What water problems are reported in Zone B?"
 A: Citizens report water pressure issues in Zone B, particularly during peak hours 
    (7-9 AM) affecting approximately 45 households. Sensor data confirms 30% pressure 
    drop during these times.
-   📍 Citations: [Sensor-042 (89% match), Citizen Report #127 (75% match)]
+   ðŸ“ Citations: [Sensor-042 (89% match), Citizen Report #127 (75% match)]
 
 Q: "Why is MGNREGA road scheme delayed?"
 A: The MGNREGA Rural Road Development is delayed by 14 days due to monsoon weather 
    impact and labor shortage. Vendor reported 40% workforce availability in October.
-   📍 Citations: [Vendor Report Phase-2 (92% match), Weather Log (78% match)]
+   ðŸ“ Citations: [Vendor Report Phase-2 (92% match), Weather Log (78% match)]
 
 Q: "Show me all schemes with budget overruns"
 A: 2 schemes show budget variance: S-123 (+12% due to material cost increase), 
    S-456 (+8% from scope expansion approved in review).
-   📍 Citations: [Financial Report Q3 (94% match), Budget Analysis (81% match)]
+   ðŸ“ Citations: [Financial Report Q3 (94% match), Budget Analysis (81% match)]
 ```
 
 ---
 
-## 🏗️ Architecture
+## ðŸ—ï¸ Architecture
 
 ### System Components
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Frontend (React)                          │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────┐   │
-│  │  Dashboard   │  │  RAG Modal   │  │  3D Map Viewer     │   │
-│  │  Components  │  │  with        │  │  (MapLibre GL)     │   │
-│  │              │  │  Citations   │  │  + GNN Viz         │   │
-│  └──────────────┘  └──────────────┘  └────────────────────┘   │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────┐   │
-│  │ Impact       │  │ Failure      │  │  Node Addition     │   │
-│  │ Predictor    │  │ Popups       │  │  Interface         │   │
-│  └──────────────┘  └──────────────┘  └────────────────────┘   │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                   Backend (Node.js/Express)                      │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────┐   │
-│  │  RAG Router  │  │  PII Filter  │  │  Cache Manager     │   │
-│  │  + Auth      │  │  Sanitizer   │  │  (120s TTL)        │   │
-│  └──────────────┘  └──────────────┘  └────────────────────┘   │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────┐   │
-│  │  Citation    │  │  Geo Fallback│  │  Audit Logger      │   │
-│  │  Enrichment  │  │  4-Level     │  │  + Trace IDs       │   │
-│  └──────────────┘  └──────────────┘  └────────────────────┘   │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────┐   │
-│  │  GNN Proxy   │  │ Infrastructure│  │  Schemes API       │   │
-│  │  Client      │  │  Graph Store │  │  Routes            │   │
-│  └──────────────┘  └──────────────┘  └────────────────────┘   │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│              AI Services Layer                                   │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │ Pathway MCP Server (Python/Rust)                           │ │
-│  │ • DocumentStore: Schemes, Reports, Sensors, Feedback       │ │
-│  │ • VectorSearch: Embedding-based semantic search            │ │
-│  │ • LLM: OpenAI/Gemini for answer generation                 │ │
-│  │ • REST API: /v1/pw_ai_answer endpoint                      │ │
-│  └────────────────────────────────────────────────────────────┘ │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │ GNN Service (Python)                                        │ │
-│  │ • Graph Neural Network for impact prediction               │ │
-│  │ • Node embedding and feature extraction                    │ │
-│  │ • Cascading failure simulation                             │ │
-│  │ • REST API: /api/gnn/predict-structured endpoint           │ │
-│  └────────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                    MongoDB Database                              │
-│  Collections: schemes, users, vendorReports, citizenReports,    │
-│               feedback, gnnNodes, gnnEdges, infrastructureGraph  │
-└─────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                        Frontend (React)                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚  Dashboard   â”‚  â”‚  RAG Modal   â”‚  â”‚  3D Map Viewer     â”‚   â”‚
+â”‚  â”‚  Components  â”‚  â”‚  with        â”‚  â”‚  (MapLibre GL)     â”‚   â”‚
+â”‚  â”‚              â”‚  â”‚  Citations   â”‚  â”‚  + GNN Viz         â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚ Impact       â”‚  â”‚ Failure      â”‚  â”‚  Node Addition     â”‚   â”‚
+â”‚  â”‚ Predictor    â”‚  â”‚ Popups       â”‚  â”‚  Interface         â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                              â†“
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                   Backend (Node.js/Express)                      â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚  RAG Router  â”‚  â”‚  PII Filter  â”‚  â”‚  Cache Manager     â”‚   â”‚
+â”‚  â”‚  + Auth      â”‚  â”‚  Sanitizer   â”‚  â”‚  (120s TTL)        â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚  Citation    â”‚  â”‚  Geo Fallbackâ”‚  â”‚  Audit Logger      â”‚   â”‚
+â”‚  â”‚  Enrichment  â”‚  â”‚  4-Level     â”‚  â”‚  + Trace IDs       â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚  GNN Proxy   â”‚  â”‚ Infrastructureâ”‚  â”‚  Schemes API       â”‚   â”‚
+â”‚  â”‚  Client      â”‚  â”‚  Graph Store â”‚  â”‚  Routes            â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                              â†“
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚              AI Services Layer                                   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+â”‚  â”‚ Pathway MCP Server (Python/Rust)                           â”‚ â”‚
+â”‚  â”‚ â€¢ DocumentStore: Schemes, Reports, Sensors, Feedback       â”‚ â”‚
+â”‚  â”‚ â€¢ VectorSearch: Embedding-based semantic search            â”‚ â”‚
+â”‚  â”‚ â€¢ LLM: OpenAI/Gemini for answer generation                 â”‚ â”‚
+â”‚  â”‚ â€¢ REST API: /v1/pw_ai_answer endpoint                      â”‚ â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+â”‚  â”‚ GNN Service (Python)                                        â”‚ â”‚
+â”‚  â”‚ â€¢ Graph Neural Network for impact prediction               â”‚ â”‚
+â”‚  â”‚ â€¢ Node embedding and feature extraction                    â”‚ â”‚
+â”‚  â”‚ â€¢ Cascading failure simulation                             â”‚ â”‚
+â”‚  â”‚ â€¢ REST API: /api/gnn/predict-structured endpoint           â”‚ â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                              â†“
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                    MongoDB Database                              â”‚
+â”‚  Collections: schemes, users, vendorReports, citizenReports,    â”‚
+â”‚               feedback, gnnNodes, gnnEdges, infrastructureGraph  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### Technology Stack
 
 **Frontend:**
-- ⚛️ React 18 with TypeScript
-- 🎨 Tailwind CSS for styling
-- 🗺️ MapLibre GL for 3D maps
-- 🔌 WebSocket for real-time updates
-- 📱 Capacitor for mobile apps
-- 🎭 Lucide React for icons
+- âš›ï¸ React 18 with TypeScript
+- ðŸŽ¨ Tailwind CSS for styling
+- ðŸ—ºï¸ MapLibre GL for 3D maps
+- ðŸ”Œ WebSocket for real-time updates
+- ðŸ“± Capacitor for mobile apps
+- ðŸŽ­ Lucide React for icons
 
 **Backend:**
-- 🟢 Node.js with Express
-- 🔐 JWT authentication
-- 💾 MongoDB with Mongoose
-- 🤖 Gemini AI for document analysis
-- 📊 WebSocket server for live data
+- ðŸŸ¢ Node.js with Express
+- ðŸ” JWT authentication
+- ðŸ’¾ MongoDB with Mongoose
+- ðŸ¤– Gemini AI for document analysis
+- ðŸ“Š WebSocket server for live data
 
 **AI/RAG Layer:**
-- 🐍 Python Pathway framework
-- 🦀 Rust-powered vector search
-- 🧠 OpenAI GPT-4 / Google Gemini
-- 📚 Document embeddings & semantic search
+- ðŸ Python Pathway framework
+- ðŸ¦€ Rust-powered vector search
+- ðŸ§  OpenAI GPT-4 / Google Gemini
+- ðŸ“š Document embeddings & semantic search
 
 ---
 
-## ⚡ Quick Start
+## âš¡ Quick Start
 
 ### Prerequisites
 
@@ -334,27 +334,27 @@ python app.py
 
 ---
 
-## 🎨 Using the Platform
+## ðŸŽ¨ Using the Platform
 
 ### 1. AI RAG Feature - "Ask AI"
 
 The **"Ask AI"** button appears in:
-- 📊 **Admin Dashboard** - Top right corner
-- 👥 **Citizen Dashboard** - Top right corner  
-- 📋 **Schemes View** - Header toolbar
+- ðŸ“Š **Admin Dashboard** - Top right corner
+- ðŸ‘¥ **Citizen Dashboard** - Top right corner  
+- ðŸ“‹ **Schemes View** - Header toolbar
 
 ### 2. Village Analyzer (GNN Impact Predictor)
 
-Access from the sidebar menu → **"Village Analyzer"**
+Access from the sidebar menu â†’ **"Village Analyzer"**
 
 **Features:**
-- 🌐 **View Infrastructure Network**: Automatically loaded from real village data
-- 🗺️ **Interactive 3D Map**: All infrastructure nodes displayed with labels and icons
-- 💥 **Trigger Failures**: Click any node → Select failure type and severity
-- 📊 **Watch Impacts**: See how failures cascade through the network
-- ➕ **Add Nodes**: Right-click map → Add new infrastructure with auto-connections
-- 🔄 **Reset Network**: Clear all failures and return to original state
-- 📈 **Accumulated Damage**: Multiple failures compound realistically
+- ðŸŒ **View Infrastructure Network**: Automatically loaded from real village data
+- ðŸ—ºï¸ **Interactive 3D Map**: All infrastructure nodes displayed with labels and icons
+- ðŸ’¥ **Trigger Failures**: Click any node â†’ Select failure type and severity
+- ðŸ“Š **Watch Impacts**: See how failures cascade through the network
+- âž• **Add Nodes**: Right-click map â†’ Add new infrastructure with auto-connections
+- ðŸ”„ **Reset Network**: Clear all failures and return to original state
+- ðŸ“ˆ **Accumulated Damage**: Multiple failures compound realistically
 
 **Using the Analyzer:**
 
@@ -362,85 +362,85 @@ Access from the sidebar menu → **"Village Analyzer"**
 Step 1: Navigate to "Village Analyzer" from sidebar
 
 Step 2: View the infrastructure network on the map
-        • Green nodes = Healthy (100% operational)
-        • Yellow nodes = Minor impact (30-60% operational)
-        • Orange nodes = Severe impact (10-30% operational)
-        • Red nodes = Failed (<10% operational)
+        â€¢ Green nodes = Healthy (100% operational)
+        â€¢ Yellow nodes = Minor impact (30-60% operational)
+        â€¢ Orange nodes = Severe impact (10-30% operational)
+        â€¢ Red nodes = Failed (<10% operational)
 
 Step 3: Click any infrastructure node to trigger a failure
-        ┌──────────────────────────────────┐
-        │ ⚠️ Trigger Failure         ✕    │
-        ├──────────────────────────────────┤
-        │ Main Pump Station                │
-        │ pump • Health: 100%              │
-        │                                  │
-        │ Failure Type: [Supply Disruption]│
-        │ Severity: [Low][Medium][High]    │
-        │                                  │
-        │ [💥 Trigger Failure]             │
-        └──────────────────────────────────┘
+        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+        â”‚ âš ï¸ Trigger Failure         âœ•    â”‚
+        â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+        â”‚ Main Pump Station                â”‚
+        â”‚ pump â€¢ Health: 100%              â”‚
+        â”‚                                  â”‚
+        â”‚ Failure Type: [Supply Disruption]â”‚
+        â”‚ Severity: [Low][Medium][High]    â”‚
+        â”‚                                  â”‚
+        â”‚ [ðŸ’¥ Trigger Failure]             â”‚
+        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 
 Step 4: Watch the impact propagate
-        • GNN calculates impact on connected nodes
-        • Map updates with color-coded damage levels
-        • InfoPanel shows detailed impact analysis
+        â€¢ GNN calculates impact on connected nodes
+        â€¢ Map updates with color-coded damage levels
+        â€¢ InfoPanel shows detailed impact analysis
 
 Step 5: Add more infrastructure (Optional)
-        • Right-click anywhere on the map
-        • Enter node name and select type
-        • Node auto-connects based on proximity and type
+        â€¢ Right-click anywhere on the map
+        â€¢ Enter node name and select type
+        â€¢ Node auto-connects based on proximity and type
 
 Step 6: Trigger multiple failures to see accumulated damage
-        • Each failure adds to existing damage
-        • Nodes above 90% damage cascade to failure
+        â€¢ Each failure adds to existing damage
+        â€¢ Nodes above 90% damage cascade to failure
 ```
 
 ### 3. Ask AI Questions
 
-Click "Ask AI" button → Modal opens:
+Click "Ask AI" button â†’ Modal opens:
 
 ```
-┌────────────────────────────────────────────────────┐
-│  🤖 Ask AI about Schemes                       ✕   │
-├────────────────────────────────────────────────────┤
-│                                                     │
-│  What water problems are reported in Zone B?       │
-│  ┌────────────────────────────────────────────┐   │
-│  │                                             │   │
-│  └────────────────────────────────────────────┘   │
-│                                          [Ask AI]  │
-│                                                     │
-│  💡 Example questions:                             │
-│     • Why is Swachh Bharat scheme delayed?         │
-│     • Show budget status of MGNREGA project        │
-│     • What are citizen complaints in Zone A?       │
-└────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  ðŸ¤– Ask AI about Schemes                       âœ•   â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚                                                     â”‚
+â”‚  What water problems are reported in Zone B?       â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚                                             â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                          [Ask AI]  â”‚
+â”‚                                                     â”‚
+â”‚  ðŸ’¡ Example questions:                             â”‚
+â”‚     â€¢ Why is Swachh Bharat scheme delayed?         â”‚
+â”‚     â€¢ Show budget status of MGNREGA project        â”‚
+â”‚     â€¢ What are citizen complaints in Zone A?       â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 3. View Results
 
 ```
-┌────────────────────────────────────────────────────┐
-│  Answer:                                            │
-│  ───────────────────────────────────────────────   │
-│  Citizens report low water pressure in Zone B,     │
-│  particularly during morning hours (7-9 AM).        │
-│  Sensor data confirms 30% pressure drop.            │
-│                                                     │
-│  📚 Citations (2):                                  │
-│  ┌────────────────────────────────────────────┐   │
-│  │ 📄 Sensor Report                      89%  │   │
-│  │ "Sensor-042 recorded pressure drops..."    │   │
-│  │ [Show on Map] [View Document]              │   │
-│  └────────────────────────────────────────────┘   │
-│  ┌────────────────────────────────────────────┐   │
-│  │ 💬 Citizen Report                     75%  │   │
-│  │ "Multiple complaints from Zone B..."       │   │
-│  │ [Show on Map] [View Document]              │   │
-│  └────────────────────────────────────────────┘   │
-│                                                     │
-│  🔍 Trace ID: trace_1763664692_2300 • Cached ✓    │
-└────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Answer:                                            â”‚
+â”‚  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€   â”‚
+â”‚  Citizens report low water pressure in Zone B,     â”‚
+â”‚  particularly during morning hours (7-9 AM).        â”‚
+â”‚  Sensor data confirms 30% pressure drop.            â”‚
+â”‚                                                     â”‚
+â”‚  ðŸ“š Citations (2):                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚ ðŸ“„ Sensor Report                      89%  â”‚   â”‚
+â”‚  â”‚ "Sensor-042 recorded pressure drops..."    â”‚   â”‚
+â”‚  â”‚ [Show on Map] [View Document]              â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚ ðŸ’¬ Citizen Report                     75%  â”‚   â”‚
+â”‚  â”‚ "Multiple complaints from Zone B..."       â”‚   â”‚
+â”‚  â”‚ [Show on Map] [View Document]              â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                     â”‚
+â”‚  ðŸ” Trace ID: trace_1763664692_2300 â€¢ Cached âœ“    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 4. Explore Citations
@@ -451,18 +451,18 @@ Click "Ask AI" button → Modal opens:
 
 ---
 
-## 🔐 Security Features
+## ðŸ” Security Features
 
 ### RAG-Specific Security
 
 | Feature | Implementation |
 |---------|---------------|
-| 🔒 **PII Sanitization** | Auto-redacts Aadhaar, PAN, emails, phones before LLM |
-| 🎫 **JWT Authentication** | All RAG queries require valid user token |
-| ⏱️ **Rate Limiting** | 10 queries/minute per user to prevent abuse |
-| 🔑 **Service-to-Service Auth** | Backend ↔ Pathway uses PATHWAY_MCP_TOKEN |
-| 📊 **Audit Logging** | Every query logged with trace_id, user, latency |
-| 🚫 **Fail-Open Policy** | Returns graceful errors if Pathway unavailable |
+| ðŸ”’ **PII Sanitization** | Auto-redacts Aadhaar, PAN, emails, phones before LLM |
+| ðŸŽ« **JWT Authentication** | All RAG queries require valid user token |
+| â±ï¸ **Rate Limiting** | 10 queries/minute per user to prevent abuse |
+| ðŸ”‘ **Service-to-Service Auth** | Backend â†” Pathway uses PATHWAY_MCP_TOKEN |
+| ðŸ“Š **Audit Logging** | Every query logged with trace_id, user, latency |
+| ðŸš« **Fail-Open Policy** | Returns graceful errors if Pathway unavailable |
 
 ### Privacy Protection
 
@@ -474,7 +474,7 @@ Output: "Contact John at [EMAIL_REDACTED], Aadhaar: [AADHAAR_REDACTED]"
 
 ---
 
-## 📊 RAG API Reference
+## ðŸ“Š RAG API Reference
 
 ### Endpoint
 
@@ -502,11 +502,11 @@ Authorization: Bearer <JWT_TOKEN>
   "answer": "The Swachh Bharat Mission is delayed by 14 days due to monsoon weather...",
   "citations": [
     {
-      "doc_id": "vendor-report-VR-2024-001",
+      "doc_id": "vendor-report-VR-2026-001",
       "type": "vendor_report",
       "snippet": "Weather delays in October pushed timeline by 3 weeks...",
       "score": 0.92,
-      "timestamp": "2024-10-15T10:30:00Z",
+      "timestamp": "2026-10-15T10:30:00Z",
       "geo": {
         "lat": 28.4595,
         "lon": 77.0266
@@ -517,7 +517,7 @@ Authorization: Bearer <JWT_TOKEN>
       "type": "scheme",
       "snippet": "Phase 2 originally scheduled for October completion...",
       "score": 0.87,
-      "timestamp": "2024-09-01T00:00:00Z",
+      "timestamp": "2026-09-01T00:00:00Z",
       "geo": {
         "lat": 28.4612,
         "lon": 77.0312
@@ -542,7 +542,7 @@ Authorization: Bearer <JWT_TOKEN>
 
 ---
 
-## 🧪 Testing the RAG Feature
+## ðŸ§ª Testing the RAG Feature
 
 ### Backend Test
 
@@ -555,10 +555,10 @@ Expected output:
 ```
 === Testing RAG Feature ===
 1. Logging in...
-✅ Login successful!
+âœ… Login successful!
 
 2. Sending RAG query...
-✅ RAG query successful!
+âœ… RAG query successful!
 
 Answer: Multiple schemes are experiencing delays...
 Citations: 2 (scores: 0.9, 0.82)
@@ -572,54 +572,54 @@ Cached: False
 3. Click **"Ask AI"** button (blue gradient)
 4. Type: `"Why is MGNREGA delayed?"`
 5. Verify:
-   - ✅ Answer appears within 1 second
-   - ✅ Citations show with scores
-   - ✅ "Show on Map" buttons work
-   - ✅ Cached indicator on repeat query
+   - âœ… Answer appears within 1 second
+   - âœ… Citations show with scores
+   - âœ… "Show on Map" buttons work
+   - âœ… Cached indicator on repeat query
 
 ---
 
-## 📚 Documentation
+## ðŸ“š Documentation
 
 ### Key Files
 
 ```
-📁 Project Root
-├── 📄 README.md (this file)
-├── 📁 docs/
-│   └── 📄 README_RAG.md (detailed RAG setup)
-├── 📁 backend/
-│   ├── 📁 routes/
-│   │   └── 🔧 rag.js (RAG endpoint)
-│   ├── 📁 utils/
-│   │   ├── 🔧 pathwayClient.js (MCP client)
-│   │   ├── 🔧 piiSanitizer.js (privacy filter)
-│   │   └── 🔧 ragCache.js (response cache)
-│   └── 📄 test-rag.ps1 (test script)
-├── 📁 src/
-│   ├── 📁 components/
-│   │   └── 📁 Rag/
-│   │       └── 🎨 RagQueryModal.tsx (UI component)
-│   ├── 📁 hooks/
-│   │   └── 🔧 useRagQuery.ts (React hook)
-│   └── 📁 utils/
-│       └── 🔧 mapHighlighter.ts (map integration)
-└── 📁 llm-app/
-    └── 📁 templates/question_answering_rag/
-        ├── 🐍 app.py (Pathway server)
-        ├── 🐍 mock_pathway_server.py (dev mock)
-        └── 📜 setup-wsl.sh (Linux setup)
+ðŸ“ Project Root
+â”œâ”€â”€ ðŸ“„ README.md (this file)
+â”œâ”€â”€ ðŸ“ docs/
+â”‚   â””â”€â”€ ðŸ“„ README_RAG.md (detailed RAG setup)
+â”œâ”€â”€ ðŸ“ backend/
+â”‚   â”œâ”€â”€ ðŸ“ routes/
+â”‚   â”‚   â””â”€â”€ ðŸ”§ rag.js (RAG endpoint)
+â”‚   â”œâ”€â”€ ðŸ“ utils/
+â”‚   â”‚   â”œâ”€â”€ ðŸ”§ pathwayClient.js (MCP client)
+â”‚   â”‚   â”œâ”€â”€ ðŸ”§ piiSanitizer.js (privacy filter)
+â”‚   â”‚   â””â”€â”€ ðŸ”§ ragCache.js (response cache)
+â”‚   â””â”€â”€ ðŸ“„ test-rag.ps1 (test script)
+â”œâ”€â”€ ðŸ“ src/
+â”‚   â”œâ”€â”€ ðŸ“ components/
+â”‚   â”‚   â””â”€â”€ ðŸ“ Rag/
+â”‚   â”‚       â””â”€â”€ ðŸŽ¨ RagQueryModal.tsx (UI component)
+â”‚   â”œâ”€â”€ ðŸ“ hooks/
+â”‚   â”‚   â””â”€â”€ ðŸ”§ useRagQuery.ts (React hook)
+â”‚   â””â”€â”€ ðŸ“ utils/
+â”‚       â””â”€â”€ ðŸ”§ mapHighlighter.ts (map integration)
+â””â”€â”€ ðŸ“ llm-app/
+    â””â”€â”€ ðŸ“ templates/question_answering_rag/
+        â”œâ”€â”€ ðŸ app.py (Pathway server)
+        â”œâ”€â”€ ðŸ mock_pathway_server.py (dev mock)
+        â””â”€â”€ ðŸ“œ setup-wsl.sh (Linux setup)
 ```
 
 ### Further Reading
 
-- 📖 [Pathway Documentation](https://pathway.com/developers)
-- 📖 [RAG Setup Guide](./docs/README_RAG.md)
-- 📖 [API Reference](./docs/README_RAG.md#api-endpoints)
+- ðŸ“– [Pathway Documentation](https://pathway.com/developers)
+- ðŸ“– [RAG Setup Guide](./docs/README_RAG.md)
+- ðŸ“– [API Reference](./docs/README_RAG.md#api-endpoints)
 
 ---
 
-## 🌟 Demo
+## ðŸŒŸ Demo
 
 ### Screenshots
 
@@ -642,27 +642,27 @@ The RAG feature is integrated across the platform:
 
 ---
 
-## 🤝 Contributing
+## ðŸ¤ Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Areas for Contribution
 
-- 🧠 **AI/ML**: Improve RAG accuracy, add new LLM providers
-- 🎨 **UI/UX**: Enhance modal design, add voice input
-- 📊 **Analytics**: Query insights, popular questions dashboard
-- 🌐 **i18n**: Multi-language support for queries
-- 📱 **Mobile**: Optimize RAG UI for mobile devices
+- ðŸ§  **AI/ML**: Improve RAG accuracy, add new LLM providers
+- ðŸŽ¨ **UI/UX**: Enhance modal design, add voice input
+- ðŸ“Š **Analytics**: Query insights, popular questions dashboard
+- ðŸŒ **i18n**: Multi-language support for queries
+- ðŸ“± **Mobile**: Optimize RAG UI for mobile devices
 
 ---
 
-## 📝 License
+## ðŸ“ License
 
 This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ---
 
-## 👥 Team
+## ðŸ‘¥ Team
 
 **Developed by**: Village Digital Twin Team  
 **Contact**: abhishekmishra8770@gmail.com  
@@ -670,7 +670,7 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ---
 
-## 🙏 Acknowledgments
+## ðŸ™ Acknowledgments
 
 - **Pathway** - For the amazing RAG framework
 - **OpenAI/Google** - For LLM APIs
@@ -681,10 +681,11 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 <div align="center">
 
-**⭐ Star this repo if you find it useful!**
+**â­ Star this repo if you find it useful!**
 
-Made with ❤️ for rural development
+Made with â¤ï¸ for rural development
 
-[Report Bug](https://github.com/Abhishekmishra2808/village-digital-twin/issues) • [Request Feature](https://github.com/Abhishekmishra2808/village-digital-twin/issues)
+[Report Bug](https://github.com/Abhishekmishra2808/village-digital-twin/issues) â€¢ [Request Feature](https://github.com/Abhishekmishra2808/village-digital-twin/issues)
 
 </div>
+
