@@ -1,4 +1,4 @@
-import { Wifi, Activity, Server, ShieldCheck } from 'lucide-react';
+﻿import { Wifi, Activity, Server, ShieldCheck } from 'lucide-react';
 import { useVillageStore } from '../../store/villageStore';
 
 export default function StatusBar() {
@@ -35,7 +35,7 @@ export default function StatusBar() {
         </div>
         
         <div className="text-slate-600">
-          &copy; 2024 RuraLens
+          &copy; 2026 RuraLens
         </div>
       </div>
     </footer>
