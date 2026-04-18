@@ -1,4 +1,4 @@
-import { ArrowRight, Bot, GitBranch, ShieldAlert, Activity } from 'lucide-react';
+import { ArrowRight, Bot, GitBranch, ShieldAlert, Activity, PhoneCall } from 'lucide-react';
 import { useLanguage } from '../../i18n/LanguageContext';
 import sdg6Img from '../../../assets/sdg6.jpeg';
 import sdg9Img from '../../../assets/sdg9.jpeg';
@@ -29,6 +29,11 @@ const mobileFeatures = [
     title: { hi: 'शिकायत रिपोर्टिंग', en: 'Issue Reporting' },
     note: { hi: 'गोपनीयता-प्रथम रिपोर्टिंग और ट्रेसेबल एस्केलेशन।', en: 'Privacy-first reporting with escalation trails.' },
     icon: Activity
+  },
+  {
+    title: { hi: 'एआई कॉलिंग एजेंट - काव्या', en: 'AI Calling Agent - Kavya' },
+    note: { hi: 'कम इंटरनेट वाले क्षेत्रों में कॉल लेकर शिकायत दर्ज करती है।', en: 'Handles citizen calls and registers complaints where internet is weak.' },
+    icon: PhoneCall
   }
 ];
 
