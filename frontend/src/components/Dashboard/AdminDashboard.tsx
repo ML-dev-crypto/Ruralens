@@ -17,6 +17,7 @@ import {
 import { useState } from 'react';
 import { useVillageStore } from '../../store/villageStore';
 import RagQueryModal from '../Rag/RagQueryModal';
+import CallRecordsPanel from './CallRecordsPanel';
 import type { Citation } from '../../hooks/useRagQuery';
 import { useLanguage } from '../../i18n/LanguageContext';
 
@@ -265,6 +266,9 @@ export default function AdminDashboard() {
               ))}
             </div>
           </div>
+
+          {/* Citizen Call History (White Theme) */}
+          <CallRecordsPanel />
 
         </div>
 
