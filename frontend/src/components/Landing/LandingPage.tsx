@@ -1,8 +1,9 @@
-import { ArrowRight, Activity, Bot, GitBranch, ShieldAlert } from 'lucide-react';
+import { ArrowRight, Activity, Bot, GitBranch, ShieldAlert, PhoneCall } from 'lucide-react';
 import { useLanguage } from '../../i18n/LanguageContext';
 import ragImg from '../../../assets/RAG.jpeg';
 import gnnImg from '../../../assets/gnn.jpeg';
 import discrepancyImg from '../../../assets/discrepency.jpeg';
+import aiAgentImg from '../../../assets/AI-agent.jpeg';
 import sdg6Img from '../../../assets/sdg6.jpeg';
 import sdg9Img from '../../../assets/sdg9.jpeg';
 import sdg11Img from '../../../assets/sdg11.jpeg';
@@ -48,6 +49,15 @@ const FEATURE_RAILS = [
     icon: Activity,
     image: sdg16Img,
     accent: 'from-green-500/25 to-emerald-200/10'
+  },
+  {
+    id: '05',
+    title: { hi: 'एआई कॉलिंग एजेंट - काव्या', en: 'AI Calling Agent - Kavya' },
+    subtitle: { hi: 'कम इंटरनेट वाले क्षेत्रों के लिए कॉल-आधारित शिकायत पंजीकरण।', en: 'Call-based complaint registration for low-connectivity regions.' },
+    desc: { hi: 'काव्या नागरिकों की ओर से कॉल लेती है, शिकायत विवरण दर्ज करती है और उसे RuraLens सिस्टम में सीधे रजिस्टर करती है ताकि ग्रामीण इलाकों में भी सेवा पहुंच सुनिश्चित रहे।', en: 'Kavya receives calls on behalf of RuraLens, captures complaint details, and registers cases directly into the system for rural areas with poor internet access.' },
+    icon: PhoneCall,
+    image: aiAgentImg,
+    accent: 'from-emerald-600/25 to-teal-300/10'
   }
 ];
 
@@ -165,7 +175,7 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
           </div>
           <div className="absolute -bottom-5 -left-5 rounded-2xl border border-[#c8d9ca] bg-[#f5faf0] px-5 py-3 shadow-lg">
             <p className="text-xs font-semibold tracking-wide text-[#557061]">{tx('LIVE GOVERNANCE GRID', 'लाइव गवर्नेंस ग्रिड')}</p>
-            <p className="text-2xl font-black text-[#204735]">{tx('4 Core Engines', '4 मुख्य इंजन')}</p>
+            <p className="text-2xl font-black text-[#204735]">{tx('5 Core Engines', '5 मुख्य इंजन')}</p>
           </div>
         </div>
       </section>
@@ -183,7 +193,7 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
         <div className="mb-10 flex items-end justify-between gap-6">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#62836f]">{tx('Core Feature Stack', 'मुख्य फीचर स्टैक')}</p>
-            <h2 className="mt-3 text-4xl font-black text-[#1e3b30]">{tx('Four engines. One seamless command surface.', 'चार इंजन। एक एकीकृत कमांड सतह।')}</h2>
+            <h2 className="mt-3 text-4xl font-black text-[#1e3b30]">{tx('Five engines. One seamless command surface.', 'पांच इंजन। एक एकीकृत कमांड सतह।')}</h2>
           </div>
         </div>
 
